@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Telugu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-telugu: "Noto Sans Telugu", serif;
+  --font-hindi: "Noto Sans Devanagari", serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-brand-crimson: #991b1b;
+  --color-brand-amber: #d97706;
+  --color-brand-emerald: #059669;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-zinc-100 antialiased selection:bg-brand-crimson selection:text-white;
+  }
+
+  .telugu-text {
+    font-family: var(--font-telugu);
+    @apply leading-relaxed;
+  }
+
+  .hindi-text {
+    font-family: var(--font-hindi);
+    @apply leading-relaxed;
+  }
+}
+
+@utility glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+}
+
+@utility glass-card {
+    @apply glass rounded-2xl p-6 shadow-2xl;
+}
+
+@utility bg-radial-gradient {
+  background-image: radial-gradient(circle at center, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 100%);
+}
+
+.bg-pattern {
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), 
+                    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
