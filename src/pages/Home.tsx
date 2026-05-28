@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-import { 
-  ArrowRight, 
-  Droplets, 
-  ExternalLink,
-  ChevronRight
+import {
+  ArrowRight,
+  Droplets,
+  ChevronRight,
+  AlertTriangle
 } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -100,6 +100,22 @@ export const Home = () => {
             <p className="opacity-50 text-sm leading-relaxed mb-8">Access peer-reviewed studies and geological proof of the crisis.</p>
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-blue-500">
               Read Evidence <ArrowRight size={12} />
+            </div>
+          </Link>
+
+          <Link to="/realities" className="glass-card p-10 relative group overflow-hidden border-white/5 hover:border-brand-crimson/50 transition-colors md:col-span-3">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+              <AlertTriangle size={64} className="text-brand-crimson" />
+            </div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded bg-brand-crimson/20 text-brand-crimson">
+                Drought · Fluoride · Migration
+              </span>
+            </div>
+            <h3 className="text-4xl font-black uppercase italic mb-4">{t.nav.realities}</h3>
+            <p className="opacity-50 text-sm leading-relaxed mb-8 max-w-2xl">{t.realities.subtitle}</p>
+            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-brand-crimson">
+              See The Full Picture <ArrowRight size={12} />
             </div>
           </Link>
         </div>

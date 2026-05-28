@@ -9,10 +9,11 @@ import { Solutions } from "./pages/Solutions";
 import { Research } from "./pages/Research";
 import { Memorandum } from "./pages/Memorandum";
 import { Gallery } from "./pages/Gallery";
+import { Realities } from "./pages/Realities";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-  
+
   return (
     <AnimatePresence mode="wait">
       <div key={location.pathname}>
@@ -23,6 +24,7 @@ const AnimatedRoutes = () => {
           <Route path="/research" element={<Research />} />
           <Route path="/memorandum" element={<Memorandum />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/realities" element={<Realities />} />
         </Routes>
       </div>
     </AnimatePresence>

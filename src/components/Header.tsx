@@ -9,6 +9,7 @@ export const Header = () => {
   const location = useLocation();
 
   const navItems = [
+    { name: t.nav.realities, path: "/realities" },
     { name: t.nav.dashboard, path: "/dashboard" },
     { name: t.nav.solutions, path: "/solutions" },
     { name: t.research.title, path: "/research" },

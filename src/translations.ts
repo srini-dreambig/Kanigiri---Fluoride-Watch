@@ -8,6 +8,7 @@ export interface Translation {
     memo: string;
     action: string;
     gallery: string;
+    realities: string;
   };
   hero: {
     emergency: string;
@@ -162,6 +163,36 @@ export interface Translation {
     cta_list: string[];
     quote: string;
   };
+  realities: {
+    title: string;
+    subtitle: string;
+    drought: {
+      title: string;
+      badge: string;
+      description: string;
+      stats: { label: string; value: string }[];
+      timeline: { year: string; event: string }[];
+      articles: { title: string; source: string; year: string; url: string; excerpt: string }[];
+    };
+    fluoride: {
+      title: string;
+      badge: string;
+      description: string;
+      stats: { label: string; value: string }[];
+      articles: { title: string; source: string; year: string; url: string; excerpt: string }[];
+    };
+    migration: {
+      title: string;
+      badge: string;
+      description: string;
+      stats: { label: string; value: string }[];
+      articles: { title: string; source: string; year: string; url: string; excerpt: string }[];
+    };
+    factcheck_label: string;
+    source_label: string;
+    year_label: string;
+    read_more: string;
+  };
 }
 
 export const translations: Record<Language, Translation> = {
@@ -173,6 +204,7 @@ export const translations: Record<Language, Translation> = {
       memo: "Memorandum",
       action: "Take Action",
       gallery: "Media Gallery",
+      realities: "Harsh Realities",
     },
     hero: {
       emergency: "Environmental Emergency",
@@ -402,6 +434,130 @@ export const translations: Record<Language, Translation> = {
         "Donate/volunteer with NGOs working on water quality."
       ],
       quote: "We just want water we can drink without fear."
+    },
+    realities: {
+      title: "The Harsh Realities of Kanigiri",
+      subtitle: "Drought. Poison. Exodus. Three crises that have stripped an entire region of dignity, health, and home.",
+      factcheck_label: "Fact Checked",
+      source_label: "Source",
+      year_label: "Year",
+      read_more: "Read Full Article",
+      drought: {
+        title: "The Perpetual Drought",
+        badge: "Water Scarcity",
+        description: "Kanigiri and western Prakasam district have endured five consecutive drought years. Surface water sources — tanks, ponds, rivers — have all dried up. Even borewells dug to 1,000 feet are running dry within weeks of completion. The government supplies only 20–25 litres of water per person per day against the WHO-recommended minimum of 50 litres. A thriving black market has emerged where water tankers meant for the poor are diverted to hotels and wealthy farmers for ₹500 per 4,000 litre tanker, while ordinary villagers pay ₹10 per 5-litre bottle.",
+        stats: [
+          { label: "Consecutive Drought Years", value: "5+" },
+          { label: "Habitations Facing Water Scarcity", value: "280+" },
+          { label: "Daily Tankers Deployed", value: "422" },
+          { label: "Water Per Person/Day (Actual)", value: "20–25 L" },
+          { label: "Villages Fully Deserted", value: "24+" },
+          { label: "Govt Dues Owed to Contractors", value: "₹50 Cr" }
+        ],
+        timeline: [
+          { year: "2019", event: "Government stops paying water tanker contractors. Dues cross ₹50 crore." },
+          { year: "2020", event: "Borewells at 600-ft depth fail. Villagers switch to 1,000-ft drilling." },
+          { year: "2021", event: "24+ villages in Kanigiri and Yerragondapalem mandals officially deserted." },
+          { year: "2022", event: "Water black market openly reported by The News Minute. ₹500 per tanker to hotels and rich farmers." },
+          { year: "2023", event: "Fifth consecutive drought year. 91 habitations in Kanigiri alone listed as 'vulnerable'." },
+          { year: "2025", event: "Government review meeting held on April 30 on drinking water and fluoride. No permanent solution yet." }
+        ],
+        articles: [
+          {
+            title: "In Andhra's Drought-Prone Prakasam, a Water Black Market Thrives",
+            source: "The News Minute",
+            year: "2022",
+            url: "https://www.thenewsminute.com/article/andhras-drought-prone-prakasam-water-black-market-thrives-100203",
+            excerpt: "Water tankers meant for drought-hit villages are diverted to hotels and rich farmers. Officials have no mechanism to stop it. Villagers pay ₹10 per 5-litre bottle while the government owes contractors ₹50 crore in unpaid dues."
+          },
+          {
+            title: "In Prakasam, People Desert Villages for a Drop of Water",
+            source: "ReliefWeb / The Hindu",
+            year: "2022",
+            url: "https://reliefweb.int/report/india/prakasam-people-desert-villages-drop-water",
+            excerpt: "At least 24 villages across Kanigiri, Yerragondapalem, Giddalur and Markapuram constituencies have been abandoned. The fifth straight drought year has pushed borewells to fail at 1,000 feet, leaving no accessible water underground."
+          },
+          {
+            title: "Drinking Water Crisis Worsens in Western Prakasam District",
+            source: "The Hans India",
+            year: "2023",
+            url: "https://www.thehansindia.com/andhra-pradesh/drinking-water-crisis-worsens-in-western-prakasam-district-788108",
+            excerpt: "Western Prakasam, which depends entirely on rain for recharge, is getting only 20–25 litres per capita per day. The rural water supply department is struggling to reach 280 scarcity-hit habitations with just 422 tankers."
+          }
+        ]
+      },
+      fluoride: {
+        title: "The Silent Fluoride Poison",
+        badge: "Chemical Contamination",
+        description: "Prakasam is one of India's 15 most severely fluoride-affected districts. Over 700 villages are contaminated, but the government provides safe water to only 27. The Kanigiri Pluton — a deep granitic rock formation — leaches fluoride directly into groundwater, with levels in P.C. Palli reaching 15 mg/L (10× the WHO limit of 1.5 mg/L). India's first recorded case of endemic fluorosis was reported from this very district in 1937. Despite 88 years of scientific awareness, the crisis remains unresolved.",
+        stats: [
+          { label: "Villages Fluoride-Affected in Prakasam", value: "700+" },
+          { label: "Villages Receiving Safe Water", value: "Only 27" },
+          { label: "Max Fluoride Level (P.C. Palli)", value: "15 mg/L" },
+          { label: "WHO Safe Limit", value: "1.5 mg/L" },
+          { label: "Year First Endemic Fluorosis Recorded", value: "1937" },
+          { label: "Habitations with >5 ppm Fluoride", value: "41" }
+        ],
+        articles: [
+          {
+            title: "Prakasam Still Battles Fluoride Crisis",
+            source: "Deccan Chronicle",
+            year: "2025",
+            url: "https://www.deccanchronicle.com/southern-states/andhra-pradesh/prakasam-still-battles-fluoride-crisis-1865150",
+            excerpt: "The 2024 Union Jal Shakti groundwater quality report confirms Prakasam as one of India's 15 most severely fluoride-hit districts. 700+ villages remain contaminated. Fluoride levels cross 15 mg/L in parts of Kanigiri and P.C. Palli mandals."
+          },
+          {
+            title: "Prakasam Faces Nalgonda Fate",
+            source: "Fluoride Action Network",
+            year: "2018",
+            url: "https://fluoridealert.org/news/prakasam-faces-nalgonda-fate/",
+            excerpt: "Health activists warn that Prakasam district is headed for a fluoride catastrophe similar to Nalgonda in Telangana. 1,009 out of 1,769 villages are contaminated, but only 27 receive government-supplied safe water."
+          },
+          {
+            title: "Geochemical Behavior of Fluoride-Rich Groundwater in Markapur, Andhra Pradesh",
+            source: "NIH / PMC (Applied Water Science)",
+            year: "2019",
+            url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5996165/",
+            excerpt: "Peer-reviewed study confirms fluoride leaches from the Kanigiri Pluton granitic rocks. Alkaline soil conditions accelerate leaching. Study calls for a complete switch to surface water sources to halt further public health degradation."
+          }
+        ]
+      },
+      migration: {
+        title: "The Mass Exodus",
+        badge: "Human Displacement",
+        description: "Forced by poisoned water and parched land, thousands of Kanigiri families have abandoned their ancestral villages. Young men migrate to Hyderabad, Chennai, and Bengaluru as daily-wage labourers, leaving behind elderly parents and children. Entire villages — Muraripalli, Jayarampuram, and dozens more — have been deserted. Those who stay back are caught between contaminated groundwater and the unbearable cost of buying safe water. A family of four spends ₹600–₹1,200 per month on bottled RO water alone — nearly 20% of a daily-wage family's income.",
+        stats: [
+          { label: "Villages Abandoned (Unofficial)", value: "24+" },
+          { label: "Constituencies with Deserted Villages", value: "4" },
+          { label: "Monthly Water Expense per Family", value: "₹600–₹1,200" },
+          { label: "% of Income Spent on Medical + Water", value: "~50%" },
+          { label: "Primary Migration Destinations", value: "Hyderabad, Chennai" },
+          { label: "Households Forced to Leave Permanently", value: "Thousands" }
+        ],
+        articles: [
+          {
+            title: "As Drought Spreads, Migration Gains Momentum in AP",
+            source: "IATP / The Hindu",
+            year: "2020",
+            url: "https://www.iatp.org/news/as-drought-spreads-migration-gains-momentum-in-ap-india",
+            excerpt: "Drought-driven migration has become a survival strategy in Prakasam and surrounding districts. Hundreds leave within weeks of borewell failure. Young men travel to cities for construction work while their families remain in water-scarce villages."
+          },
+          {
+            title: "How Indiscriminate Borewell Digging Drove Prakasam into Water Crisis",
+            source: "The News Minute",
+            year: "2022",
+            url: "https://www.thenewsminute.com/article/how-indiscriminate-digging-borewells-has-driven-aps-prakasam-water-crisis-99745",
+            excerpt: "Over-exploitation of groundwater through unregulated borewells has permanently lowered the water table. Borewells dug to 1,000 feet go dry within weeks. The crisis disproportionately harms marginal farmers and daily-wage workers who cannot afford to re-drill."
+          },
+          {
+            title: "Water Toxicity Takes Heavy Toll on Young Generations",
+            source: "The Hindu",
+            year: "2015 (Updated 2025)",
+            url: "https://www.thehindu.com",
+            excerpt: "Families in Kanigiri villages spend half their income on medical expenses and private RO water. Children develop skeletal deformities before adolescence. Those who can afford to — leave. Those who can't, suffer."
+          }
+        ]
+      }
     }
   },
   te: {
@@ -412,6 +568,7 @@ export const translations: Record<Language, Translation> = {
       memo: "మెమోరాండం",
       action: "చర్య తీసుకోండి",
       gallery: "మీడియా గ్యాలరీ",
+      realities: "కఠోర వాస్తవాలు",
     },
     hero: {
       emergency: "పర్యావరణ అత్యవసర పరిస్థితి",
@@ -641,6 +798,130 @@ export const translations: Record<Language, Translation> = {
         "నీటి నాణ్యతపై పనిచేసే NGOs కు విరాళం ఇవ్వండి/వాలంటీర్‌గా చేరండి."
       ],
       quote: "మేము భయం లేకుండా తాగగలిగే నీటిని మాత్రమే కోరుకుంటున్నాము."
+    },
+    realities: {
+      title: "కనిగిరి కఠోర వాస్తవాలు",
+      subtitle: "కరువు. విషం. వలసలు. ఈ మూడు సంక్షోభాలు ఒక మొత్తం ప్రాంతం నుండి గౌరవం, ఆరోగ్యం మరియు ఇంటిని తీసివేశాయి.",
+      factcheck_label: "వాస్తవ తనిఖీ",
+      source_label: "మూలం",
+      year_label: "సంవత్సరం",
+      read_more: "పూర్తి వ్యాసం చదవండి",
+      drought: {
+        title: "నిరంతర కరువు",
+        badge: "నీటి కొరత",
+        description: "కనిగిరి మరియు పశ్చిమ ప్రకాశం జిల్లా వరుసగా ఐదు కరువు సంవత్సరాలను అనుభవించాయి. చెరువులు, కుండలు, నదులు — అన్ని ఉపరితల నీటి వనరులు ఎండిపోయాయి. 1,000 అడుగుల లోతున తవ్విన బోరుబావులు కూడా కొన్ని వారాల్లో ఆరిపోతున్నాయి. ప్రభుత్వం WHO సిఫార్సు చేసిన 50 లీటర్లకు బదులు తలకు రోజుకు కేవలం 20–25 లీటర్ల నీరు మాత్రమే సరఫరా చేస్తోంది. నీటి ట్యాంకర్లపై నల్లబజారు వ్యాపారం పెరిగింది — ట్యాంకర్‌లు పేదలకు బదులు హోటళ్లకు మళ్లించబడుతున్నాయి.",
+        stats: [
+          { label: "వరుస కరువు సంవత్సరాలు", value: "5+" },
+          { label: "నీటి కొరత ఉన్న ఆవాసాలు", value: "280+" },
+          { label: "రోజువారీ ట్యాంకర్లు", value: "422" },
+          { label: "తలకు రోజువారీ నీరు (వాస్తవం)", value: "20–25 లీ" },
+          { label: "పూర్తిగా వదలిన గ్రామాలు", value: "24+" },
+          { label: "కాంట్రాక్టర్లకు బాకీ", value: "₹50 కోట్లు" }
+        ],
+        timeline: [
+          { year: "2019", event: "ప్రభుత్వం నీటి ట్యాంకర్ కాంట్రాక్టర్లకు చెల్లింపులు ఆపింది. బాకీ ₹50 కోట్లు దాటింది." },
+          { year: "2020", event: "600 అడుగుల లోతున బోరుబావులు పనిచేయడం ఆపాయి. 1,000 అడుగుల తవ్వకానికి మారారు." },
+          { year: "2021", event: "కనిగిరి మరియు యర్రగొండపాలెం మండలాల్లోని 24+ గ్రామాలు అధికారికంగా నిర్జనమయ్యాయి." },
+          { year: "2022", event: "నల్లబజారు నీటి వ్యాపారం బహిరంగంగా నివేదించబడింది. హోటళ్లకు 4,000 లీటర్ల ట్యాంకర్ ₹500కు." },
+          { year: "2023", event: "ఐదవ వరుస కరువు సంవత్సరం. కనిగిరిలో 91 ఆవాసాలు 'హాని కలిగించే' జాబితాలో చేర్చబడ్డాయి." },
+          { year: "2025", event: "ఏప్రిల్ 30న తాగునీరు మరియు ఫ్లోరైడ్ సమావేశం. శాశ్వత పరిష్కారం ఇంకా రాలేదు." }
+        ],
+        articles: [
+          {
+            title: "ఆంధ్రా కరువు-పీడిత ప్రకాశంలో నీటి నల్లబజారు వ్యాపారం",
+            source: "ది న్యూస్ మినిట్",
+            year: "2022",
+            url: "https://www.thenewsminute.com/article/andhras-drought-prone-prakasam-water-black-market-thrives-100203",
+            excerpt: "గ్రామీణులకు కేటాయించిన ట్యాంకర్లు హోటళ్లకు మళ్లించబడుతున్నాయి. ప్రభుత్వం కాంట్రాక్టర్లకు ₹50 కోట్లు బాకీ ఉంది. గ్రామస్థులు 5 లీటర్ బాటిల్‌కు ₹10 చెల్లిస్తున్నారు."
+          },
+          {
+            title: "ప్రకాశంలో ప్రజలు నీటి కోసం గ్రామాలను వదులుతున్నారు",
+            source: "రిలీఫ్‌వెబ్ / ది హిందూ",
+            year: "2022",
+            url: "https://reliefweb.int/report/india/prakasam-people-desert-villages-drop-water",
+            excerpt: "కనిగిరి, యర్రగొండపాలెం, గిద్దలూరు, మర్కాపురం నియోజకవర్గాల్లో 24+ గ్రామాలు వదిలిపెట్టబడ్డాయి. ఐదవ కరువు సంవత్సరంలో 1,000 అడుగుల బోరుబావులు కూడా ఆరిపోతున్నాయి."
+          },
+          {
+            title: "పశ్చిమ ప్రకాశం జిల్లాలో తాగునీటి సంక్షోభం తీవ్రమవుతోంది",
+            source: "ది హాన్స్ ఇండియా",
+            year: "2023",
+            url: "https://www.thehansindia.com/andhra-pradesh/drinking-water-crisis-worsens-in-western-prakasam-district-788108",
+            excerpt: "పశ్చిమ ప్రకాశం తలకు రోజుకు కేవలం 20–25 లీటర్లు మాత్రమే పొందుతోంది. 422 ట్యాంకర్లతో 280 ఆవాసాలకు సేవలు అందించడానికి ప్రయత్నిస్తున్నారు."
+          }
+        ]
+      },
+      fluoride: {
+        title: "నిశ్శబ్ద ఫ్లోరైడ్ విషం",
+        badge: "రాసాయనిక కాలుష్యం",
+        description: "ప్రకాశం భారతదేశంలో అత్యంత తీవ్రంగా ఫ్లోరైడ్ ప్రభావితమైన 15 జిల్లాల్లో ఒకటి. 700+ గ్రామాలు కలుషితమయ్యాయి, కానీ ప్రభుత్వం కేవలం 27 గ్రామాలకు మాత్రమే సురక్షిత నీరు అందిస్తోంది. కనిగిరి ప్లూటాన్ — లోతైన గ్రానైట్ శిలా నిర్మాణం — నేరుగా భూగర్భ జలాల్లోకి ఫ్లోరైడ్‌ను విడుదల చేస్తుంది. 1937లో భారతదేశంలో తొలిసారిగా ఎండమిక్ ఫ్లోరోసిస్ కేసు ఈ జిల్లా నుండే నమోదైంది. 88 సంవత్సరాల శాస్త్రీయ అవగాహన ఉన్నా, సంక్షోభం అపరిష్కృతంగా ఉంది.",
+        stats: [
+          { label: "ప్రకాశంలో ఫ్లోరైడ్ ప్రభావిత గ్రామాలు", value: "700+" },
+          { label: "సురక్షిత నీరు పొందుతున్న గ్రామాలు", value: "కేవలం 27" },
+          { label: "గరిష్ఠ ఫ్లోరైడ్ స్థాయి (పి.సి.పల్లి)", value: "15 mg/L" },
+          { label: "WHO సురక్షిత పరిమితి", value: "1.5 mg/L" },
+          { label: "తొలి ఎండమిక్ ఫ్లోరోసిస్ నమోదైన సంవత్సరం", value: "1937" },
+          { label: ">5 ppm ఫ్లోరైడ్ ఉన్న ఆవాసాలు", value: "41" }
+        ],
+        articles: [
+          {
+            title: "ప్రకాశం ఇంకా ఫ్లోరైడ్ సంక్షోభంతో పోరాడుతోంది",
+            source: "డెక్కన్ క్రానికల్",
+            year: "2025",
+            url: "https://www.deccanchronicle.com/southern-states/andhra-pradesh/prakasam-still-battles-fluoride-crisis-1865150",
+            excerpt: "2024 కేంద్ర జల్ శక్తి నివేదిక ప్రకాశం జిల్లాను 15 అత్యంత తీవ్ర ఫ్లోరైడ్ ప్రభావిత జిల్లాల జాబితాలో నిర్ధారించింది. కనిగిరి మరియు పి.సి. పల్లి మండలాల్లో 15 mg/L వరకు ఫ్లోరైడ్ స్థాయిలు."
+          },
+          {
+            title: "ప్రకాశం నల్గొండ విషాదాన్ని ఎదుర్కొంటోంది",
+            source: "ఫ్లోరైడ్ యాక్షన్ నెట్‌వర్క్",
+            year: "2018",
+            url: "https://fluoridealert.org/news/prakasam-faces-nalgonda-fate/",
+            excerpt: "1,769 గ్రామాలలో 1,009 కలుషితమయ్యాయి కానీ 27 గ్రామాలు మాత్రమే సురక్షిత నీరు పొందుతున్నాయి. ఆరోగ్య కార్యకర్తలు హెచ్చరిస్తున్నారు."
+          },
+          {
+            title: "మర్కాపూర్ ప్రాంతంలో ఫ్లోరైడ్-సమృద్ధమైన భూగర్భ జలాల భూ-రసాయన ప్రవర్తన",
+            source: "NIH / PMC (అప్లైడ్ వాటర్ సైన్స్)",
+            year: "2019",
+            url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5996165/",
+            excerpt: "కనిగిరి ప్లూటాన్ గ్రానైట్ శిలల నుండి ఫ్లోరైడ్ లీచ్ అవుతుందని పీర్-రివ్యూ అధ్యయనం ధృవీకరించింది. ఉపరితల నీటి వనరులకు పూర్తిగా మారాలని సూచించింది."
+          }
+        ]
+      },
+      migration: {
+        title: "మహాప్రయాణం — వలస వెళ్లిన ప్రజలు",
+        badge: "మానవ స్థానభ్రంశం",
+        description: "విషపూరిత నీరు మరియు ఎండిన భూమి వల్ల, వేల కనిగిరి కుటుంబాలు తమ పూర్వీకుల గ్రామాలను వదిలిపోయాయి. యువకులు హైదరాబాద్, చెన్నై మరియు బెంగళూరులో కూలీలుగా వలస వెళ్తారు, వృద్ధ తల్లిదండ్రులు మరియు పిల్లలను వదిలిపెట్టి. మురారిపల్లి, జయరాంపురం వంటి మొత్తం గ్రామాలు నిర్జనమయ్యాయి. నాలుగు మంది కుటుంబం RO నీటిపై నెలకు ₹600–₹1,200 ఖర్చు చేస్తుంది — ఒక కూలీ కుటుంబం ఆదాయంలో దాదాపు 20%.",
+        stats: [
+          { label: "వదలిన గ్రామాలు (అనధికారిక)", value: "24+" },
+          { label: "నిర్జన గ్రామాలు ఉన్న నియోజకవర్గాలు", value: "4" },
+          { label: "కుటుంబం నెలవారీ నీటి ఖర్చు", value: "₹600–₹1,200" },
+          { label: "వైద్యం+నీటిపై ఆదాయంలో శాతం", value: "~50%" },
+          { label: "ప్రధాన వలస గమ్యస్థానాలు", value: "హైదరాబాద్, చెన్నై" },
+          { label: "శాశ్వతంగా వెళ్లిన కుటుంబాలు", value: "వేలల్లో" }
+        ],
+        articles: [
+          {
+            title: "కరువు వ్యాపిస్తే, AP లో వలస వేగంగా పెరుగుతోంది",
+            source: "IATP / ది హిందూ",
+            year: "2020",
+            url: "https://www.iatp.org/news/as-drought-spreads-migration-gains-momentum-in-ap-india",
+            excerpt: "బోరుబావులు ఆరిపోవడంతో వందల మంది వారాల వ్యవధిలో పట్టణాలకు వలస వెళ్తున్నారు. నిర్మాణ పనుల కోసం పట్టణాలకు వెళ్తున్న యువకులు కుటుంబాలను వెనక వదిలిపెడుతున్నారు."
+          },
+          {
+            title: "విచక్షణారహిత బోరుబావుల తవ్వకం ప్రకాశాన్ని నీటి సంక్షోభంలోకి నెట్టింది",
+            source: "ది న్యూస్ మినిట్",
+            year: "2022",
+            url: "https://www.thenewsminute.com/article/how-indiscriminate-digging-borewells-has-driven-aps-prakasam-water-crisis-99745",
+            excerpt: "1,000 అడుగులకు తవ్విన బోరుబావులు వారాల్లో ఆరిపోతున్నాయి. ఈ సంక్షోభం చిన్న రైతులు మరియు కూలీలను అసమానంగా దెబ్బతిడుతోంది."
+          },
+          {
+            title: "నీటి విషపూరితం యువ తరాలపై తీవ్ర ప్రభావం",
+            source: "ది హిందూ",
+            year: "2015 (నవీకరించబడింది 2025)",
+            url: "https://www.thehindu.com",
+            excerpt: "కుటుంబాలు వైద్య మరియు నీటి ఖర్చులకు సగం ఆదాయం ఖర్చు చేస్తున్నాయి. స్తోమత ఉన్నవారు వెళ్తారు; మిగిలినవారు బాధపడతారు."
+          }
+        ]
+      }
     }
   },
   hi: {
@@ -651,6 +932,7 @@ export const translations: Record<Language, Translation> = {
       memo: "ज्ञापन",
       action: "कार्रवाई करें",
       gallery: "मीडिया गैलरी",
+      realities: "कठोर वास्तविकताएँ",
     },
     hero: {
       emergency: "पर्यावरण आपातकाल",
@@ -880,6 +1162,130 @@ export const translations: Record<Language, Translation> = {
         "जल गुणवत्ता पर काम करने वाले गैर सरकारी संगठनों के साथ जुड़ें।"
       ],
       quote: "हम बस ऐसा पानी चाहते हैं जिसे हम बिना किसी डर के पी सकें।"
+    },
+    realities: {
+      title: "कनिगिरि की कठोर वास्तविकताएँ",
+      subtitle: "सूखा। ज़हर। पलायन। तीन संकट जिन्होंने एक पूरे क्षेत्र से गरिमा, स्वास्थ्य और घर छीन लिया।",
+      factcheck_label: "तथ्य जाँच",
+      source_label: "स्रोत",
+      year_label: "वर्ष",
+      read_more: "पूरा लेख पढ़ें",
+      drought: {
+        title: "निरंतर सूखे की मार",
+        badge: "जल संकट",
+        description: "कनिगिरि और पश्चिमी प्रकाशम जिले ने लगातार पाँच सूखे वर्ष झेले हैं। तालाब, नदियाँ, जलाशय — सभी सतही जल स्रोत सूख गए हैं। 1,000 फुट गहरे खोदे गए बोरवेल भी कुछ हफ्तों में सूख जाते हैं। सरकार WHO की न्यूनतम 50 लीटर की सिफारिश के मुकाबले प्रति व्यक्ति प्रतिदिन केवल 20–25 लीटर पानी की आपूर्ति करती है। गरीबों के लिए आए पानी के टैंकर होटलों और अमीर किसानों को ₹500 प्रति 4,000 लीटर पर बेचे जा रहे हैं, जबकि आम ग्रामीण 5 लीटर की बोतल ₹10 में खरीदते हैं।",
+        stats: [
+          { label: "लगातार सूखे के वर्ष", value: "5+" },
+          { label: "जल संकट ग्रस्त बस्तियाँ", value: "280+" },
+          { label: "दैनिक टैंकर तैनात", value: "422" },
+          { label: "प्रति व्यक्ति दैनिक जल (वास्तविक)", value: "20–25 ली." },
+          { label: "पूरी तरह उजड़े गाँव", value: "24+" },
+          { label: "ठेकेदारों का सरकारी बकाया", value: "₹50 करोड़" }
+        ],
+        timeline: [
+          { year: "2019", event: "सरकार ने पानी के टैंकर ठेकेदारों को भुगतान बंद किया। बकाया ₹50 करोड़ से अधिक।" },
+          { year: "2020", event: "600 फुट गहरे बोरवेल विफल हो गए। 1,000 फुट तक खुदाई शुरू।" },
+          { year: "2021", event: "कनिगिरि और येर्रगोंडापालेम मंडल के 24+ गाँव आधिकारिक रूप से उजड़े।" },
+          { year: "2022", event: "पानी का काला बाजार खुलेआम रिपोर्ट हुआ। होटलों को ₹500 प्रति टैंकर।" },
+          { year: "2023", event: "लगातार पाँचवाँ सूखा वर्ष। अकेले कनिगिरि में 91 बस्तियाँ 'संवेदनशील' सूची में।" },
+          { year: "2025", event: "30 अप्रैल को पेयजल और फ्लोराइड पर समीक्षा बैठक। स्थायी समाधान अभी नहीं।" }
+        ],
+        articles: [
+          {
+            title: "आंध्र के सूखाग्रस्त प्रकाशम में पनप रहा है पानी का काला बाजार",
+            source: "द न्यूज़ मिनट",
+            year: "2022",
+            url: "https://www.thenewsminute.com/article/andhras-drought-prone-prakasam-water-black-market-thrives-100203",
+            excerpt: "गाँवों के लिए आए पानी के टैंकर होटलों को दिए जा रहे हैं। सरकार ठेकेदारों को ₹50 करोड़ का भुगतान नहीं कर पाई। ग्रामीण ₹10 प्रति 5 लीटर बोतल खरीदने को मजबूर।"
+          },
+          {
+            title: "प्रकाशम में लोग पानी की एक बूँद के लिए गाँव छोड़ रहे हैं",
+            source: "रिलीफवेब / द हिंदू",
+            year: "2022",
+            url: "https://reliefweb.int/report/india/prakasam-people-desert-villages-drop-water",
+            excerpt: "कनिगिरि, येर्रगोंडापालेम, गिद्दलूर और मर्कापुर निर्वाचन क्षेत्रों के 24+ गाँव उजड़ चुके हैं। पाँचवाँ लगातार सूखा — 1,000 फुट गहरे बोरवेल भी सूख गए।"
+          },
+          {
+            title: "पश्चिमी प्रकाशम जिले में पेयजल संकट गहराया",
+            source: "द हंस इंडिया",
+            year: "2023",
+            url: "https://www.thehansindia.com/andhra-pradesh/drinking-water-crisis-worsens-in-western-prakasam-district-788108",
+            excerpt: "पश्चिमी प्रकाशम में प्रति व्यक्ति 20–25 लीटर प्रतिदिन मिल रहा है। 422 टैंकरों से 280 बस्तियों को पानी पहुँचाने का प्रयास।"
+          }
+        ]
+      },
+      fluoride: {
+        title: "खामोश फ्लोराइड का जहर",
+        badge: "रासायनिक प्रदूषण",
+        description: "प्रकाशम भारत के 15 सबसे गंभीर रूप से फ्लोराइड प्रभावित जिलों में से एक है। 700 से अधिक गाँव दूषित हैं, लेकिन सरकार केवल 27 को सुरक्षित पानी देती है। कनिगिरि प्लूटोन — एक गहरी ग्रेनाइट चट्टान संरचना — सीधे भूजल में फ्लोराइड छोड़ती है। P.C. पल्ली में स्तर 15 mg/L तक पहुँचता है, जो WHO की 1.5 mg/L सीमा से 10 गुना अधिक है। भारत में स्थानिक फ्लोरोसिस का पहला दर्ज मामला 1937 में इसी जिले से था। 88 वर्षों की वैज्ञानिक जागरूकता के बावजूद संकट अनसुलझा है।",
+        stats: [
+          { label: "प्रकाशम में फ्लोराइड प्रभावित गाँव", value: "700+" },
+          { label: "सुरक्षित जल प्राप्त गाँव", value: "केवल 27" },
+          { label: "अधिकतम फ्लोराइड स्तर (P.C. पल्ली)", value: "15 mg/L" },
+          { label: "WHO सुरक्षित सीमा", value: "1.5 mg/L" },
+          { label: "पहला स्थानिक फ्लोरोसिस दर्ज वर्ष", value: "1937" },
+          { label: ">5 ppm फ्लोराइड वाली बस्तियाँ", value: "41" }
+        ],
+        articles: [
+          {
+            title: "प्रकाशम अभी भी फ्लोराइड संकट से जूझ रहा है",
+            source: "डेक्कन क्रॉनिकल",
+            year: "2025",
+            url: "https://www.deccanchronicle.com/southern-states/andhra-pradesh/prakasam-still-battles-fluoride-crisis-1865150",
+            excerpt: "2024 की केंद्रीय जल शक्ति रिपोर्ट ने प्रकाशम को 15 सबसे गंभीर फ्लोराइड प्रभावित जिलों की सूची में रखा। कनिगिरि और P.C. पल्ली में स्तर 15 mg/L तक।"
+          },
+          {
+            title: "प्रकाशम नलगोंडा जैसी तबाही की ओर",
+            source: "फ्लोराइड एक्शन नेटवर्क",
+            year: "2018",
+            url: "https://fluoridealert.org/news/prakasam-faces-nalgonda-fate/",
+            excerpt: "1,769 में से 1,009 गाँव दूषित हैं लेकिन केवल 27 को सरकारी सुरक्षित जल मिलता है। स्वास्थ्य कार्यकर्ताओं की चेतावनी।"
+          },
+          {
+            title: "मरकापुर क्षेत्र में फ्लोराइड युक्त भूजल का भू-रासायनिक व्यवहार",
+            source: "NIH / PMC (Applied Water Science)",
+            year: "2019",
+            url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5996165/",
+            excerpt: "कनिगिरि प्लूटोन की ग्रेनाइट चट्टानों से फ्लोराइड के रिसाव की पुष्टि। सार्वजनिक स्वास्थ्य की रक्षा के लिए सतही जल स्रोतों की ओर पूरी तरह स्थानांतरण की सिफारिश।"
+          }
+        ]
+      },
+      migration: {
+        title: "महापलायन — अपना घर छोड़ने की मजबूरी",
+        badge: "मानव विस्थापन",
+        description: "ज़हरीले पानी और सूखी ज़मीन से मजबूर होकर हज़ारों कनिगिरि परिवारों ने अपने पुश्तैनी गाँव छोड़ दिए हैं। युवा हैदराबाद, चेन्नई और बेंगलुरु में दैनिक मजदूर के रूप में पलायन करते हैं, बुजुर्ग माता-पिता और बच्चों को पीछे छोड़ते हैं। मुरारिपल्ली, जयरामपुरम जैसे पूरे गाँव वीरान हो गए हैं। जो रहते हैं वे दूषित भूजल और सुरक्षित पानी खरीदने की असहनीय लागत के बीच फँसे हैं। चार लोगों के परिवार को RO पानी पर हर महीने ₹600–₹1,200 खर्च करने पड़ते हैं।",
+        stats: [
+          { label: "उजड़े गाँव (अनाधिकारिक)", value: "24+" },
+          { label: "उजड़े गाँव वाले निर्वाचन क्षेत्र", value: "4" },
+          { label: "परिवार का मासिक जल खर्च", value: "₹600–₹1,200" },
+          { label: "आय का चिकित्सा+जल पर खर्च", value: "~50%" },
+          { label: "प्रमुख पलायन गंतव्य", value: "हैदराबाद, चेन्नई" },
+          { label: "स्थायी रूप से पलायन किए परिवार", value: "हज़ारों" }
+        ],
+        articles: [
+          {
+            title: "जैसे-जैसे सूखा बढ़ा, AP में पलायन ने पकड़ी रफ्तार",
+            source: "IATP / द हिंदू",
+            year: "2020",
+            url: "https://www.iatp.org/news/as-drought-spreads-migration-gains-momentum-in-ap-india",
+            excerpt: "बोरवेल सूखने के बाद सैकड़ों लोग हफ्तों में शहरों की ओर निकल जाते हैं। युवा निर्माण कार्य के लिए शहर जाते हैं, परिवारों को पीछे छोड़ते हैं।"
+          },
+          {
+            title: "अंधाधुंध बोरवेल खुदाई ने प्रकाशम को पानी संकट में धकेला",
+            source: "द न्यूज़ मिनट",
+            year: "2022",
+            url: "https://www.thenewsminute.com/article/how-indiscriminate-digging-borewells-has-driven-aps-prakasam-water-crisis-99745",
+            excerpt: "1,000 फुट गहरे बोरवेल हफ्तों में सूख जाते हैं। यह संकट सीमांत किसानों और दैनिक मजदूरों को असमान रूप से नुकसान पहुँचाता है।"
+          },
+          {
+            title: "जल विषाक्तता युवा पीढ़ियों पर भारी पड़ रही है",
+            source: "द हिंदू",
+            year: "2015 (अपडेट 2025)",
+            url: "https://www.thehindu.com",
+            excerpt: "परिवार चिकित्सा और पानी खरीदने पर आधी आय खर्च करते हैं। जो जा सकते हैं — चले जाते हैं; जो नहीं जा सकते — भुगतते हैं।"
+          }
+        ]
+      }
     }
   }
 };
