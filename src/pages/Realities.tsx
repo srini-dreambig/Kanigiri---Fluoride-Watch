@@ -1,280 +1,522 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLanguage } from "../context/LanguageContext";
-import {
-  AlertTriangle,
-  Droplets,
-  Users,
-  ExternalLink,
-  ChevronRight,
-  CheckCircle,
-  CloudRain,
-  Skull,
-  TrendingDown,
-} from "lucide-react";
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+import { CheckCircle, ExternalLink, ArrowRight } from "lucide-react";
 
-type Tab = "drought" | "fluoride" | "migration";
+/* ─── Reusable animated section wrapper ────────────────────────────────── */
+const FadeIn = ({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
 
-const tabConfig: { id: Tab; icon: React.ReactNode; color: string; border: string; bg: string }[] = [
-  {
-    id: "drought",
-    icon: <CloudRain size={20} />,
-    color: "text-sky-400",
-    border: "border-sky-500/30",
-    bg: "bg-sky-500/10",
-  },
-  {
-    id: "fluoride",
-    icon: <Skull size={20} />,
-    color: "text-brand-crimson",
-    border: "border-brand-crimson/30",
-    bg: "bg-brand-crimson/10",
-  },
-  {
-    id: "migration",
-    icon: <Users size={20} />,
-    color: "text-brand-amber",
-    border: "border-brand-amber/30",
-    bg: "bg-brand-amber/10",
-  },
-];
+/* ─── Pull-quote block ──────────────────────────────────────────────────── */
+const PullQuote = ({
+  text,
+  color,
+}: {
+  text: string;
+  color: string;
+}) => (
+  <FadeIn>
+    <blockquote
+      className={`doc-pull-quote text-center px-6 md:px-24 py-16 ${color} leading-tight`}
+    >
+      &ldquo;{text}&rdquo;
+    </blockquote>
+  </FadeIn>
+);
 
-export const Realities = () => {
-  const { t } = useLanguage();
-  const r = t.realities;
-  const [activeTab, setActiveTab] = useState<Tab>("drought");
+/* ─── Testimony card ────────────────────────────────────────────────────── */
+const Testimony = ({
+  quote,
+  person,
+}: {
+  quote: string;
+  person: string;
+}) => (
+  <FadeIn>
+    <div className="doc-testimony max-w-2xl mx-auto my-12 space-y-4">
+      <p className="text-xl md:text-2xl font-light leading-relaxed opacity-80">
+        &ldquo;{quote}&rdquo;
+      </p>
+      <p className="text-xs font-black uppercase tracking-[0.3em] opacity-40">
+        — {person}
+      </p>
+    </div>
+  </FadeIn>
+);
 
-  const sectionData = {
-    drought: r.drought,
-    fluoride: r.fluoride,
-    migration: r.migration,
+/* ─── Chapter marker ────────────────────────────────────────────────────── */
+const ChapterMarker = ({
+  chapter,
+  title,
+  subtitle,
+  color,
+  bgAccent,
+}: {
+  chapter: string;
+  title: string;
+  subtitle: string;
+  color: string;
+  bgAccent: string;
+}) => (
+  <div className={`w-full py-24 px-6 md:px-20 ${bgAccent} border-b border-white/5`}>
+    <FadeIn>
+      <div className="max-w-5xl mx-auto space-y-6">
+        <span className={`doc-chapter text-xs font-bold ${color} opacity-70`}>
+          {chapter}
+        </span>
+        <h2
+          className={`text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none ${color}`}
+        >
+          {title}
+        </h2>
+        <p className="text-lg md:text-2xl font-light opacity-50 leading-relaxed max-w-2xl">
+          {subtitle}
+        </p>
+      </div>
+    </FadeIn>
+  </div>
+);
+
+/* ─── Mandal story card ─────────────────────────────────────────────────── */
+const MandalCard = ({
+  mandal,
+  index,
+}: {
+  mandal: {
+    name: string;
+    crisis: string;
+    headline: string;
+    story: string;
+    quote: string;
+    person: string;
+    stat_value: string;
+    stat_label: string;
   };
-
-  const active = sectionData[activeTab];
-  const activeCfg = tabConfig.find((c) => c.id === activeTab)!;
+  index: number;
+}) => {
+  const colors = [
+    { accent: "text-brand-crimson", border: "border-brand-crimson/30", bg: "bg-brand-crimson/5" },
+    { accent: "text-sky-400", border: "border-sky-400/30", bg: "bg-sky-400/5" },
+    { accent: "text-amber-400", border: "border-amber-400/30", bg: "bg-amber-400/5" },
+    { accent: "text-pink-400", border: "border-pink-400/30", bg: "bg-pink-400/5" },
+    { accent: "text-orange-400", border: "border-orange-400/30", bg: "bg-orange-400/5" },
+    { accent: "text-emerald-400", border: "border-emerald-400/30", bg: "bg-emerald-400/5" },
+  ];
+  const c = colors[index % colors.length];
 
   return (
-    <div className="pt-24 pb-24 px-6 min-h-screen max-w-7xl mx-auto space-y-20">
+    <motion.div
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.7, delay: (index % 2) * 0.15 }}
+      className={`rounded-3xl border ${c.border} ${c.bg} p-10 flex flex-col justify-between gap-8`}
+    >
       {/* Header */}
-      <div className="space-y-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3"
-        >
-          <span className="h-px w-8 bg-brand-crimson/50" />
-          <span className="text-xs font-black uppercase tracking-[0.4em] text-brand-crimson">
-            {t.hero.emergency}
-          </span>
-        </motion.div>
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
-          className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-tight"
-        >
-          {r.title}
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="max-w-3xl text-lg font-light opacity-60 leading-relaxed"
-        >
-          {r.subtitle}
-        </motion.p>
-
-        {/* Fact-check badge */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 text-green-400"
-        >
-          <CheckCircle size={14} />
-          <span className="text-xs font-bold uppercase tracking-widest">
-            {r.factcheck_label} — Sources: Deccan Chronicle · The Hindu · ReliefWeb · NIH · Fluoride Action Network
-          </span>
-        </motion.div>
-      </div>
-
-      {/* 3-crisis overview cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {tabConfig.map((cfg) => {
-          const sec = sectionData[cfg.id];
-          return (
-            <motion.button
-              key={cfg.id}
-              onClick={() => setActiveTab(cfg.id)}
-              whileHover={{ scale: 1.02 }}
-              className={`text-left p-8 rounded-2xl border transition-all ${
-                activeTab === cfg.id
-                  ? `${cfg.border} ${cfg.bg} shadow-lg`
-                  : "border-white/10 bg-white/[0.02] hover:border-white/20"
-              }`}
+      <div className="space-y-3">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <span
+              className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded ${c.bg} ${c.accent}`}
             >
-              <div className={`mb-4 ${cfg.color}`}>{cfg.icon}</div>
-              <span
-                className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-3 inline-block ${cfg.bg} ${cfg.color}`}
-              >
-                {sec.badge}
-              </span>
-              <h3 className="text-2xl font-black uppercase italic leading-snug mb-2">
-                {sec.title}
-              </h3>
-              <p className="text-xs opacity-50 leading-relaxed line-clamp-3">
-                {sec.description}
-              </p>
-            </motion.button>
-          );
-        })}
-      </div>
-
-      {/* Active section detail */}
-      <motion.div
-        key={activeTab}
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35 }}
-        className="space-y-16"
-      >
-        {/* Description */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-          <div className="lg:col-span-3 space-y-6">
-            <div className={`inline-flex items-center gap-2 ${activeCfg.color}`}>
-              {activeCfg.icon}
-              <span className="text-sm font-black uppercase tracking-widest">
-                {active.title}
-              </span>
-            </div>
-            <p className="text-lg font-light opacity-75 leading-relaxed border-l-4 border-brand-crimson/40 pl-6">
-              {active.description}
-            </p>
+              {mandal.crisis}
+            </span>
           </div>
-
-          {/* Stats grid */}
-          <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-            {active.stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.05 }}
-                className={`p-5 rounded-xl border ${activeCfg.border} ${activeCfg.bg}`}
-              >
-                <div className={`text-2xl font-black ${activeCfg.color}`}>{stat.value}</div>
-                <div className="text-[10px] uppercase font-bold tracking-wider opacity-50 mt-1 leading-tight">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
+          <div className="text-right">
+            <div className={`text-3xl font-black ${c.accent}`}>{mandal.stat_value}</div>
+            <div className="text-[9px] uppercase font-bold tracking-widest opacity-40 leading-tight">
+              {mandal.stat_label}
+            </div>
           </div>
         </div>
+        <h3 className="text-3xl font-black uppercase italic leading-tight">{mandal.name}</h3>
+        <p className={`text-xs font-bold uppercase tracking-wider ${c.accent} opacity-70`}>
+          {mandal.headline}
+        </p>
+      </div>
 
-        {/* Timeline — only for drought */}
-        {activeTab === "drought" && "timeline" in active && (
-          <div className="space-y-8">
-            <h3 className="text-sm font-bold uppercase tracking-[0.4em] opacity-40">
-              Crisis Timeline
-            </h3>
-            <div className="relative border-l-2 border-white/10 ml-4 space-y-0">
-              {(active as typeof r.drought).timeline.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  className="relative pl-8 pb-8 last:pb-0"
+      {/* Story */}
+      <p className="text-sm font-light opacity-60 leading-relaxed flex-1">{mandal.story}</p>
+
+      {/* Voice */}
+      <div className="border-t border-white/10 pt-6 space-y-2">
+        <p className="text-base italic font-light opacity-80">
+          &ldquo;{mandal.quote}&rdquo;
+        </p>
+        <p className="text-[10px] font-black uppercase tracking-widest opacity-30">
+          — {mandal.person}
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
+/* ════════════════════════════════════════════════════════════════════════
+   MAIN DOCUMENTARY COMPONENT
+═══════════════════════════════════════════════════════════════════════ */
+export const Realities = () => {
+  const { t } = useLanguage();
+  const d = t.documentary;
+
+  return (
+    <div className="film-grain min-h-screen bg-zinc-950 text-zinc-100 overflow-x-hidden">
+
+      {/* ── OPENING TITLE CARD ─────────────────────────────────────────── */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+        {/* Red vignette */}
+        <div className="absolute inset-0 bg-radial-gradient from-brand-crimson/15 via-transparent to-transparent pointer-events-none" />
+        {/* Horizontal rule top */}
+        <div className="absolute top-28 left-0 right-0 h-px bg-white/5" />
+
+        <div className="relative z-10 max-w-4xl mx-auto space-y-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5 }}
+            className="space-y-2"
+          >
+            <p className="text-[10px] font-black uppercase tracking-[0.6em] text-brand-crimson opacity-70">
+              {d.badge}
+            </p>
+            <div className="h-px w-16 bg-white/20 mx-auto" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="space-y-1"
+          >
+            <p className="font-mono text-xs text-white/30 tracking-widest">
+              {d.opening_year}
+            </p>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">
+              {d.opening_location}
+            </p>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.8 }}
+            className="text-4xl md:text-7xl font-black uppercase italic tracking-tighter leading-tight"
+          >
+            {d.opening_tagline}
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.4 }}
+            className="space-y-6"
+          >
+            <p className="text-lg md:text-2xl font-light opacity-50 leading-relaxed max-w-2xl mx-auto">
+              {d.opening_stat}
+            </p>
+
+            {/* Three crisis pills */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {[
+                { label: "Drought", color: "text-sky-400 border-sky-400/30 bg-sky-400/10" },
+                { label: "Fluoride", color: "text-brand-crimson border-brand-crimson/30 bg-brand-crimson/10" },
+                { label: "Migration", color: "text-amber-400 border-amber-400/30 bg-amber-400/10" },
+              ].map((p) => (
+                <span
+                  key={p.label}
+                  className={`px-4 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-widest ${p.color}`}
                 >
-                  <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-sky-500/20 border-2 border-sky-500 flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-                  </div>
-                  <div className="text-xs font-black text-sky-400 mb-1">{item.year}</div>
-                  <p className="text-sm opacity-70 leading-relaxed">{item.event}</p>
-                </motion.div>
+                  {p.label}
+                </span>
               ))}
             </div>
-          </div>
-        )}
+          </motion.div>
 
-        {/* Fact-checked articles */}
-        <div className="space-y-8">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold uppercase tracking-[0.4em] opacity-40">
-              {r.factcheck_label} — Real News Articles
-            </h3>
-            <div className="flex items-center gap-2 text-green-400 text-[10px] font-bold uppercase tracking-widest">
-              <CheckCircle size={12} /> Verified Sources
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {active.articles.map((article, i) => (
-              <motion.a
-                key={i}
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -4 }}
-                className={`group flex flex-col justify-between p-8 rounded-2xl border transition-all ${activeCfg.border} ${activeCfg.bg} hover:shadow-lg`}
-              >
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-1">
-                      <span
-                        className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded ${activeCfg.bg} ${activeCfg.color}`}
-                      >
-                        {article.source}
-                      </span>
-                      <div className="text-[10px] font-mono opacity-40">{article.year}</div>
-                    </div>
-                    <CheckCircle size={14} className="text-green-400 shrink-0 mt-1" />
-                  </div>
-
-                  <h4 className="text-base font-black uppercase italic leading-snug group-hover:opacity-80 transition-opacity">
-                    {article.title}
-                  </h4>
-
-                  <p className="text-xs opacity-50 leading-relaxed font-light">
-                    {article.excerpt}
-                  </p>
-                </div>
-
-                <div
-                  className={`mt-6 pt-4 border-t border-white/10 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${activeCfg.color} group-hover:gap-4 transition-all`}
-                >
-                  {r.read_more} <ExternalLink size={12} />
-                </div>
-              </motion.a>
-            ))}
-          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 2 }}
+            className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-20"
+          >
+            ↓ {d.scroll_prompt} ↓
+          </motion.p>
         </div>
-      </motion.div>
 
-      {/* Bottom call to action bar */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-0 rounded-2xl overflow-hidden border border-white/10">
-        <div className="p-8 bg-sky-500/10 border-r border-white/10 space-y-3">
-          <CloudRain className="text-sky-400" size={24} />
-          <h4 className="font-black uppercase italic text-lg">{r.drought.title}</h4>
-          <div className="flex items-center gap-2 text-sky-400 text-[10px] font-bold uppercase tracking-widest">
-            <TrendingDown size={12} /> 5+ Drought Years
-          </div>
-        </div>
-        <div className="p-8 bg-brand-crimson/10 border-r border-white/10 space-y-3">
-          <Droplets className="text-brand-crimson" size={24} />
-          <h4 className="font-black uppercase italic text-lg">{r.fluoride.title}</h4>
-          <div className="flex items-center gap-2 text-brand-crimson text-[10px] font-bold uppercase tracking-widest">
-            <AlertTriangle size={12} /> 700+ Villages Poisoned
-          </div>
-        </div>
-        <div className="p-8 bg-brand-amber/10 space-y-3">
-          <Users className="text-brand-amber" size={24} />
-          <h4 className="font-black uppercase italic text-lg">{r.migration.title}</h4>
-          <div className="flex items-center gap-2 text-brand-amber text-[10px] font-bold uppercase tracking-widest">
-            <ChevronRight size={12} /> 24+ Villages Deserted
-          </div>
+        {/* Bottom line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-white/5" />
+      </section>
+
+      {/* ── ACT I: DROUGHT ─────────────────────────────────────────────── */}
+      <ChapterMarker
+        chapter={d.act1_chapter}
+        title={d.act1_title}
+        subtitle={d.act1_subtitle}
+        color="text-sky-400"
+        bgAccent="bg-sky-950/30"
+      />
+
+      <section className="px-6 md:px-20 py-20 max-w-5xl mx-auto">
+        <FadeIn>
+          <p className="text-lg md:text-xl font-light leading-[1.9] opacity-75 whitespace-pre-line">
+            {d.act1_narrative}
+          </p>
+        </FadeIn>
+      </section>
+
+      {/* Stats bar — Act I */}
+      <div className="bg-sky-950/20 border-y border-sky-500/10 py-12 px-6 overflow-x-auto">
+        <div className="flex gap-12 justify-center min-w-max mx-auto px-6">
+          {[
+            { v: "5+", l: "Drought Years" },
+            { v: "280+", l: "Scarcity Habitations" },
+            { v: "422", l: "Daily Tankers" },
+            { v: "24+", l: "Deserted Villages" },
+            { v: "₹50 Cr", l: "Unpaid Dues" },
+            { v: "₹10", l: "Per 5-Litre Bottle" },
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07 }}
+              className="text-center space-y-1 shrink-0"
+            >
+              <div className="text-3xl font-black text-sky-400">{s.v}</div>
+              <div className="text-[9px] uppercase font-bold tracking-widest opacity-40">{s.l}</div>
+            </motion.div>
+          ))}
         </div>
       </div>
+
+      <PullQuote text={d.act1_pull_quote} color="text-sky-300" />
+
+      <section className="px-6 md:px-20 max-w-5xl mx-auto">
+        <Testimony quote={d.act1_testimony} person={d.act1_testimony_person} />
+      </section>
+
+      {/* ── ACT II: FLUORIDE ───────────────────────────────────────────── */}
+      <ChapterMarker
+        chapter={d.act2_chapter}
+        title={d.act2_title}
+        subtitle={d.act2_subtitle}
+        color="text-brand-crimson"
+        bgAccent="bg-red-950/30"
+      />
+
+      <section className="px-6 md:px-20 py-20 max-w-5xl mx-auto">
+        <FadeIn>
+          <p className="text-lg md:text-xl font-light leading-[1.9] opacity-75 whitespace-pre-line">
+            {d.act2_narrative}
+          </p>
+        </FadeIn>
+      </section>
+
+      {/* Stats bar — Act II */}
+      <div className="bg-red-950/20 border-y border-brand-crimson/10 py-12 px-6 overflow-x-auto">
+        <div className="flex gap-12 justify-center min-w-max mx-auto px-6">
+          {[
+            { v: "700+", l: "Villages Contaminated" },
+            { v: "27", l: "Get Safe Water" },
+            { v: "15 mg/L", l: "Peak Fluoride" },
+            { v: "1.5 mg/L", l: "WHO Safe Limit" },
+            { v: "1937", l: "First Case Recorded" },
+            { v: "4/day", l: "New Dialysis Patients" },
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07 }}
+              className="text-center space-y-1 shrink-0"
+            >
+              <div className="text-3xl font-black text-brand-crimson">{s.v}</div>
+              <div className="text-[9px] uppercase font-bold tracking-widest opacity-40">{s.l}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <PullQuote text={d.act2_pull_quote} color="text-brand-crimson" />
+
+      <section className="px-6 md:px-20 max-w-5xl mx-auto">
+        <Testimony quote={d.act2_testimony} person={d.act2_testimony_person} />
+      </section>
+
+      {/* ── ACT III: MIGRATION ─────────────────────────────────────────── */}
+      <ChapterMarker
+        chapter={d.act3_chapter}
+        title={d.act3_title}
+        subtitle={d.act3_subtitle}
+        color="text-amber-400"
+        bgAccent="bg-amber-950/20"
+      />
+
+      <section className="px-6 md:px-20 py-20 max-w-5xl mx-auto">
+        <FadeIn>
+          <p className="text-lg md:text-xl font-light leading-[1.9] opacity-75 whitespace-pre-line">
+            {d.act3_narrative}
+          </p>
+        </FadeIn>
+      </section>
+
+      {/* Stats bar — Act III */}
+      <div className="bg-amber-950/20 border-y border-amber-500/10 py-12 px-6 overflow-x-auto">
+        <div className="flex gap-12 justify-center min-w-max mx-auto px-6">
+          {[
+            { v: "24+", l: "Villages Deserted" },
+            { v: "4", l: "Constituencies Affected" },
+            { v: "₹1,200", l: "Monthly Water Cost" },
+            { v: "~50%", l: "Income on Water+Medical" },
+            { v: "3", l: "Cities of Exile" },
+            { v: "∞", l: "Broken Promises" },
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07 }}
+              className="text-center space-y-1 shrink-0"
+            >
+              <div className="text-3xl font-black text-amber-400">{s.v}</div>
+              <div className="text-[9px] uppercase font-bold tracking-widest opacity-40">{s.l}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <PullQuote text={d.act3_pull_quote} color="text-amber-300" />
+
+      <section className="px-6 md:px-20 max-w-5xl mx-auto">
+        <Testimony quote={d.act3_testimony} person={d.act3_testimony_person} />
+      </section>
+
+      {/* ── SIX MANDALS ───────────────────────────────────────────────── */}
+      <section className="py-24 px-6">
+        <FadeIn className="text-center mb-16 space-y-4">
+          <div className="h-px w-24 bg-white/10 mx-auto" />
+          <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">
+            {d.mandals_title}
+          </h2>
+          <p className="text-xs font-bold uppercase tracking-[0.4em] opacity-30">
+            A story for each wound
+          </p>
+          <div className="h-px w-24 bg-white/10 mx-auto" />
+        </FadeIn>
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {d.mandals.map((mandal, i) => (
+            <MandalCard key={mandal.name} mandal={mandal} index={i} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── VERIFIED SOURCES STRIP ────────────────────────────────────── */}
+      <div className="border-y border-white/5 bg-white/[0.02] py-8 px-6">
+        <div className="max-w-5xl mx-auto flex flex-wrap items-center gap-4 justify-center">
+          <CheckCircle size={14} className="text-green-400 shrink-0" />
+          <span className="text-[10px] font-bold uppercase tracking-widest text-green-400">
+            Fact Checked
+          </span>
+          <span className="text-[10px] opacity-30 font-mono">—</span>
+          {[
+            { label: "Deccan Chronicle 2025", url: "https://www.deccanchronicle.com/southern-states/andhra-pradesh/prakasam-still-battles-fluoride-crisis-1865150" },
+            { label: "The News Minute", url: "https://www.thenewsminute.com/article/andhras-drought-prone-prakasam-water-black-market-thrives-100203" },
+            { label: "ReliefWeb / The Hindu", url: "https://reliefweb.int/report/india/prakasam-people-desert-villages-drop-water" },
+            { label: "NIH / PMC 2019", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5996165/" },
+            { label: "Fluoride Action Network", url: "https://fluoridealert.org/news/prakasam-faces-nalgonda-fate/" },
+          ].map((s) => (
+            <a
+              key={s.label}
+              href={s.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-sky-400 transition-all"
+            >
+              {s.label} <ExternalLink size={9} />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* ── CLOSING ────────────────────────────────────────────────────── */}
+      <section className="bg-white text-black py-24 px-6 md:px-20">
+        <div className="max-w-5xl mx-auto space-y-16">
+          <FadeIn>
+            <h2 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-black">
+              {d.closing_title}
+            </h2>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <p className="text-lg md:text-xl font-light leading-[1.9] opacity-70 max-w-3xl whitespace-pre-line">
+              {d.closing_narrative}
+            </p>
+          </FadeIn>
+
+          {/* Demands */}
+          <FadeIn delay={0.15}>
+            <div className="space-y-6">
+              <h3 className="text-xs font-black uppercase tracking-[0.4em] opacity-40">
+                {d.demands_title}
+              </h3>
+              <ol className="space-y-3">
+                {d.demands.map((demand, i) => (
+                  <li key={i} className="flex items-start gap-4">
+                    <span className="text-brand-crimson font-black text-lg leading-none mt-0.5">
+                      {i + 1}.
+                    </span>
+                    <span className="text-base font-bold leading-snug opacity-80">{demand}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </FadeIn>
+
+          {/* Final quote */}
+          <FadeIn delay={0.2}>
+            <blockquote className="text-2xl md:text-4xl font-black italic leading-tight border-l-4 border-brand-crimson pl-8 text-black">
+              &ldquo;{d.final_quote}&rdquo;
+            </blockquote>
+          </FadeIn>
+
+          {/* CTA */}
+          <FadeIn delay={0.25}>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="group flex items-center gap-3 px-8 py-5 bg-black text-white font-black uppercase text-xs tracking-widest rounded-sm hover:gap-6 transition-all">
+                {d.witness_btn}
+                <ArrowRight size={16} />
+              </button>
+              <Link
+                to="/memorandum"
+                className="flex items-center gap-3 px-8 py-5 border-2 border-black text-black font-black uppercase text-xs tracking-widest rounded-sm hover:bg-black hover:text-white transition-all"
+              >
+                Read the Memorandum
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
     </div>
   );
 };

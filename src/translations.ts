@@ -164,8 +164,6 @@ export interface Translation {
     quote: string;
   };
   realities: {
-    title: string;
-    subtitle: string;
     drought: {
       title: string;
       badge: string;
@@ -192,6 +190,52 @@ export interface Translation {
     source_label: string;
     year_label: string;
     read_more: string;
+  };
+  documentary: {
+    badge: string;
+    opening_year: string;
+    opening_location: string;
+    opening_tagline: string;
+    opening_stat: string;
+    scroll_prompt: string;
+    act1_chapter: string;
+    act1_title: string;
+    act1_subtitle: string;
+    act1_narrative: string;
+    act1_pull_quote: string;
+    act1_testimony: string;
+    act1_testimony_person: string;
+    act2_chapter: string;
+    act2_title: string;
+    act2_subtitle: string;
+    act2_narrative: string;
+    act2_pull_quote: string;
+    act2_testimony: string;
+    act2_testimony_person: string;
+    act3_chapter: string;
+    act3_title: string;
+    act3_subtitle: string;
+    act3_narrative: string;
+    act3_pull_quote: string;
+    act3_testimony: string;
+    act3_testimony_person: string;
+    mandals_title: string;
+    mandals: {
+      name: string;
+      crisis: string;
+      headline: string;
+      story: string;
+      quote: string;
+      person: string;
+      stat_value: string;
+      stat_label: string;
+    }[];
+    closing_title: string;
+    closing_narrative: string;
+    demands_title: string;
+    demands: string[];
+    final_quote: string;
+    witness_btn: string;
   };
 }
 
@@ -558,6 +602,56 @@ export const translations: Record<Language, Translation> = {
           }
         ]
       }
+    },
+    documentary: {
+      badge: "An Original Documentary",
+      opening_year: "2026",
+      opening_location: "Kanigiri, Prakasam District · Andhra Pradesh, India",
+      opening_tagline: "This is not a report. This is a witness.",
+      opening_stat: "350,000 people. 6 mandals. Three crises. Zero permanent solutions.",
+      scroll_prompt: "Scroll to witness their story",
+      act1_chapter: "Act I",
+      act1_title: "The Thirsty Earth",
+      act1_subtitle: "When the wells go silent, entire worlds collapse.",
+      act1_narrative: "Every summer in Kanigiri begins the same way — with waiting. Men rise before dawn and walk to a borewell that may or may not yield water. Children carry plastic pots on their heads before school. Women spend three to four hours each day just finding water to cook with. For five consecutive years, the wait has been longer, the walk further, the hope thinner. Borewells sunk to 600 feet went dry in 2020. Then 800 feet. Then 1,000 feet — and they still fail within weeks. The government deploys 422 water tankers across 280 parched habitations. But these tankers — meant for the poor — are hijacked by a water black market. Hotels and rich farmers pay ₹500 per 4,000 litre tanker. The poor pay ₹10 for a 5-litre bottle. The government owes ₹50 crore in unpaid dues to the very contractors running these lifelines. At least 24 villages across Kanigiri, Yerragondapalem, Giddalur, and Markapuram have been completely abandoned. The earth cracked like old skin. And still, no permanent solution came.",
+      act1_pull_quote: "One vessel of water. Per family. Per day. That is the dignity Kanigiri was given.",
+      act1_testimony: "We stopped calling the government. Every time we call, they send one tanker for 400 people. We divided the water like we divide food in famine — one vessel per family, per day. My grandchildren don't know what it feels like to turn on a tap.",
+      act1_testimony_person: "Venkataiah, 72 · Farmer · Muraripalli Village (Deserted)",
+      act2_chapter: "Act II",
+      act2_title: "The Invisible Killer",
+      act2_subtitle: "The water doesn't taste different. It just destroys quietly.",
+      act2_narrative: "India's first case of endemic fluorosis was recorded from Prakasam district in 1937. That was 89 years ago. The crisis was known, named, and documented — and yet today, more than 700 villages in Prakasam are still drinking poisoned water. Only 27 receive government-supplied safe water. The Kanigiri Pluton — a deep mass of granite beneath the earth — bleeds fluoride into the groundwater. In P.C. Palli mandal, water reaches 15 mg/L of fluoride — ten times the WHO safe limit of 1.5 mg/L. The Union Jal Shakti Ministry's own 2024 groundwater report confirms Prakasam among India's 15 most severely fluoride-affected districts. Children as young as 7 develop brown, crumbling teeth. By their 20s, many cannot straighten their spines. By their 30s, kidneys begin to fail. In H.M. Padu mandal, the per-capita CKD rate is the highest in all of Prakasam. Four more residents enter the dialysis cycle every single day.",
+      act2_pull_quote: "A child in Kanigiri drinks water no one in this building would touch. And we call it a water crisis. It is a crime.",
+      act2_testimony: "My son's teeth turned brown when he was 5. I thought it was sweets. By the time he was 11, his back began to bend. The doctor said it was fluoride — from the same water we drink every day. Nobody warned us. Nobody told us.",
+      act2_testimony_person: "Saradha, 38 · Mother · P.C. Palli Mandal",
+      act3_chapter: "Act III",
+      act3_title: "The Long Walk Away",
+      act3_subtitle: "When home becomes hostile, people don't fight. They leave.",
+      act3_narrative: "The silence in Muraripalli is not peaceful. It is the silence of abandonment — of houses with doors left unlocked because there is nothing left to steal, of a temple with no one to light the lamp, of a primary school with empty benches. At least 24 villages have been officially deserted. The young men left first — to Hyderabad, Chennai, Bengaluru. To construction sites and factories. The women stayed a little longer. Then the wells went dry and the children got sick and they left too. The elders remained — old men and women who had no strength to migrate, holding on to ancestral land because letting go felt like dying. A family of four who stays behind spends ₹600–₹1,200 every month on RO water alone — nearly 20% of a daily-wage family's income. Medical expenses for fluorosis consume another 30%. There is nothing left. And so, they go.",
+      act3_pull_quote: "He didn't leave because he wanted to. He left because the water forced him out.",
+      act3_testimony: "I was born in this village. My father was born here. But I will not let my children grow up here. Not because I don't love this place. Because I love my children more.",
+      act3_testimony_person: "Ravi Kumar, 34 · Construction Worker · Jayarampuram (Now in Chennai)",
+      mandals_title: "Six Mandals. Six Wounds.",
+      mandals: [
+        { name: "P.C. Palli", crisis: "Ground Zero", headline: "Where the water is ten times deadlier than the law allows", story: "P.C. Palli is not a village in crisis — it is the crisis itself. Fluoride here reaches 15 mg/L, ten times what the WHO permits. The first thing a visitor notices is the teeth — brown-stained, chipped, crumbling before their time. The second is the walk — the slight bend in the spine of a person whose joints were calcified decades too soon. In 2025, the District Collector ordered emergency water tankers after tests confirmed these levels. But tankers come three times a week. The fluoride is there every hour of every day.", quote: "I am 40 years old. I walk like I am 70. That is what the fluoride did to me.", person: "Narasaiah, Farmer · P.C. Palli", stat_value: "15 mg/L", stat_label: "Fluoride — 10× WHO Limit" },
+        { name: "Kanigiri", crisis: "The Waiting Town", headline: "110,000 people who have been promised water for three decades", story: "Kanigiri is the administrative heart of the constituency — 110,000 residents, government offices, markets. Yet even here, water arrives on alternate days or not at all. Colony areas on the outskirts rely on borewells drawing water at 2.5–4.5 mg/L of fluoride. The Veligonda project pipes have been promised for years. A 2025 review confirmed the project may slip to 2027, needing an additional ₹4,000 crore. In the meantime, the town waits. It has always waited.", quote: "Every election, every MLA promises that next year the Veligonda water will come. It has been 'next year' for thirty years.", person: "Padma, 52, Schoolteacher · Kanigiri Town", stat_value: "30+ Yrs", stat_label: "Of Broken Water Promises" },
+        { name: "Pamur", crisis: "Where Children Lost Their Smiles", headline: "Dental fluorosis is universal here — every child, without exception", story: "Walk into any primary school in Pamur and count the children with clean, white teeth. You will count very few. Fluoride at 4–7 mg/L, combined with high salinity, creates a dual assault on enamel and bone. Parents feed their children bottled water when they can afford it. When they can't, the damage is done before the child turns 8. A generation of children in Pamur will carry the mark of fluoride in their teeth and bones for the rest of their lives.", quote: "My daughter asked me why her teeth don't look like the girl on the toothpaste box. I didn't know what to tell her.", person: "Lakshmi, 29, Mother · Pamur Village", stat_value: "4–7 mg/L", stat_label: "Fluoride + Salinity — Double Assault" },
+        { name: "C.S. Puram", crisis: "The Forgotten Hills", headline: "Remote, hilly, and completely invisible to government planners", story: "C.S. Puram is a mandal that geography itself has isolated. The terrain is hilly, the roads poor, the pipeline costs three times higher than in plains — so pipelines were never built. Deep borewells were the solution. Those borewells punch straight through fluoride-rich geological layers at 3.5–6 mg/L. But what amplifies this tragedy is invisibility. C.S. Puram rarely appears in government reports. Its suffering is quiet, and it is complete.", quote: "When they came to survey, they took a sample from one well and left. They never came back.", person: "Srinivas, 45, Mandal Pradhan · C.S. Puram", stat_value: "3.5–6 mg/L", stat_label: "Fluoride — Severe & Invisible" },
+        { name: "H.M. Padu", crisis: "The Kidney Village", headline: "Highest per-capita CKD rate in all of Prakasam district", story: "H.M. Padu has earned a grim title: the mandal with the highest per-capita incidence of Chronic Kidney Disease in all of Prakasam. Fluoride levels reach 9 mg/L. But what makes H.M. Padu different is age — kidney failure is striking people in their 30s and 40s. No history of diabetes. No history of hypertension. Their only crime was drinking what their borewell produced. The nearest dialysis center is 45 kilometers away. Four new patients begin dialysis every single day.", quote: "Three men from my street are on dialysis. All younger than 45. All drank the same water as me. I am afraid every day.", person: "Chandra Sekhar, 38, Farmer · H.M. Padu", stat_value: "9 mg/L", stat_label: "Fluoride — Highest CKD Rate in District" },
+        { name: "Veligandla", crisis: "The Farmer's Lament", headline: "The hands that feed Prakasam are being poisoned by what they drink", story: "Veligandla is the agricultural heartland — its farms feed the district. But the men who tend these fields drink water at 4.5–7.5 mg/L of fluoride while working under a burning sun. Physical labor accelerates fluoride absorption. Farmers and daily laborers — who sweat more, drink more — absorb the toxin faster than anyone. They cannot afford to buy safe water. They drink what the earth gives them, and slowly, silently, they pay for it with their joints, their kidneys, their futures.", quote: "I grow food for others to eat. I cannot grow clean water for my own children to drink.", person: "Ramesh, 42, Farmer · Veligandla Mandal", stat_value: "4.5–7.5", stat_label: "mg/L — Laborers Hit Hardest" }
+      ],
+      closing_title: "We Are Still Here.",
+      closing_narrative: "This documentary was made because silence has failed. Because reports were filed and ignored. Because committees visited and left without answers. Because generations were born into this crisis and grew old inside it. The people of Kanigiri are not asking for charity. They are asking for what was promised — clean water, accessible healthcare, and a government that truly sees them. The Veligonda surface water project was designed to end this. It needs ₹450 crore more and a completion date that does not keep moving. Until then, four more people will enter dialysis today. One more village will go quiet tomorrow. And the children of Kanigiri will keep growing up with water they cannot trust.",
+      demands_title: "Five Demands That Cannot Wait",
+      demands: [
+        "Complete the Veligonda Project — final deadline 2026, no more delays",
+        "Designate P.C. Palli & H.M. Padu as Special Fluoride Emergency Zones",
+        "Release ₹450 Crore under Jal Jeevan Mission for fluoride-hit mandals",
+        "Establish a 100-bed Regional Nephrology & Dialysis Center in Kanigiri",
+        "Criminal investigation into the water tanker black market"
+      ],
+      final_quote: "We just want water we can drink without fear. Is that too much to ask of a country that sent a rocket to the moon?",
+      witness_btn: "Be a Witness — Share This Documentary"
     }
   },
   te: {
@@ -922,6 +1016,56 @@ export const translations: Record<Language, Translation> = {
           }
         ]
       }
+    },
+    documentary: {
+      badge: "ఒక స్వదేశీ డాక్యుమెంటరీ",
+      opening_year: "2026",
+      opening_location: "కనిగిరి, ప్రకాశం జిల్లా · ఆంధ్రప్రదేశ్, భారతదేశం",
+      opening_tagline: "ఇది ఒక నివేదిక కాదు. ఇది ఒక సాక్ష్యం.",
+      opening_stat: "3,50,000 ప్రజలు. 6 మండలాలు. మూడు సంక్షోభాలు. సున్నా శాశ్వత పరిష్కారాలు.",
+      scroll_prompt: "వారి కథను చూసేందుకు స్క్రోల్ చేయండి",
+      act1_chapter: "మొదటి భాగం",
+      act1_title: "దాహంతో వేగిపోతున్న నేల",
+      act1_subtitle: "బావులు మాట్లాడటం ఆపినప్పుడు, మొత్తం ప్రపంచాలు కూలిపోతాయి.",
+      act1_narrative: "కనిగిరిలో ప్రతి వేసవి ఒకే విధంగా మొదలవుతుంది — వేచి చూడడంతో. తెల్లవారుజామున మగవాళ్లు లేచి, నీరు ఇస్తుందో లేదో తెలియని బోరుబావి దగ్గరికి నడుస్తారు. పిల్లలు పాఠశాలకు వెళ్లే ముందు తలపై ప్లాస్టిక్ కుండలు మోస్తారు. స్త్రీలు వండటానికి నీళ్లు వెతకడానికి రోజుకు మూడు నాలుగు గంటలు గడుపుతారు. వరుసగా ఐదేళ్లుగా, వేచి చూడడం పెరిగింది, నడక పొడుగైంది, ఆశ తగ్గింది. 2020లో 600 అడుగుల లోతున తవ్విన బోరుబావులు ఆరిపోయాయి. తర్వాత 800 అడుగులు. తర్వాత 1,000 అడుగులు — అవి కూడా వారాల్లో ఆరిపోతున్నాయి. ప్రభుత్వం 280 దాహంతో ఉన్న ఆవాసాల్లో 422 నీటి ట్యాంకర్లను మోహరిస్తుంది. కానీ పేదలకు కేటాయించిన ఈ ట్యాంకర్లు నల్లబజారుకు మళ్లిపోతున్నాయి. హోటళ్లు మరియు ధనిక రైతులు 4,000 లీటర్ల ట్యాంకర్‌కు ₹500 చెల్లిస్తారు. పేదలు 5 లీటర్ల బాటిల్‌కు ₹10 చెల్లిస్తారు. ప్రభుత్వం ఆ కాంట్రాక్టర్లకే ₹50 కోట్లు బాకీ ఉంది. కనిగిరి, యర్రగొండపాలెం, గిద్దలూరు, మర్కాపురం అంతటా 24 గ్రామాలు పూర్తిగా వదలిపెట్టబడ్డాయి. నేల చర్మంలా పగిలిపోయింది. అయినా శాశ్వత పరిష్కారం రాలేదు.",
+      act1_pull_quote: "ఒక కుండ నీళ్లు. ఒక కుటుంబానికి. రోజుకు. ఇదే కనిగిరికి ఇచ్చిన గౌరవం.",
+      act1_testimony: "మేము ప్రభుత్వానికి ఫోన్ చేయడం ఆపేశాం. ప్రతిసారి 400 మందికి ఒక ట్యాంకర్ పంపుతారు. కరువులో ఆహారం పంచుకున్నట్లు నీళ్లు పంచుకుంటాం — ఒక్కో కుటుంబానికి ఒక్కో కుండ. నా మనవళ్లకు కుళాయి తిప్పితే నీళ్లు వస్తాయని తెలియదు.",
+      act1_testimony_person: "వెంకటయ్య, వయస్సు 72 · రైతు · మురారిపల్లి గ్రామం (నిర్జనమైనది)",
+      act2_chapter: "రెండవ భాగం",
+      act2_title: "కంటికి కనిపించని హంతకుడు",
+      act2_subtitle: "నీళ్లు వేరేగా రుచించవు. అవి మెల్లగా నాశనం చేస్తాయి.",
+      act2_narrative: "1937లో భారతదేశంలో ఎండమిక్ ఫ్లోరోసిస్ తొలి కేసు ప్రకాశం జిల్లా నుండి నమోదైంది. అది 89 సంవత్సరాల క్రితం. సంక్షోభం తెలిసింది, పేరు పెట్టబడింది, నమోదు చేయబడింది — అయినా నేటికీ ప్రకాశంలో 700 కంటే ఎక్కువ గ్రామాలు విషపూరిత నీళ్లు తాగుతున్నాయి. కేవలం 27 గ్రామాలకు మాత్రమే ప్రభుత్వ సురక్షిత నీళ్లు అందుతున్నాయి. కనిగిరి ప్లూటాన్ — భూమి లోపల ఉన్న లోతైన గ్రానైట్ నిర్మాణం — భూగర్భ జలాల్లోకి ఫ్లోరైడ్‌ను విడుదల చేస్తుంది. పి.సి. పల్లి మండలంలో నీళ్లలో 15 mg/L ఫ్లోరైడ్ ఉంది — WHO పరిమితి కంటే పది రెట్లు ఎక్కువ. 2024 కేంద్ర జల్ శక్తి నివేదిక ప్రకాశాన్ని 15 అత్యంత తీవ్ర ఫ్లోరైడ్ జిల్లాల జాబితాలో చేర్చింది. 7 సంవత్సరాల పిల్లలకే ముదురు రంగు, పెళుసుబారిన పళ్లు వస్తున్నాయి. 20 ఏళ్లకే వెన్నెముకను నిటారుగా పెట్టలేకపోతున్నారు. 30 ఏళ్లకే మూత్రపిండాలు వైఫల్యం చెందుతున్నాయి. ఎచ్.ఎం. పాడు మండలంలో తలసరి CKD రేటు జిల్లాలో అత్యధికంగా ఉంది. రోజూ నలుగురు కొత్త రోగులు డయాలసిస్ చక్రంలోకి ప్రవేశిస్తున్నారు.",
+      act2_pull_quote: "కనిగిరి పిల్లలు ఈ భవనంలో ఎవరూ తాగని నీళ్లు తాగుతున్నారు. మనం దీన్ని నీటి సంక్షోభం అంటున్నాం. ఇది ఒక నేరం.",
+      act2_testimony: "నా అబ్బాయికి 5 సంవత్సరాల వయసులో పళ్లు ముదురు రంగుకు మారాయి. తీపి తిన్నాడని అనుకున్నాను. అతనికి 11 సంవత్సరాల వయసు వచ్చేసరికి వెన్ను వంగడం మొదలైంది. డాక్టర్ చెప్పారు — ఫ్లోరైడ్, మనం రోజూ తాగే అదే నీళ్ల వల్ల. మాకు ఎవరూ చెప్పలేదు.",
+      act2_testimony_person: "శారద, వయస్సు 38 · అమ్మ · పి.సి. పల్లి మండలం",
+      act3_chapter: "మూడవ భాగం",
+      act3_title: "సుదీర్ఘ వలస ప్రయాణం",
+      act3_subtitle: "ఇల్లే శత్రువైనప్పుడు, ప్రజలు పోరాడరు. వారు వెళ్లిపోతారు.",
+      act3_narrative: "మురారిపల్లిలోని నిశ్శబ్దం శాంతిగా లేదు. ఇది వదిలిపెట్టడం యొక్క నిశ్శబ్దం — తాళం వేసే ఏమీ మిగలలేదని తెరిచి వదిలిపెట్టిన ఇళ్లు, దీపం వెలిగించే వారెవరూ లేని గుడి, ఖాళీ బెంచీలతో ఉన్న ప్రాథమిక పాఠశాల. కనీసం 24 గ్రామాలు అధికారికంగా నిర్జనమయ్యాయి. మొదట యువకులు వెళ్లారు — హైదరాబాద్, చెన్నై, బెంగళూరులకు. నిర్మాణ స్థలాలు మరియు కర్మాగారాలకు. వీలైనప్పుడు డబ్బు పంపుతారు. మహిళలు కొంచెం ఎక్కువ కాలం ఉన్నారు. తర్వాత బావులు ఆరిపోయి, పిల్లలకు అనారోగ్యం వచ్చి, వారు కూడా వెళ్లిపోయారు. పెద్దలు మిగిలారు — వలస వెళ్లే శక్తి లేని వృద్ధులు, పూర్వీకుల భూమిని పట్టుకుని, వదిలిపెట్టడం మరణంలా అనిపించడంతో. నాలుగు మంది కుటుంబం నెలకు RO నీళ్లకే ₹600–₹1,200 ఖర్చు చేస్తుంది — కూలి కుటుంబం ఆదాయంలో దాదాపు 20%. ఫ్లోరోసిస్ చికిత్సకు మరో 30% పోతుంది. మిగిలిందేమీ లేదు. అందుకే వెళ్లిపోతారు.",
+      act3_pull_quote: "అతను వెళ్లాలని వెళ్లలేదు. నీళ్లే అతన్ని బయటకు తోశాయి.",
+      act3_testimony: "నేను ఈ గ్రామంలో పుట్టాను. నా నాన్న ఇక్కడే పుట్టారు. కానీ నా పిల్లలు ఇక్కడ పెరగడం నేను అనుమతించను. ఈ స్థలం ప్రేమించకపోవడం వల్ల కాదు. నా పిల్లల్ని మరింత ప్రేమిస్తున్నాను కాబట్టి.",
+      act3_testimony_person: "రవి కుమార్, వయస్సు 34 · నిర్మాణ కూలీ · జయరాంపురం (ఇప్పుడు చెన్నైలో)",
+      mandals_title: "ఆరు మండలాలు. ఆరు గాయాలు.",
+      mandals: [
+        { name: "పి.సి. పల్లి", crisis: "కేంద్రబిందువు", headline: "నీళ్లు చట్టం అనుమతించే దానికంటే పది రెట్లు ప్రమాదకరంగా ఉన్న చోటు", story: "పి.సి. పల్లి సంక్షోభంలో ఉన్న గ్రామం కాదు — ఇదే సంక్షోభం. ఇక్కడ ఫ్లోరైడ్ 15 mg/L వరకు చేరుతుంది, WHO అనుమతి కంటే పది రెట్లు. సందర్శకుడు మొదట గమనించేది పళ్లు — ముదురు రంగు మరక, రాలిపోతున్న పళ్లు. రెండవది నడక — ఎముకలు ముందే అరిగిపోయిన వ్యక్తి యొక్క వంగిన వెన్ను. 2025లో జిల్లా కలెక్టర్ అత్యవసర ట్యాంకర్ నీళ్లను ఆదేశించారు. కానీ ట్యాంకర్లు వారానికి మూడు సార్లు వస్తాయి. ఫ్లోరైడ్ ప్రతి గంటా అక్కడే ఉంటుంది.", quote: "నాకు 40 సంవత్సరాలు. 70 సంవత్సరాల వ్యక్తిలా నడుస్తున్నాను. ఫ్లోరైడ్ చేసింది అది.", person: "నరసయ్య, రైతు · పి.సి. పల్లి", stat_value: "15 mg/L", stat_label: "ఫ్లోరైడ్ — WHO పరిమితి కంటే 10 రెట్లు" },
+        { name: "కనిగిరి", crisis: "వేచి చూస్తున్న పట్టణం", headline: "మూడు దశాబ్దాలుగా నీళ్లు వస్తాయని వాగ్దానం చేసిన 1,10,000 మంది", story: "కనిగిరి నియోజకవర్గ పరిపాలనా కేంద్రం — 1,10,000 మంది నివాసితులు. అయినా ఇక్కడ నీళ్లు ప్రత్యేక రోజులలో మాత్రమే వస్తాయి. శివారు కాలనీలు 2.5–4.5 mg/L ఫ్లోరైడ్ ఉన్న బోరుబావులపై ఆధారపడతాయి. వెలిగొండ ప్రాజెక్ట్ 2027 వరకు ఆలస్యమవుతుందని 2025 సమీక్ష ధృవీకరించింది. ఈలోగా పట్టణం వేచి ఉంది. ఎల్లప్పుడూ వేచి ఉంది.", quote: "ప్రతి ఎన్నికలో, ప్రతి MLA వాగ్దానం చేస్తారు — వచ్చే సంవత్సరం వెలిగొండ నీళ్లు వస్తాయని. ముప్పై సంవత్సరాలుగా 'వచ్చే సంవత్సరమే' అవుతున్నది.", person: "పద్మ, 52 సంవత్సరాలు, పాఠశాల ఉపాధ్యాయురాలు · కనిగిరి పట్టణం", stat_value: "30+ సంవత్సరాలు", stat_label: "విరిగిన నీటి వాగ్దానాలు" },
+        { name: "పామూరు", crisis: "పిల్లలు నవ్వు పోగొట్టుకున్న చోటు", headline: "దంత ఫ్లోరోసిస్ ఇక్కడ సర్వసాధారణం — ప్రతి పిల్లవాడికీ", story: "పామూరు మండలంలోని ఏ ప్రాథమిక పాఠశాలలోనైనా నడవండి, స్వచ్ఛమైన తెల్లటి పళ్లు ఉన్న పిల్లలను లెక్కించండి. మీరు చాలా తక్కువ మందిని లెక్కిస్తారు. 4–7 mg/L ఫ్లోరైడ్, అధిక లవణత్వంతో కలిసి, దంతాలు మరియు ఎముకలపై ద్వంద్వ దాడి చేస్తుంది. వీలైనప్పుడు తల్లిదండ్రులు బాటిళ్ల నీళ్లు ఇస్తారు. వీలు కానప్పుడు, పిల్లవాడికి 8 సంవత్సరాలు రాకముందే నష్టం జరిగిపోతుంది.", quote: "నా కూతురు నన్ను అడిగింది — టూత్‌పేస్ట్ పెట్టె మీద ఉన్న అమ్మాయిలా నా పళ్లు ఎందుకు లేవని. నాకు ఏం చెప్పాలో తెలియలేదు.", person: "లక్ష్మి, 29 సంవత్సరాలు, అమ్మ · పామూరు గ్రామం", stat_value: "4–7 mg/L", stat_label: "ఫ్లోరైడ్ + లవణత్వం — ద్వంద్వ దాడి" },
+        { name: "సి.ఎస్. పురం", crisis: "మర్చిపోయిన కొండలు", headline: "మారుమూల, కొండప్రాంతం, ప్రభుత్వ ప్రణాళికకు పూర్తిగా కనిపించనిది", story: "సి.ఎస్. పురం అనే మండలాన్ని భూగోళమే వేరు చేసింది. కొండ ప్రదేశం, చెడ్డ రహదారులు, పైపులైన్ ఖర్చులు మైదానాల కంటే మూడు రెట్లు ఎక్కువ — అందుకే పైపులైన్లు ఎన్నటికీ వేయబడలేదు. లోతైన బోరుబావులు ఫ్లోరైడ్ సమృద్ధమైన శిలా పొరలను తాకుతున్నాయి, 3.5–6 mg/L వద్ద. సి.ఎస్. పురం చాలా అరుదుగా ప్రభుత్వ నివేదికల్లో కనిపిస్తుంది. అక్కడి బాధ నిశ్శబ్దంగా ఉంది, అది పూర్తిగా ఉంది.", quote: "వారు సర్వే చేయడానికి వచ్చినప్పుడు, ఒక బావి నుండి నమూనా తీసుకొని వెళ్లిపోయారు. తిరిగి రాలేదు.", person: "శ్రీనివాస్, 45 సంవత్సరాలు, మండల ప్రధాన్ · సి.ఎస్. పురం", stat_value: "3.5–6 mg/L", stat_label: "ఫ్లోరైడ్ — తీవ్రమైనది & అదృశ్యమైనది" },
+        { name: "ఎచ్.ఎం. పాడు", crisis: "కిడ్నీ గ్రామం", headline: "మొత్తం ప్రకాశం జిల్లాలో అత్యధిక తలసరి CKD రేటు", story: "ఎచ్.ఎం. పాడుకు ఒక దుర్భరమైన బిరుదు ఉంది: మొత్తం ప్రకాశంలో అత్యధిక తలసరి దీర్ఘకాలిక మూత్రపిండ వ్యాధి రోగులున్న మండలం. ఇక్కడ ఫ్లోరైడ్ స్థాయిలు 9 mg/L వరకు చేరుతాయి. 30, 40 ఏళ్ల వయస్సు వారికి మూత్రపిండ వైఫల్యం వస్తోంది. మధుమేహం చరిత్ర లేదు. రక్తపోటు చరిత్ర లేదు. సమీప డయాలసిస్ కేంద్రం 45 కిలోమీటర్ల దూరంలో ఉంది. రోజువారీ నలుగురు కొత్త రోగులు డయాలసిస్ మొదలు పెడతున్నారు.", quote: "నా వీధిలో ముగ్గురు మగవాళ్లు డయాలసిస్ మీద ఉన్నారు. ముగ్గురూ 45 సంవత్సరాల కంటే తక్కువ వయస్సు. ముగ్గురూ నాలాంటి నీళ్లే తాగారు. నాకు రోజూ భయంగా ఉంది.", person: "చంద్ర శేఖర్, 38 సంవత్సరాలు, రైతు · ఎచ్.ఎం. పాడు", stat_value: "9 mg/L", stat_label: "ఫ్లోరైడ్ — జిల్లాలో అత్యధిక CKD రేటు" },
+        { name: "వెలిగండ్ల", crisis: "రైతు విలాపం", headline: "ప్రకాశాన్ని పోషించే చేతులు వారు తాగేవాటితో విషపూరితమవుతున్నాయి", story: "వెలిగండ్ల వ్యవసాయ హృదయ భూమి — దాని పొలాలు జిల్లాను పోషిస్తాయి. కానీ ఈ పొలాలు పండించే మగవాళ్లు మండుతున్న సూర్యుడి కింద పని చేస్తూ 4.5–7.5 mg/L ఫ్లోరైడ్ ఉన్న నీళ్లు తాగుతున్నారు. శారీరక శ్రమ ఫ్లోరైడ్ శోషణను వేగవంతం చేస్తుంది. రైతులు మరియు కూలీలు — వేర్వేరుగా చెమట పోసి, ఎక్కువ తాగే వారు — విషాన్ని ఎవరికంటే వేగంగా గ్రహిస్తారు. సురక్షిత నీళ్లు కొనే స్తోమత లేదు. నేల ఇచ్చేది తాగి, మెల్లగా, నిశ్శబ్దంగా, తమ మోకాళ్లు, మూత్రపిండాలు, భవిష్యత్తుతో చెల్లిస్తున్నారు.", quote: "ఇతరులు తినడానికి ఆహారం పండిస్తాను. నా సొంత పిల్లలు తాగడానికి స్వచ్ఛమైన నీళ్లు పండించలేను.", person: "రమేష్, 42 సంవత్సరాలు, రైతు · వెలిగండ్ల మండలం", stat_value: "4.5–7.5", stat_label: "mg/L — కూలీలు అత్యధికంగా దెబ్బతిన్నారు" }
+      ],
+      closing_title: "మేము ఇంకా ఇక్కడే ఉన్నాం.",
+      closing_narrative: "ఈ డాక్యుమెంటరీ నిశ్శబ్దం వైఫల్యం చెందింది కాబట్టి తయారు చేయబడింది. నివేదికలు సమర్పించబడి నిర్లక్ష్యం చేయబడ్డాయి. కమిటీలు సందర్శించి సమాధానాలు లేకుండా వెళ్లిపోయాయి. తరాలు ఈ సంక్షోభంలో జన్మించి దానిలోనే వృద్ధాప్యం పొందారు. కనిగిరి ప్రజలు దాతృత్వం అడగడం లేదు. వాగ్దానం చేసింది — స్వచ్ఛమైన నీరు, అందుబాటులో ఉన్న ఆరోగ్య సంరక్షణ, వారిని నిజంగా చూసే ప్రభుత్వం — కోసం అడుగుతున్నారు. వెలిగొండ ఉపరితల నీటి ప్రాజెక్ట్ దీన్ని ముగించడానికి రూపొందించబడింది. అది మరో ₹450 కోట్లు మరియు కదలని పూర్తి తేదీ కోసం వేచి ఉంది. అప్పటి వరకు, రోజూ నలుగురు మంది డయాలసిస్‌లోకి ప్రవేశిస్తారు. రేపు ఒక గ్రామం మరింత నిశ్శబ్దంగా అవుతుంది. కనిగిరి పిల్లలు నమ్మలేని నీళ్లతో పెరుగుతూనే ఉంటారు.",
+      demands_title: "వేచి ఉండలేని ఐదు డిమాండ్లు",
+      demands: [
+        "వెలిగొండ ప్రాజెక్ట్‌ను 2026 లోపు పూర్తి చేయండి — ఇక ఆలస్యాలు వద్దు",
+        "పి.సి. పల్లి & ఎచ్.ఎం. పాడుని ప్రత్యేక ఫ్లోరైడ్ అత్యవసర జోన్లుగా గుర్తించండి",
+        "ఫ్లోరైడ్ మండలాలకు జల్ జీవన్ మిషన్ కింద ₹450 కోట్లు విడుదల చేయండి",
+        "కనిగిరిలో 100 పడకల ప్రాంతీయ నెఫ్రాలజీ & డయాలసిస్ కేంద్రం స్థాపించండి",
+        "నీటి ట్యాంకర్ నల్లబజారుపై నేర విచారణ చేపట్టండి"
+      ],
+      final_quote: "భయం లేకుండా తాగగలిగే నీళ్లు మాత్రమే కావాలి. చంద్రునికి రాకెట్ పంపిన దేశానికి ఇది చాలా ఎక్కువ అడగడమా?",
+      witness_btn: "సాక్షి అవ్వండి — ఈ డాక్యుమెంటరీని షేర్ చేయండి"
     }
   },
   hi: {
@@ -1286,6 +1430,56 @@ export const translations: Record<Language, Translation> = {
           }
         ]
       }
+    },
+    documentary: {
+      badge: "एक मूल डॉक्यूमेंट्री",
+      opening_year: "2026",
+      opening_location: "कनिगिरि, प्रकाशम जिला · आंध्र प्रदेश, भारत",
+      opening_tagline: "यह रिपोर्ट नहीं है। यह एक गवाह है।",
+      opening_stat: "3,50,000 लोग। 6 मंडल। तीन संकट। शून्य स्थायी समाधान।",
+      scroll_prompt: "उनकी कहानी का गवाह बनने के लिए स्क्रॉल करें",
+      act1_chapter: "अध्याय एक",
+      act1_title: "प्यासी धरती",
+      act1_subtitle: "जब कुएँ खामोश हो जाते हैं, तो पूरी दुनियाएँ ढह जाती हैं।",
+      act1_narrative: "कनिगिरि में हर गर्मी एक जैसी शुरू होती है — इंतज़ार से। मर्द भोर से पहले उठते हैं और उस बोरवेल की तरफ चलते हैं जो शायद पानी दे, शायद न दे। बच्चे स्कूल जाने से पहले सर पर प्लास्टिक के घड़े उठाते हैं। औरतें खाना पकाने का पानी ढूँढने में रोज़ तीन-चार घंटे बिताती हैं। लगातार पाँच वर्षों से इंतज़ार लंबा होता जा रहा है, चलना दूर होता जा रहा है, उम्मीद पतली होती जा रही है। 2020 में 600 फुट गहरे बोरवेल सूख गए। फिर 800 फुट। फिर 1,000 फुट — और वे भी हफ्तों में सूख जाते हैं। सरकार 280 प्यासी बस्तियों में 422 पानी के टैंकर तैनात करती है। लेकिन गरीबों के लिए आए ये टैंकर काले बाज़ार में जा रहे हैं। होटल और अमीर किसान ₹500 प्रति 4,000 लीटर टैंकर देते हैं। गरीब ₹10 में 5 लीटर की बोतल खरीदते हैं। सरकार उन्हीं ठेकेदारों का ₹50 करोड़ बकाया है। कनिगिरि, येर्रगोंडापालेम, गिद्दलूर और मर्कापुर के कम से कम 24 गाँव पूरी तरह उजड़ गए हैं। धरती पुरानी खाल की तरह दरकी। और फिर भी कोई स्थायी समाधान नहीं आया।",
+      act1_pull_quote: "एक घड़ा पानी। एक परिवार के लिए। एक दिन के लिए। यही वह इज़्ज़त है जो कनिगिरि को दी गई।",
+      act1_testimony: "हमने सरकार को फोन करना बंद कर दिया। हर बार 400 लोगों के लिए एक टैंकर भेजते हैं। हम पानी वैसे बाँटते हैं जैसे अकाल में खाना बाँटते हैं — एक घड़ा प्रति परिवार, प्रति दिन। मेरे पोते-पोतियों को नहीं पता कि नल खोलने पर पानी आता है।",
+      act1_testimony_person: "वेंकटैया, उम्र 72 · किसान · मुरारिपल्ली गाँव (उजड़ा हुआ)",
+      act2_chapter: "अध्याय दो",
+      act2_title: "अदृश्य हत्यारा",
+      act2_subtitle: "पानी का स्वाद अलग नहीं लगता। यह बस चुपचाप बर्बाद करता है।",
+      act2_narrative: "भारत में स्थानिक फ्लोरोसिस का पहला मामला 1937 में प्रकाशम जिले से दर्ज हुआ था। यह 89 साल पहले की बात है। यह संकट जाना-माना था, नाम दिया गया था, दर्ज किया गया था — और फिर भी आज, प्रकाशम के 700 से अधिक गाँव अभी भी ज़हरीला पानी पी रहे हैं। केवल 27 गाँवों को सरकारी सुरक्षित पानी मिलता है। कनिगिरि प्लूटोन — ज़मीन के नीचे गहरे ग्रेनाइट का एक टुकड़ा — भूजल में फ्लोराइड छोड़ता है। P.C. पल्ली मंडल में पानी में फ्लोराइड 15 mg/L तक पहुँचता है — WHO की सुरक्षित सीमा से दस गुना अधिक। 2024 की केंद्रीय जल शक्ति रिपोर्ट ने प्रकाशम को भारत के 15 सबसे गंभीर फ्लोराइड जिलों में रखा है। 7 साल के बच्चों के दाँत भूरे और कमज़ोर हो जाते हैं। 20 साल तक कई लोग रीढ़ सीधी नहीं रख पाते। 30 साल तक किडनियाँ फेल होने लगती हैं। H.M. पाडू मंडल में प्रति व्यक्ति CKD दर पूरे जिले में सबसे अधिक है। हर एक दिन, चार और लोग डायलिसिस चक्र में प्रवेश करते हैं।",
+      act2_pull_quote: "कनिगिरि का बच्चा वह पानी पीता है जो इस इमारत में कोई नहीं छुएगा। हम इसे जल संकट कहते हैं। यह एक अपराध है।",
+      act2_testimony: "मेरे बेटे के दाँत 5 साल में भूरे हो गए। मुझे लगा मिठाई खाने की वजह से होगा। 11 साल होते-होते उसकी पीठ झुकने लगी। डॉक्टर ने बताया — फ्लोराइड, उसी पानी से जो हम रोज़ पीते हैं। किसी ने हमें नहीं बताया।",
+      act2_testimony_person: "शारदा, उम्र 38 · माँ · P.C. पल्ली मंडल",
+      act3_chapter: "अध्याय तीन",
+      act3_title: "लंबा पलायन",
+      act3_subtitle: "जब घर दुश्मन बन जाए, तो लोग लड़ते नहीं। वे चले जाते हैं।",
+      act3_narrative: "मुरारिपल्ली की खामोशी शांतिपूर्ण नहीं है। यह त्याग की खामोशी है — बंद करने के लिए कुछ बचा नहीं इसलिए खुले छोड़े दरवाज़ों वाले घर, जिस मंदिर में दीपक जलाने वाला कोई नहीं, खाली बेंचों वाला प्राथमिक स्कूल। कम से कम 24 गाँव आधिकारिक रूप से उजड़ गए हैं। पहले युवा गए — हैदराबाद, चेन्नई, बेंगलुरु। औरतें थोड़ी देर और रुकीं। फिर कुएँ सूखे, बच्चे बीमार हुए और वे भी चली गईं। बुज़ुर्ग रह गए — वे बूढ़े जिनमें पलायन की ताकत नहीं, पुश्तैनी ज़मीन को थामे, क्योंकि छोड़ना मरने जैसा लगता था। जो परिवार रहता है, वह सिर्फ RO पानी पर ₹600–₹1,200 महीना खर्च करता है — मज़दूर परिवार की आय का लगभग 20%। फ्लोरोसिस के इलाज पर और 30% जाता है। कुछ नहीं बचता। तो वे चले जाते हैं।",
+      act3_pull_quote: "वह इसलिए नहीं गया क्योंकि वह जाना चाहता था। पानी ने उसे जाने पर मजबूर किया।",
+      act3_testimony: "मैं इस गाँव में पैदा हुआ। मेरे पिता यहाँ पैदा हुए। लेकिन मैं अपने बच्चों को यहाँ नहीं पालूँगा। इस जगह से प्यार नहीं है इसलिए नहीं। अपने बच्चों से ज़्यादा प्यार है इसलिए।",
+      act3_testimony_person: "रवि कुमार, उम्र 34 · निर्माण मज़दूर · जयरामपुरम (अब चेन्नई में)",
+      mandals_title: "छह मंडल। छह ज़ख्म।",
+      mandals: [
+        { name: "P.C. पल्ली", crisis: "ज़मीनी शून्य", headline: "जहाँ का पानी क़ानून से दस गुना ज़्यादा ख़तरनाक है", story: "P.C. पल्ली संकट में पड़ा गाँव नहीं है — यह खुद संकट है। यहाँ फ्लोराइड 15 mg/L तक पहुँचता है, WHO की अनुमति से दस गुना ज़्यादा। किसी आगंतुक को पहले दाँत दिखते हैं — भूरे, टूटे, समय से पहले टूट रहे। दूसरी बात दिखती है चाल — उस इंसान की झुकी पीठ जिसके जोड़ दशकों पहले ही जम गए। 2025 में, जिला कलेक्टर ने आपातकालीन पानी के टैंकर का आदेश दिया। लेकिन टैंकर हफ्ते में तीन बार आते हैं। फ्लोराइड हर घड़ी वहाँ है।", quote: "मेरी उम्र 40 है। 70 साल के इंसान की तरह चलता हूँ। यही फ्लोराइड ने किया।", person: "नरसैया, किसान · P.C. पल्ली", stat_value: "15 mg/L", stat_label: "फ्लोराइड — WHO सीमा से 10 गुना" },
+        { name: "कनिगिरि", crisis: "इंतज़ार का शहर", headline: "1,10,000 लोग जिन्हें तीन दशकों से पानी का वादा किया जा रहा है", story: "कनिगिरि निर्वाचन क्षेत्र का प्रशासनिक केंद्र है — 1,10,000 निवासी। फिर भी यहाँ पानी एक दिन छोड़ कर आता है, या आता ही नहीं। बाहरी इलाके 2.5–4.5 mg/L फ्लोराइड वाले बोरवेल पर निर्भर हैं। वेलिगोंडा परियोजना 2027 तक टल सकती है, जिसके लिए ₹4,000 करोड़ अतिरिक्त चाहिए। इस बीच, शहर इंतज़ार करता है।", quote: "हर चुनाव में, हर MLA वादा करता है — अगले साल वेलिगोंडा का पानी आएगा। तीस साल से 'अगला साल' है।", person: "पद्मा, 52 साल, स्कूल शिक्षिका · कनिगिरि शहर", stat_value: "30+ साल", stat_label: "टूटे हुए पानी के वादे" },
+        { name: "पामूर", crisis: "जहाँ बच्चों ने मुस्कान खोई", headline: "दंत फ्लोरोसिस यहाँ सार्वभौमिक है — हर बच्चा, बिना किसी अपवाद के", story: "पामूर मंडल के किसी भी प्राथमिक विद्यालय में जाइए और साफ, सफेद दाँतों वाले बच्चों को गिनिए। आप बहुत कम गिन पाएँगे। 4–7 mg/L फ्लोराइड, उच्च लवणता के साथ, दाँत और हड्डियों पर दोहरा हमला करता है। जब माता-पिता अफोर्ड कर पाते हैं, तो बोतलबंद पानी देते हैं। जब नहीं कर पाते, तो नुकसान 8 साल से पहले ही हो जाता है।", quote: "मेरी बेटी ने मुझसे पूछा — टूथपेस्ट के डिब्बे पर जो लड़की है, उसके जैसे मेरे दाँत क्यों नहीं हैं? मुझे नहीं पता था क्या कहूँ।", person: "लक्ष्मी, 29 साल, माँ · पामूर गाँव", stat_value: "4–7 mg/L", stat_label: "फ्लोराइड + लवणता — दोहरा हमला" },
+        { name: "C.S. पुरम", crisis: "भुली हुई पहाड़ियाँ", headline: "दूरस्थ, पहाड़ी, और सरकारी योजनाकारों को पूरी तरह अदृश्य", story: "C.S. पुरम एक ऐसा मंडल है जिसे भूगोल ने खुद अलग कर दिया है। पहाड़ी इलाका, खराब सड़कें, पाइपलाइन की लागत मैदानों से तीन गुना ज़्यादा — इसलिए पाइपलाइन कभी बनी ही नहीं। गहरे बोरवेल फ्लोराइड युक्त परतों से होकर गुज़रते हैं, 3.5–6 mg/L पर। C.S. पुरम शायद ही कभी सरकारी रिपोर्टों में दिखता है। इसकी पीड़ा शांत और संपूर्ण है।", quote: "जब वे सर्वे के लिए आए, एक कुएँ से नमूना लिया और चले गए। कभी वापस नहीं आए।", person: "श्रीनिवास, 45 साल, मंडल प्रधान · C.S. पुरम", stat_value: "3.5–6 mg/L", stat_label: "फ्लोराइड — गंभीर और अदृश्य" },
+        { name: "H.M. पाडू", crisis: "किडनी का गाँव", headline: "पूरे प्रकाशम जिले में सबसे अधिक प्रति व्यक्ति CKD दर", story: "H.M. पाडू को एक गंभीर उपाधि मिली है: पूरे प्रकाशम में सबसे अधिक प्रति व्यक्ति क्रोनिक किडनी रोग वाला मंडल। यहाँ फ्लोराइड 9 mg/L तक पहुँचता है। 30-40 के लोगों में किडनी फेलियर हो रहा है — मधुमेह का कोई इतिहास नहीं, हाई ब्लड प्रेशर का कोई इतिहास नहीं। निकटतम डायलिसिस केंद्र 45 किलोमीटर दूर है। हर दिन चार नए मरीज़ डायलिसिस शुरू करते हैं।", quote: "मेरी गली के तीन आदमी डायलिसिस पर हैं। तीनों 45 साल से कम उम्र के। तीनों ने मेरे जैसा पानी पिया। मैं हर दिन डरता हूँ।", person: "चंद्र शेखर, 38 साल, किसान · H.M. पाडू", stat_value: "9 mg/L", stat_label: "फ्लोराइड — जिले में सर्वाधिक CKD दर" },
+        { name: "वेलिगंडला", crisis: "किसान का विलाप", headline: "प्रकाशम को खिलाने वाले हाथ जो पीते हैं उससे ज़हर खा रहे हैं", story: "वेलिगंडला कृषि का दिल है — इसके खेत जिले को खाना खिलाते हैं। लेकिन जो लोग इन खेतों में काम करते हैं, वे जलती धूप में 4.5–7.5 mg/L फ्लोराइड वाला पानी पीते हैं। शारीरिक मेहनत फ्लोराइड अवशोषण को तेज़ करती है। किसान और मज़दूर — जो ज़्यादा पसीना बहाते हैं — किसी से भी तेज़ ज़हर सोखते हैं। सुरक्षित पानी खरीदने की हैसियत नहीं। धरती जो देती है वह पीते हैं, और धीरे-धीरे, चुपचाप, अपने जोड़ों, किडनियों, भविष्य से चुकाते हैं।", quote: "दूसरों के खाने के लिए फसल उगाता हूँ। अपने बच्चों के पीने के लिए साफ पानी नहीं उगा सकता।", person: "रमेश, 42 साल, किसान · वेलिगंडला मंडल", stat_value: "4.5–7.5", stat_label: "mg/L — मज़दूर सबसे ज़्यादा प्रभावित" }
+      ],
+      closing_title: "हम अभी भी यहाँ हैं।",
+      closing_narrative: "यह डॉक्यूमेंट्री इसलिए बनाई गई क्योंकि चुप्पी ने काम नहीं किया। रिपोर्टें दायर की गईं और नज़रअंदाज़ कर दी गईं। समितियाँ आईं और बिना जवाब के चली गईं। पीढ़ियाँ इस संकट में पैदा हुईं और इसी में बूढ़ी हो गईं। कनिगिरि के लोग दान नहीं माँग रहे। वे वही माँग रहे हैं जो वादा किया था — साफ पानी, सुलभ स्वास्थ्य सेवा, और एक सरकार जो सच में उन्हें देखे। वेलिगोंडा सतही जल परियोजना इसे खत्म करने के लिए बनी थी। उसे ₹450 करोड़ और एक ऐसी पूर्णता तिथि चाहिए जो खिसकती न रहे। तब तक, आज चार और लोग डायलिसिस में जाएँगे। कल एक और गाँव खामोश होगा। और कनिगिरि के बच्चे उस पानी के साथ बड़े होते रहेंगे जिस पर उन्हें भरोसा नहीं।",
+      demands_title: "पाँच माँगें जो इंतज़ार नहीं कर सकतीं",
+      demands: [
+        "वेलिगोंडा परियोजना 2026 तक पूरी करें — अब और देरी नहीं",
+        "P.C. पल्ली और H.M. पाडू को विशेष फ्लोराइड आपातकालीन क्षेत्र घोषित करें",
+        "फ्लोराइड मंडलों के लिए जल जीवन मिशन के तहत ₹450 करोड़ जारी करें",
+        "कनिगिरि में 100 बिस्तरों का क्षेत्रीय नेफ्रोलॉजी और डायलिसिस केंद्र स्थापित करें",
+        "पानी टैंकर काले बाज़ार की आपराधिक जाँच"
+      ],
+      final_quote: "बस ऐसा पानी चाहिए जो बिना डर के पी सकें। क्या यह उस देश से बहुत ज़्यादा माँगना है जिसने चाँद पर रॉकेट भेजा?",
+      witness_btn: "गवाह बनें — इस डॉक्यूमेंट्री को शेयर करें"
     }
   }
 };
