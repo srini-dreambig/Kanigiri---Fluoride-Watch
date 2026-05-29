@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { formatDbError } from "../../server/dbError";
 import {
   createGalleryImage,
   listGalleryImages,
@@ -43,12 +44,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   } catch (err) {
     console.error("api/gallery", err);
-    const message =
-      err instanceof Error && err.message.includes("DATABASE_URL")
-        ? "Database is not configured. Set DATABASE_URL in Vercel environment variables."
-        : err instanceof Error
-          ? err.message
-          : "Failed to process gallery request";
-    return res.status(500).json({ error: message });
+    return res.status(500).json({ error: formatDbError(err) });
   }
 }

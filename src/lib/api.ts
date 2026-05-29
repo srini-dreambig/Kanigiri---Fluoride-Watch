@@ -10,8 +10,15 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
 
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new Error((body as { error?: string }).error ?? `Request failed (${res.status})`);
+    const text = await res.text();
+    let message = `Request failed (${res.status})`;
+    try {
+      const body = JSON.parse(text) as { error?: string };
+      if (body.error) message = body.error;
+    } catch {
+      if (text.trim()) message = text.trim().slice(0, 300);
+    }
+    throw new Error(message);
   }
 
   if (res.status === 204) return undefined as T;
