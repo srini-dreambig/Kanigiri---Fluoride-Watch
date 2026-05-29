@@ -5,9 +5,9 @@ import {
   mandalSlugsInOrder,
   type MandalSlug,
   type SupportedLanguage,
-} from "../src/data/mandals.ts";
-import { translations } from "../src/translations.ts";
-import { sql } from "../lib/db.ts";
+} from "../src/data/mandals";
+import { translations } from "../src/translations";
+import { sql } from "../lib/db";
 
 const languages: SupportedLanguage[] = ["en", "te", "hi"];
 

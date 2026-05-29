@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { getMandalBySlug, listMandals } from "../../lib/handlers/mandals.ts";
-import { formatDbError } from "../../lib/dbError.ts";
-import { asyncRoute } from "../asyncRoute.ts";
+import { getMandalBySlug, listMandals } from "../../lib/handlers/mandals";
+import { formatDbError } from "../../lib/dbError";
+import { asyncRoute } from "../asyncRoute";
 
 export const mandalsRouter = Router();
 

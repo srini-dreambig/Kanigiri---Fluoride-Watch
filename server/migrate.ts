@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { neon } from "@neondatabase/serverless";
-import { SCHEMA_STATEMENTS } from "../lib/schemaSql.ts";
+import { SCHEMA_STATEMENTS } from "../lib/schemaSql";
 
 async function migrate() {
   const url = process.env.DATABASE_URL;

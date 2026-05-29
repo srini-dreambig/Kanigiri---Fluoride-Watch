@@ -54,8 +54,7 @@ Optional: set `GEMINI_API_KEY` in `.env` for Gemini features.
    ```bash
    npm run db:setup
    ```
-5. The static site is built to `dist`; `/api/*` is served by serverless functions in `api/`.
-6. API TypeScript uses `api/tsconfig.json` (ESM-safe for `"type": "module"`). Do not add `tsconfig.json` to `.vercelignore`.
-7. After deploy, open `/api/health` — expect `{"ok":true,"database":"neon"}`. If you see `FUNCTION_INVOCATION_FAILED`, check Vercel → Logs and confirm `DATABASE_URL` is set.
+5. The static site is built to `dist`; all `/api/*` routes go through a **single** serverless function (`api/index.ts` → Express in `server/app.ts`).
+6. After deploy, open `/api/health` — expect `{"ok":true,"database":"neon"}`. If you see `FUNCTION_INVOCATION_FAILED`, check Vercel → Logs and confirm `DATABASE_URL` is set.
 
 Gallery images are stored as base64 in Postgres. Vercel Hobby plans limit request bodies to about 4.5MB—compress large photos before upload.

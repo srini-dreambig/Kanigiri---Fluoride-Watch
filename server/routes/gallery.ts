@@ -3,10 +3,10 @@ import {
   createGalleryImage,
   deleteGalleryImage,
   listGalleryImages,
-} from "../../lib/handlers/gallery.ts";
-import { formatDbError } from "../../lib/dbError.ts";
-import { sendGalleryImageExpress } from "../../lib/sendGalleryImage.ts";
-import { asyncRoute } from "../asyncRoute.ts";
+} from "../../lib/handlers/gallery";
+import { formatDbError } from "../../lib/dbError";
+import { sendGalleryImageExpress } from "../../lib/sendGalleryImage";
+import { asyncRoute } from "../asyncRoute";
 
 export const galleryRouter = Router();
 
