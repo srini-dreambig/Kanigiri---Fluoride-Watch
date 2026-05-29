@@ -1,6 +1,8 @@
 import { sql } from "../db.ts";
 
 const CATEGORIES = new Set(["Drought", "Fluoride", "Migration"]);
+/** ~4.5MB Vercel request cap; base64 JSON payload limit for image_data. */
+const MAX_IMAGE_DATA_CHARS = 4_000_000;
 
 export type GalleryImageResponse = {
   id: string;
@@ -25,17 +27,26 @@ export async function listGalleryImages(): Promise<GalleryImageResponse[]> {
   }));
 }
 
-export async function createGalleryImage(body: {
-  imageData?: string;
-  caption?: string;
-  category?: string;
-}): Promise<{ status: number; body: GalleryImageResponse | { error: string } }> {
-  const { imageData, caption, category } = body;
+export async function createGalleryImage(
+  body: Record<string, unknown>
+): Promise<{ status: number; body: GalleryImageResponse | { error: string } }> {
+  const imageData = body.imageData;
+  const caption = body.caption;
+  const category = body.category;
 
   if (!imageData || typeof imageData !== "string") {
     return { status: 400, body: { error: "imageData is required" } };
   }
-  if (!category || !CATEGORIES.has(category)) {
+  if (imageData.length > MAX_IMAGE_DATA_CHARS) {
+    return {
+      status: 413,
+      body: {
+        error:
+          "Image is too large. Use a smaller photo (the app compresses before upload; try again or pick another file).",
+      },
+    };
+  }
+  if (!category || typeof category !== "string" || !CATEGORIES.has(category)) {
     return {
       status: 400,
       body: { error: "category must be Drought, Fluoride, or Migration" },

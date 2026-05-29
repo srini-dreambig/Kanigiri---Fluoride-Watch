@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { api, type CrisisCategory, type GalleryImageDto } from "../lib/api";
+import { fileToCompressedDataUrl } from "../lib/compressImage";
 import { getUiLabels } from "../data/uiLabels";
 import {
   Upload,
@@ -38,13 +39,25 @@ export const Gallery = () => {
     let cancelled = false;
     (async () => {
       try {
+        const health = await api.health().catch(() => null);
+        if (health && !health.ok) {
+          if (!cancelled) {
+            setLoadError(
+              health.database === "unconfigured"
+                ? "Database not configured: add DATABASE_URL (Vercel → Settings → Environment Variables), then redeploy."
+                : g.load_error
+            );
+          }
+        }
         const data = await api.gallery.list();
         if (!cancelled) {
           setImages(data);
-          setLoadError(null);
+          if (health?.ok) setLoadError(null);
         }
-      } catch {
-        if (!cancelled) setLoadError(g.load_error);
+      } catch (err) {
+        if (!cancelled) {
+          setLoadError(err instanceof Error ? err.message : g.load_error);
+        }
       } finally {
         if (!cancelled) setIsLoading(false);
       }
@@ -76,15 +89,7 @@ export const Gallery = () => {
 
     try {
       const uploads = await Promise.all(
-        fileArray.map(
-          (file) =>
-            new Promise<string>((resolve, reject) => {
-              const reader = new FileReader();
-              reader.onload = (e) => resolve(e.target?.result as string);
-              reader.onerror = () => reject(new Error(g.read_error));
-              reader.readAsDataURL(file);
-            })
-        )
+        fileArray.map((file) => fileToCompressedDataUrl(file))
       );
 
       const saved = await Promise.all(
@@ -98,8 +103,8 @@ export const Gallery = () => {
       );
 
       setImages((prev) => [...saved, ...prev]);
-    } catch {
-      setLoadError(g.upload_error);
+    } catch (err) {
+      setLoadError(err instanceof Error ? err.message : g.upload_error);
     } finally {
       setIsUploading(false);
     }
