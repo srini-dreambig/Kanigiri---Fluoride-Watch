@@ -7,7 +7,7 @@ import {
   type SupportedLanguage,
 } from "../src/data/mandals.ts";
 import { translations } from "../src/translations.ts";
-import { sql } from "./db.ts";
+import { sql } from "../lib/db.ts";
 
 const languages: SupportedLanguage[] = ["en", "te", "hi"];
 

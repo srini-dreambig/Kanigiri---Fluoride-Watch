@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { deleteGalleryImage } from "../../server/handlers/gallery";
+import { deleteGalleryImage } from "../../lib/handlers/gallery";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "DELETE") {

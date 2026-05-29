@@ -7,16 +7,16 @@ export function formatDbError(err: unknown): string {
         : "Database error";
 
   if (msg.includes("DATABASE_URL")) {
-    return "Database is not configured. Set DATABASE_URL in Vercel → Settings → Environment Variables, then redeploy.";
+    return "Database is not configured. Copy .env.example to .env and set DATABASE_URL (Neon).";
   }
   if (msg.includes("gallery_images") && msg.includes("does not exist")) {
-    return "Gallery table is missing. Redeploy after this update, or run npm run db:migrate locally.";
+    return "Gallery table is missing. Run: npm run db:migrate";
   }
   if (msg.includes("gen_random_uuid")) {
-    return "Database extension missing. Redeploy — the API will enable pgcrypto automatically.";
+    return "Database extension missing. Run: npm run db:migrate";
   }
   if (msg.includes("connection") || msg.includes("ENOTFOUND") || msg.includes("timeout")) {
-    return "Cannot reach Neon database. Check DATABASE_URL and that the Neon project is active.";
+    return "Cannot reach Neon. Check DATABASE_URL and that your Neon project is active.";
   }
 
   return msg;

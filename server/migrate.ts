@@ -1,6 +1,6 @@
 import "dotenv/config";
-import { Pool } from "@neondatabase/serverless";
-import { SCHEMA_SQL } from "./schemaSql.ts";
+import { neon } from "@neondatabase/serverless";
+import { SCHEMA_STATEMENTS } from "../lib/schemaSql.ts";
 
 async function migrate() {
   const url = process.env.DATABASE_URL;
@@ -9,9 +9,10 @@ async function migrate() {
     process.exit(1);
   }
 
-  const pool = new Pool({ connectionString: url });
-  await pool.query(SCHEMA_SQL);
-  await pool.end();
+  const query = neon(url);
+  for (const statement of SCHEMA_STATEMENTS) {
+    await query.query(statement, []);
+  }
   console.log("Neon schema applied successfully.");
 }
 

@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { formatDbError } from "../../server/dbError";
+import { formatDbError } from "../../lib/dbError";
 import {
   createGalleryImage,
   listGalleryImages,
-} from "../../server/handlers/gallery";
+} from "../../lib/handlers/gallery";
 
 /** Vercel default is 1MB — gallery uploads need more headroom for base64 JPEG. */
 export const config = {

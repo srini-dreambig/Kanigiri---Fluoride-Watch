@@ -42,6 +42,44 @@ export type UiLabels = {
     verified_location: string;
     policy_title: string;
     filters: Record<CrisisCategory | "All", string>;
+    viewer: {
+      close: string;
+      previous: string;
+      next: string;
+      download: string;
+      rotate_left: string;
+      rotate_right: string;
+      zoom_in: string;
+      zoom_out: string;
+      reset_view: string;
+      counter: string;
+      delete: string;
+      category: string;
+      date: string;
+      open_photo: string;
+      expand: string;
+    };
+    layout: {
+      view_menu: string;
+      bulk_select: string;
+      bulk_select_exit: string;
+      select_all: string;
+      clear_selection: string;
+      download_selected: string;
+      selected_count: string;
+      downloading: string;
+      category_col: string;
+      date_col: string;
+      caption_col: string;
+      extraLarge: string;
+      large: string;
+      medium: string;
+      small: string;
+      list: string;
+      details: string;
+      tiles: string;
+      content: string;
+    };
   };
   mandal: {
     not_found_title: string;
@@ -132,6 +170,44 @@ export const uiLabels: Record<Language, UiLabels> = {
       verified_location: "Verified Location",
       policy_title: "Media Policy",
       filters: { All: "All", Drought: "Drought", Fluoride: "Fluoride", Migration: "Migration" },
+      viewer: {
+        close: "Close",
+        previous: "Previous photo",
+        next: "Next photo",
+        download: "Download",
+        rotate_left: "Rotate left",
+        rotate_right: "Rotate right",
+        zoom_in: "Zoom in",
+        zoom_out: "Zoom out",
+        reset_view: "Reset view",
+        counter: "{current} / {total}",
+        delete: "Delete photo",
+        category: "Category",
+        date: "Date",
+        open_photo: "Photo viewer",
+        expand: "View full screen",
+      },
+      layout: {
+        view_menu: "View",
+        bulk_select: "Bulk select",
+        bulk_select_exit: "Exit bulk select",
+        select_all: "Select all",
+        clear_selection: "Clear selection",
+        download_selected: "Download selected",
+        selected_count: "{count} of {total} selected",
+        downloading: "Preparing download…",
+        category_col: "Category",
+        date_col: "Date",
+        caption_col: "Caption",
+        extraLarge: "Extra large icons",
+        large: "Large icons",
+        medium: "Medium icons",
+        small: "Small icons",
+        list: "List",
+        details: "Details",
+        tiles: "Tiles",
+        content: "Content",
+      },
     },
     mandal: {
       not_found_title: "Mandal not found",
@@ -216,6 +292,44 @@ export const uiLabels: Record<Language, UiLabels> = {
       verified_location: "ధృవీకరించిన స్థానం",
       policy_title: "మీడియా విధానం",
       filters: { All: "అన్నీ", Drought: "కరువు", Fluoride: "ఫ్లోరైడ్", Migration: "వలస" },
+      viewer: {
+        close: "మూసివేయి",
+        previous: "మునుపటి ఫోటో",
+        next: "తదుపరి ఫోటో",
+        download: "డౌన్‌లోడ్",
+        rotate_left: "ఎడమకు తిప్పు",
+        rotate_right: "కుడికి తిప్పు",
+        zoom_in: "జూమ్ ఇన్",
+        zoom_out: "జూమ్ అవుట్",
+        reset_view: "వీక్షణ రీసెట్",
+        counter: "{current} / {total}",
+        delete: "ఫోటో తొలగించు",
+        category: "వర్గం",
+        date: "తేదీ",
+        open_photo: "ఫోటో వీక్షకం",
+        expand: "పూర్తి తెర చూడండి",
+      },
+      layout: {
+        view_menu: "వీక్షణ",
+        bulk_select: "బల్క్ ఎంపిక",
+        bulk_select_exit: "బల్క్ ఎంపిక మూసివేయి",
+        select_all: "అన్నీ ఎంచుకోండి",
+        clear_selection: "ఎంపిక తొలగించు",
+        download_selected: "ఎంచుకున్నవి డౌన్‌లోడ్",
+        selected_count: "{total} లో {count} ఎంచుకున్నారు",
+        downloading: "డౌన్‌లోడ్ సిద్ధమవుతోంది…",
+        category_col: "వర్గం",
+        date_col: "తేదీ",
+        caption_col: "వివరణ",
+        extraLarge: "అతి పెద్ద చిహ్నాలు",
+        large: "పెద్ద చిహ్నాలు",
+        medium: "మధ్యమ చిహ్నాలు",
+        small: "చిన్న చిహ్నాలు",
+        list: "జాబితా",
+        details: "వివరాలు",
+        tiles: "టైల్స్",
+        content: "కంటెంట్",
+      },
     },
     mandal: {
       not_found_title: "మండలం కనుగొనబడలేదు",
@@ -300,6 +414,44 @@ export const uiLabels: Record<Language, UiLabels> = {
       verified_location: "सत्यापित स्थान",
       policy_title: "मीडिया नीति",
       filters: { All: "सभी", Drought: "सूखा", Fluoride: "फ्लोराइड", Migration: "पलायन" },
+      viewer: {
+        close: "बंद करें",
+        previous: "पिछला फ़ोटो",
+        next: "अगला फ़ोटो",
+        download: "डाउनलोड",
+        rotate_left: "बाएँ घुमाएँ",
+        rotate_right: "दाएँ घुमाएँ",
+        zoom_in: "ज़ूम इन",
+        zoom_out: "ज़ूम आउट",
+        reset_view: "दृश्य रीसेट",
+        counter: "{current} / {total}",
+        delete: "फ़ोटो हटाएँ",
+        category: "श्रेणी",
+        date: "तारीख",
+        open_photo: "फ़ोटो दर्शक",
+        expand: "पूर्ण स्क्रीन देखें",
+      },
+      layout: {
+        view_menu: "दृश्य",
+        bulk_select: "बल्क चयन",
+        bulk_select_exit: "बल्क चयन बंद करें",
+        select_all: "सभी चुनें",
+        clear_selection: "चयन हटाएँ",
+        download_selected: "चयनित डाउनलोड",
+        selected_count: "{total} में से {count} चयनित",
+        downloading: "डाउनलोड तैयार…",
+        category_col: "श्रेणी",
+        date_col: "तारीख",
+        caption_col: "कैप्शन",
+        extraLarge: "अतिरिक्त बड़े आइकन",
+        large: "बड़े आइकन",
+        medium: "मध्यम आइकन",
+        small: "छोटे आइकन",
+        list: "सूची",
+        details: "विवरण",
+        tiles: "टाइल्स",
+        content: "सामग्री",
+      },
     },
     mandal: {
       not_found_title: "मंडल नहीं मिला",

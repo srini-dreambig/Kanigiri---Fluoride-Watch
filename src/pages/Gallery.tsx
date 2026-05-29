@@ -1,20 +1,23 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { api, type CrisisCategory, type GalleryImageDto } from "../lib/api";
 import { fileToCompressedDataUrl } from "../lib/compressImage";
+import { downloadGallerySelection } from "../lib/galleryDownload";
 import { getUiLabels } from "../data/uiLabels";
+import { GalleryFeed } from "../components/gallery/GalleryFeed";
+import { GalleryToolbar } from "../components/gallery/GalleryToolbar";
+import type { GalleryViewMode } from "../components/gallery/galleryViewModes";
 import {
   Upload,
   Image as ImageIcon,
   X,
   Plus,
-  ArrowUpRight,
   Camera,
   Layers,
-  CheckCircle,
   AlertCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { GalleryLightbox } from "../components/gallery/GalleryLightbox";
 
 type GalleryFilter = "All" | CrisisCategory;
 
@@ -32,8 +35,27 @@ export const Gallery = () => {
   const [dragActive, setDragActive] = useState(false);
   const [uploadCategory, setUploadCategory] = useState<CrisisCategory>("Fluoride");
   const [activeFilter, setActiveFilter] = useState<GalleryFilter>("All");
+  const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+  const [viewMode, setViewMode] = useState<GalleryViewMode>("large");
+  const [selectMode, setSelectMode] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const categoryLabel = (cat: GalleryFilter | CrisisCategory) => g.filters[cat];
+
+  const viewLabels = useMemo(
+    () => ({
+      extraLarge: g.layout.extraLarge,
+      large: g.layout.large,
+      medium: g.layout.medium,
+      small: g.layout.small,
+      list: g.layout.list,
+      details: g.layout.details,
+      tiles: g.layout.tiles,
+      content: g.layout.content,
+    }),
+    [g.layout]
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -69,6 +91,14 @@ export const Gallery = () => {
 
   const filteredImages =
     activeFilter === "All" ? images : images.filter((img) => img.category === activeFilter);
+
+  useEffect(() => {
+    setSelectedIds((prev) => {
+      const ids = new Set(filteredImages.map((img) => img.id));
+      const next = new Set([...prev].filter((id) => ids.has(id)));
+      return next.size === prev.size ? prev : next;
+    });
+  }, [filteredImages]);
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -137,7 +167,53 @@ export const Gallery = () => {
     }
   };
 
+  const openViewer = (id: string) => {
+    const idx = filteredImages.findIndex((img) => img.id === id);
+    if (idx >= 0) setViewerIndex(idx);
+  };
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const selectAll = () => {
+    setSelectedIds(new Set(filteredImages.map((img) => img.id)));
+  };
+
+  const clearSelection = () => setSelectedIds(new Set());
+
+  const downloadSelected = async () => {
+    const selected = filteredImages.filter((img) => selectedIds.has(img.id));
+    if (selected.length === 0) return;
+    setIsDownloading(true);
+    setLoadError(null);
+    try {
+      await downloadGallerySelection(selected);
+    } catch (err) {
+      setLoadError(err instanceof Error ? err.message : g.upload_error);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  const deleteFromViewer = async (id: string) => {
+    const idx = viewerIndex;
+    const remainingIds = filteredImages.filter((img) => img.id !== id);
+    await removeImage(id);
+    if (remainingIds.length === 0) {
+      setViewerIndex(null);
+    } else if (idx !== null && idx >= remainingIds.length) {
+      setViewerIndex(remainingIds.length - 1);
+    }
+  };
+
   return (
+    <>
     <div className="pt-24 pb-24 px-6 min-h-screen max-w-7xl mx-auto space-y-16">
       <div className="space-y-4">
         <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-indigo-500">
@@ -257,6 +333,24 @@ export const Gallery = () => {
           </span>
         </div>
 
+        <GalleryToolbar
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+          viewLabels={viewLabels}
+          layoutLabels={g.layout}
+          selectMode={selectMode}
+          onSelectModeChange={(on) => {
+            setSelectMode(on);
+            if (!on) clearSelection();
+          }}
+          selectedCount={selectedIds.size}
+          totalCount={filteredImages.length}
+          onSelectAll={selectAll}
+          onClearSelection={clearSelection}
+          onDownloadSelected={() => void downloadSelected()}
+          isDownloading={isDownloading}
+        />
+
         {filteredImages.length === 0 ? (
           <div className="py-20 text-center space-y-4 opacity-20">
             <ImageIcon size={64} className="mx-auto" />
@@ -267,68 +361,27 @@ export const Gallery = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence>
-              {filteredImages.map((img) => (
-                <motion.div
-                  key={img.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="glass-card overflow-hidden group border-white/5 bg-white/[0.02]"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={img.url}
-                      alt={g.image_alt}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span
-                        className={[
-                          "px-3 py-1 rounded-full text-[10px] font-semibold tracking-wide border backdrop-blur-sm",
-                          img.category === "Drought"
-                            ? "text-sky-200 border-sky-200/30 bg-sky-950/40"
-                            : img.category === "Fluoride"
-                              ? "text-red-200 border-red-200/30 bg-red-950/40"
-                              : "text-amber-200 border-amber-200/30 bg-amber-950/40",
-                        ].join(" ")}
-                      >
-                        {categoryLabel(img.category)}
-                      </span>
-                    </div>
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                      <button
-                        onClick={() => removeImage(img.id)}
-                        className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-                      >
-                        <X size={20} />
-                      </button>
-                      <a
-                        href={img.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-3 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white transition-colors"
-                      >
-                        <ArrowUpRight size={20} />
-                      </a>
-                    </div>
-                  </div>
-                  <div className="p-6 space-y-4">
-                    <div className="flex justify-between items-center text-[10px] font-semibold tracking-wide opacity-60">
-                      <span>{g.submission_label}</span>
-                      <span>{new Date(img.timestamp).toLocaleDateString()}</span>
-                    </div>
-                    <p className="text-sm font-light opacity-80 leading-relaxed italic">"{img.caption}"</p>
-                    <div className="flex items-center gap-2 text-[10px] font-semibold tracking-wide text-green-500">
-                      <CheckCircle size={12} /> {g.verified_location}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+          <GalleryFeed
+            images={filteredImages}
+            viewMode={viewMode}
+            selectMode={selectMode}
+            selectedIds={selectedIds}
+            categoryLabel={categoryLabel}
+            labels={{
+              image_alt: g.image_alt,
+              submission_label: g.submission_label,
+              verified_location: g.verified_location,
+              viewer: g.viewer,
+              layout: {
+                category_col: g.layout.category_col,
+                date_col: g.layout.date_col,
+                caption_col: g.layout.caption_col,
+              },
+            }}
+            onToggleSelect={toggleSelect}
+            onOpen={openViewer}
+            onDelete={(id) => void removeImage(id)}
+          />
         )}
       </div>
 
@@ -340,5 +393,20 @@ export const Gallery = () => {
         </div>
       </div>
     </div>
+
+    <AnimatePresence>
+      {viewerIndex !== null && filteredImages.length > 0 ? (
+        <GalleryLightbox
+          images={filteredImages}
+          index={viewerIndex}
+          labels={g.viewer}
+          categoryLabel={categoryLabel}
+          onClose={() => setViewerIndex(null)}
+          onIndexChange={setViewerIndex}
+          onDelete={(id) => void deleteFromViewer(id)}
+        />
+      ) : null}
+    </AnimatePresence>
+    </>
   );
 };

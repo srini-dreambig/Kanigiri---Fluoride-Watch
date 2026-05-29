@@ -6,14 +6,13 @@ function getSqlInstance(): NeonQueryFunction<false, false> {
   if (!sqlInstance) {
     const url = process.env.DATABASE_URL;
     if (!url) {
-      throw new Error("DATABASE_URL is not set. Add it to your .env file.");
+      throw new Error("DATABASE_URL is not set. Copy .env.example to .env and add your Neon URL.");
     }
     sqlInstance = neon(url);
   }
   return sqlInstance;
 }
 
-/** Lazy Neon client — avoids crashing API imports when DATABASE_URL is unset. */
 export function sql(
   strings: TemplateStringsArray,
   ...values: unknown[]

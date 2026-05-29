@@ -1,5 +1,5 @@
 {
-  "include": ["src", "server", "api"],
+  "include": ["src", "server", "api", "lib"],
   "compilerOptions": {
     "target": "ES2022",
     "experimentalDecorators": true,

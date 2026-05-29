@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { listMandals } from "../../server/handlers/mandals";
+import { listMandals } from "../../lib/handlers/mandals";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "GET") {

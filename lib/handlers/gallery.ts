@@ -2,7 +2,6 @@ import { sql } from "../db.ts";
 import { ensureSchema } from "../ensureSchema.ts";
 
 const CATEGORIES = new Set(["Drought", "Fluoride", "Migration"]);
-/** ~4.5MB Vercel request cap; base64 JSON payload limit for image_data. */
 const MAX_IMAGE_DATA_CHARS = 4_000_000;
 
 export type GalleryImageResponse = {

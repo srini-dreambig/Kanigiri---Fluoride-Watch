@@ -19,12 +19,17 @@ This contains everything you need to run your app locally.
    ```bash
    npm run db:setup
    ```
-4. Run the app (starts **both** Vite and the API):
+4. Run the app (starts **both** Vite and the API — required for gallery uploads):
    ```bash
    npm run dev
    ```
    - Web: http://localhost:3069  
    - API: http://localhost:3001 (proxied at `/api` during dev)
+   - This frees port 3001 first if a stale API process is stuck.
+
+   **Do not use only** `npm run dev:web` for gallery — uploads need the API.
+
+   Verify API: http://localhost:3001/api/health → `{"ok":true,"database":"neon"}`
 
 Or run only one side: `npm run dev:web` or `npm run dev:server`.
 
