@@ -1,39 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Telugu:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..900&family=Anek+Telugu:wght@300..800&family=Noto+Sans+Devanagari:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-telugu: "Noto Sans Telugu", serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-telugu: "Anek Telugu", system-ui, sans-serif;
   --font-hindi: "Noto Sans Devanagari", serif;
   --font-mono: "JetBrains Mono", monospace;
 
   --color-brand-crimson: #991b1b;
   --color-brand-amber: #d97706;
   --color-brand-emerald: #059669;
+
+  /* Documentary palette */
+  --color-doc-ink: #e7e7e7;
+  --color-doc-muted: rgba(231, 231, 231, 0.72);
+  --color-doc-hairline: rgba(255, 255, 255, 0.10);
+  --color-doc-surface: rgba(255, 255, 255, 0.04);
 }
 
 @layer base {
   body {
-    @apply bg-zinc-950 text-zinc-100 antialiased selection:bg-brand-crimson selection:text-white;
+    @apply bg-zinc-950 text-[color:var(--color-doc-ink)] antialiased selection:bg-brand-crimson selection:text-white;
+    text-rendering: optimizeLegibility;
+    font-synthesis: none;
   }
+}
 
+@layer utilities {
+  /* Must live in utilities layer so it overrides `font-sans` utilities. */
   .telugu-text {
-    font-family: var(--font-telugu);
+    font-family: var(--font-telugu) !important;
     @apply leading-relaxed;
   }
 
   .hindi-text {
-    font-family: var(--font-hindi);
+    font-family: var(--font-hindi) !important;
     @apply leading-relaxed;
+  }
+
+  /* Aged paper band for alternate sections */
+  .paper-section {
+    background-color: #f3ead8;
+    color: #121212;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .paper-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 0;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(120, 73, 34, 0.18), transparent 60%),
+      radial-gradient(900px 520px at 90% 30%, rgba(70, 40, 25, 0.12), transparent 55%),
+      radial-gradient(700px 500px at 35% 90%, rgba(70, 40, 25, 0.10), transparent 55%),
+      repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.018), rgba(0, 0, 0, 0.018) 1px, transparent 1px, transparent 6px);
+    mix-blend-mode: multiply;
+  }
+  .paper-section::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    pointer-events: none;
+    opacity: 0.14;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    mix-blend-mode: multiply;
+  }
+  .paper-section > * {
+    position: relative;
+    z-index: 1;
+  }
+  .paper-section .glass,
+  .paper-section .glass-card {
+    background-color: rgba(255, 255, 255, 0.92);
+    border-color: rgba(20, 20, 20, 0.14);
+    box-shadow: 0 20px 65px rgba(0, 0, 0, 0.14);
+    backdrop-filter: none;
+  }
+  .paper-section p {
+    color: rgba(18, 18, 18, 0.78);
   }
 }
 
 @utility glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10;
+    @apply bg-[color:var(--color-doc-surface)] backdrop-blur-md border border-[color:var(--color-doc-hairline)];
 }
 
 @utility glass-card {
-    @apply glass rounded-2xl p-6 shadow-2xl;
+    @apply glass rounded-2xl p-6 shadow-2xl shadow-black/30;
 }
 
 @utility bg-radial-gradient {
@@ -41,7 +100,172 @@
 }
 
 .bg-pattern {
-  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), 
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Documentary styles */
+.film-grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+.doc-chapter {
+  font-variant: all-small-caps;
+  letter-spacing: 0.4em;
+}
+
+.doc-pull-quote {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.2;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.doc-testimony {
+  border-left: 3px solid rgba(255,255,255,0.15);
+  padding-left: 1.5rem;
+  font-style: italic;
+}
+
+.doc-section-full {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Hope — closing poetry on Harsh Realities */
+.hope-poetry-section {
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(16, 185, 129, 0.12), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(245, 158, 11, 0.08), transparent 50%),
+    #09090b;
+}
+
+.hope-poetry-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(16, 185, 129, 0.04) 40%,
+    rgba(245, 158, 11, 0.06) 100%
+  );
+}
+
+.hope-poetry-line {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  line-height: 1.85;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: rgba(250, 250, 250, 0.82);
+}
+
+.hope-poetry-line--pause {
+  font-style: italic;
+  color: rgba(251, 191, 36, 0.9);
+  font-weight: 400;
+}
+
+.hope-poetry-line--title-word {
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.hope-poetry-line--closing {
+  color: rgba(110, 231, 183, 0.95);
+  font-weight: 400;
+}
+
+.hope-stanza-break {
+  height: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .hope-stanza-break {
+    height: 2.25rem;
+  }
+}
+
+/* Hero PNGs exported on black: blend away #000 on zinc-950 without a wrapper box */
+.hero-cutout {
+  mix-blend-mode: lighten;
+}
+
+/* Fluoride: elder + child side by side, pinned to the right half of the hero */
+.hero-fluoride-pair {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  display: none;
+  height: calc(100vh - 5rem);
+  width: min(50vw, 50%);
+  max-width: 50%;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 0;
+  pointer-events: none;
+}
+@media (width >= 1024px) {
+  .hero-fluoride-pair {
+    display: flex;
+  }
+}
+.hero-fluoride-pair__elder {
+  height: 100%;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+  object-position: bottom;
+}
+.hero-fluoride-pair__child {
+  height: 100%;
+  width: min(26vw, 360px);
+  flex-shrink: 0;
+  margin-left: -3.5rem;
+  position: relative;
+  z-index: 1;
+  object-fit: cover;
+  object-position: bottom center;
+}
+.hero-fluoride-pair--mobile {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  height: 100%;
+  max-width: 100%;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 0;
+}
+.hero-fluoride-pair--mobile .hero-fluoride-pair__child {
+  width: min(42vw, 200px);
+  margin-left: -1.5rem;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.doc-animate {
+  animation: fadeSlideUp 0.8s ease-out both;
 }

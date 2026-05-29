@@ -2,19 +2,53 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# Kanigiri Fluoride Watch
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/d270d871-dad2-4700-a9a5-0d242ea63dcf
-
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js, a [Neon](https://neon.tech) PostgreSQL database
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+2. Copy `.env.example` to `.env` and set `DATABASE_URL` to your Neon connection string.
+3. Create tables and seed mandal data:
+   ```bash
+   npm run db:setup
+   ```
+4. Run the app (starts **both** Vite and the API):
+   ```bash
+   npm run dev
+   ```
+   - Web: http://localhost:3069  
+   - API: http://localhost:3001 (proxied at `/api` during dev)
+
+Or run only one side: `npm run dev:web` or `npm run dev:server`.
+
+### Storage (Neon)
+
+| Data | Table |
+|------|--------|
+| Gallery uploads | `gallery_images` |
+| Mandal profiles | `mandals`, `mandal_translations`, `mandal_sources` |
+| App settings | `app_settings` |
+
+Optional: set `GEMINI_API_KEY` in `.env` for Gemini features.
+
+## Deploy on Vercel
+
+1. Push this repo to GitHub and import the project in [Vercel](https://vercel.com).
+2. Framework preset: **Vite** (or use the included `vercel.json`).
+3. Add environment variables (Production and Preview):
+   - `DATABASE_URL` — Neon connection string (required for gallery and mandal APIs).
+   - `GEMINI_API_KEY` — optional.
+4. After the first deploy, seed the production database once from your machine (same `DATABASE_URL`):
+   ```bash
+   npm run db:setup
+   ```
+5. The static site is built to `dist`; `/api/*` is served by serverless functions in `api/`.
+
+Gallery images are stored as base64 in Postgres. Vercel Hobby plans limit request bodies to about 4.5MB—compress large photos before upload.
