@@ -1,6 +1,8 @@
 node_modules/
 build/
 dist/
+api/_app.cjs
+api/_app.cjs.map
 coverage/
 .DS_Store
 *.log
