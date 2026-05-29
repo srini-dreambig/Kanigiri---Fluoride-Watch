@@ -3,6 +3,9 @@ import { useLanguage } from "../context/LanguageContext";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { CheckCircle, ExternalLink, ArrowRight } from "lucide-react";
+import { mandalSlugsInOrder } from "../data/mandals";
+import { hopePoem } from "../data/hopePoem";
+import { getUiLabels } from "../data/uiLabels";
 
 /* ─── Reusable animated section wrapper ────────────────────────────────── */
 const FadeIn = ({
@@ -55,7 +58,7 @@ const Testimony = ({
       <p className="text-xl md:text-2xl font-light leading-relaxed opacity-80">
         &ldquo;{quote}&rdquo;
       </p>
-      <p className="text-xs font-black uppercase tracking-[0.3em] opacity-40">
+      <p className="text-xs font-semibold tracking-wide opacity-60">
         — {person}
       </p>
     </div>
@@ -79,11 +82,11 @@ const ChapterMarker = ({
   <div className={`w-full py-24 px-6 md:px-20 ${bgAccent} border-b border-white/5`}>
     <FadeIn>
       <div className="max-w-5xl mx-auto space-y-6">
-        <span className={`doc-chapter text-xs font-bold ${color} opacity-70`}>
+        <span className={`doc-chapter text-xs font-semibold ${color} opacity-70`}>
           {chapter}
         </span>
         <h2
-          className={`text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none ${color}`}
+          className={`text-5xl md:text-8xl font-semibold tracking-tight leading-none ${color}`}
         >
           {title}
         </h2>
@@ -99,6 +102,7 @@ const ChapterMarker = ({
 const MandalCard = ({
   mandal,
   index,
+  profileCta,
 }: {
   mandal: {
     name: string;
@@ -111,7 +115,9 @@ const MandalCard = ({
     stat_label: string;
   };
   index: number;
+  profileCta: string;
 }) => {
+  const slug = mandalSlugsInOrder[index];
   const colors = [
     { accent: "text-brand-crimson", border: "border-brand-crimson/30", bg: "bg-brand-crimson/5" },
     { accent: "text-sky-400", border: "border-sky-400/30", bg: "bg-sky-400/5" },
@@ -128,27 +134,31 @@ const MandalCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.7, delay: (index % 2) * 0.15 }}
-      className={`rounded-3xl border ${c.border} ${c.bg} p-10 flex flex-col justify-between gap-8`}
+      className="h-full"
     >
+      <Link
+        to={`/mandals/${slug}`}
+        className={`rounded-3xl border ${c.border} ${c.bg} p-10 flex flex-col justify-between gap-8 h-full transition-colors hover:bg-white/[0.06] hover:border-white/25 group`}
+      >
       {/* Header */}
       <div className="space-y-3">
         <div className="flex items-start justify-between gap-4">
           <div>
             <span
-              className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded ${c.bg} ${c.accent}`}
+              className={`text-[10px] font-semibold tracking-wide px-2 py-1 rounded ${c.bg} ${c.accent}`}
             >
               {mandal.crisis}
             </span>
           </div>
           <div className="text-right">
             <div className={`text-3xl font-black ${c.accent}`}>{mandal.stat_value}</div>
-            <div className="text-[9px] uppercase font-bold tracking-widest opacity-40 leading-tight">
+            <div className="text-[9px] font-semibold tracking-wide opacity-50 leading-tight">
               {mandal.stat_label}
             </div>
           </div>
         </div>
-        <h3 className="text-3xl font-black uppercase italic leading-tight">{mandal.name}</h3>
-        <p className={`text-xs font-bold uppercase tracking-wider ${c.accent} opacity-70`}>
+        <h3 className="text-3xl font-semibold tracking-tight leading-tight">{mandal.name}</h3>
+        <p className={`text-xs font-semibold tracking-wide ${c.accent} opacity-80`}>
           {mandal.headline}
         </p>
       </div>
@@ -161,10 +171,14 @@ const MandalCard = ({
         <p className="text-base italic font-light opacity-80">
           &ldquo;{mandal.quote}&rdquo;
         </p>
-        <p className="text-[10px] font-black uppercase tracking-widest opacity-30">
+        <p className="text-[10px] font-semibold tracking-wide opacity-50">
           — {mandal.person}
         </p>
+        <p className="text-[10px] font-semibold tracking-wide text-white/40 group-hover:text-white/70 transition-colors pt-2">
+          {profileCta}
+        </p>
       </div>
+      </Link>
     </motion.div>
   );
 };
@@ -172,9 +186,82 @@ const MandalCard = ({
 /* ════════════════════════════════════════════════════════════════════════
    MAIN DOCUMENTARY COMPONENT
 ═══════════════════════════════════════════════════════════════════════ */
+const isPauseLine = (line: string, lang: string) => {
+  const t = line.trim();
+  if (/^(కానీ…|కానీ\.\.\.|But…|But\.\.\.|लेकिन…|लेकिन\.\.\.)$/.test(t)) return true;
+  if (lang === "te" && t.startsWith("కానీ")) return t.length < 12;
+  if (lang === "en" && t.startsWith("But")) return t.length < 8;
+  if (lang === "hi" && t.startsWith("लेकिन")) return t.length < 12;
+  return false;
+};
+
+const isClosingLine = (index: number, total: number) => index >= total - 4;
+
+/* ─── Hope poetry (end of Harsh Realities) ─────────────────────────────── */
+const HopePoetry = () => {
+  const { language } = useLanguage();
+  const poem = hopePoem[language];
+  const nonEmpty = poem.lines.filter((l) => l !== "");
+  const lastIndex = poem.lines.length - 1;
+
+  return (
+    <section className="hope-poetry-section relative py-28 md:py-36 px-6 md:px-12 border-t border-emerald-500/10">
+      <div className="hope-poetry-glow" aria-hidden />
+      <div className="relative z-10 max-w-2xl mx-auto text-center space-y-14">
+        <FadeIn>
+          <div className="space-y-5">
+            <div className="flex items-center justify-center gap-4">
+              <span className="h-px w-12 md:w-20 bg-gradient-to-r from-transparent to-emerald-400/50" />
+              <span className="text-[10px] font-semibold tracking-[0.45em] text-emerald-400/80 uppercase">
+                {poem.subtitle}
+              </span>
+              <span className="h-px w-12 md:w-20 bg-gradient-to-l from-transparent to-emerald-400/50" />
+            </div>
+            <h2 className="text-5xl md:text-7xl font-semibold tracking-tight bg-gradient-to-b from-emerald-100 via-amber-100/90 to-emerald-200/70 bg-clip-text text-transparent">
+              {poem.title}
+            </h2>
+          </div>
+        </FadeIn>
+
+        <div className="space-y-0" lang={language}>
+          {poem.lines.map((line, i) => {
+            if (line === "") {
+              return <div key={i} className="hope-stanza-break" aria-hidden />;
+            }
+            const pause = isPauseLine(line, language);
+            const closing = isClosingLine(i, poem.lines.length);
+            const isFirst = line === nonEmpty[0];
+            return (
+              <motion.p
+                key={i}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: Math.min(i * 0.02, 0.4) }}
+                className={[
+                  "hope-poetry-line",
+                  pause ? "hope-poetry-line--pause" : "",
+                  isFirst ? "hope-poetry-line--title-word" : "",
+                  closing || i === lastIndex ? "hope-poetry-line--closing" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                {line}
+              </motion.p>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export const Realities = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const d = t.documentary;
+  const ui = getUiLabels(language);
+  const r = t.realities;
 
   return (
     <div className="film-grain min-h-screen bg-zinc-950 text-zinc-100 overflow-x-hidden">
@@ -193,7 +280,7 @@ export const Realities = () => {
             transition={{ duration: 1.5 }}
             className="space-y-2"
           >
-            <p className="text-[10px] font-black uppercase tracking-[0.6em] text-brand-crimson opacity-70">
+            <p className="text-[10px] font-semibold tracking-[0.45em] text-brand-crimson opacity-80">
               {d.badge}
             </p>
             <div className="h-px w-16 bg-white/20 mx-auto" />
@@ -208,7 +295,7 @@ export const Realities = () => {
             <p className="font-mono text-xs text-white/30 tracking-widest">
               {d.opening_year}
             </p>
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">
+            <p className="text-xs font-semibold tracking-[0.18em] text-white/60">
               {d.opening_location}
             </p>
           </motion.div>
@@ -217,7 +304,7 @@ export const Realities = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.8 }}
-            className="text-4xl md:text-7xl font-black uppercase italic tracking-tighter leading-tight"
+            className="text-4xl md:text-7xl font-semibold tracking-tight leading-tight"
           >
             {d.opening_tagline}
           </motion.h1>
@@ -235,13 +322,13 @@ export const Realities = () => {
             {/* Three crisis pills */}
             <div className="flex flex-wrap items-center justify-center gap-3">
               {[
-                { label: "Drought", color: "text-sky-400 border-sky-400/30 bg-sky-400/10" },
-                { label: "Fluoride", color: "text-brand-crimson border-brand-crimson/30 bg-brand-crimson/10" },
-                { label: "Migration", color: "text-amber-400 border-amber-400/30 bg-amber-400/10" },
+                { label: t.hero.crisis.drought.label, color: "text-sky-400 border-sky-400/30 bg-sky-400/10" },
+                { label: t.hero.crisis.fluoride.label, color: "text-brand-crimson border-brand-crimson/30 bg-brand-crimson/10" },
+                { label: t.hero.crisis.migration.label, color: "text-amber-400 border-amber-400/30 bg-amber-400/10" },
               ].map((p) => (
                 <span
                   key={p.label}
-                  className={`px-4 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-widest ${p.color}`}
+                  className={`px-4 py-1.5 rounded-full border text-[10px] font-semibold tracking-wide ${p.color}`}
                 >
                   {p.label}
                 </span>
@@ -253,7 +340,7 @@ export const Realities = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 2 }}
-            className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-20"
+            className="text-[10px] font-semibold tracking-[0.3em] opacity-30"
           >
             ↓ {d.scroll_prompt} ↓
           </motion.p>
@@ -283,14 +370,7 @@ export const Realities = () => {
       {/* Stats bar — Act I */}
       <div className="bg-sky-950/20 border-y border-sky-500/10 py-12 px-6 overflow-x-auto">
         <div className="flex gap-12 justify-center min-w-max mx-auto px-6">
-          {[
-            { v: "5+", l: "Drought Years" },
-            { v: "280+", l: "Scarcity Habitations" },
-            { v: "422", l: "Daily Tankers" },
-            { v: "24+", l: "Deserted Villages" },
-            { v: "₹50 Cr", l: "Unpaid Dues" },
-            { v: "₹10", l: "Per 5-Litre Bottle" },
-          ].map((s, i) => (
+          {r.drought.stats.map((s, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -299,8 +379,8 @@ export const Realities = () => {
               transition={{ delay: i * 0.07 }}
               className="text-center space-y-1 shrink-0"
             >
-              <div className="text-3xl font-black text-sky-400">{s.v}</div>
-              <div className="text-[9px] uppercase font-bold tracking-widest opacity-40">{s.l}</div>
+              <div className="text-3xl font-black text-sky-400">{s.value}</div>
+              <div className="text-[9px] font-semibold tracking-wide opacity-50">{s.label}</div>
             </motion.div>
           ))}
         </div>
@@ -332,14 +412,7 @@ export const Realities = () => {
       {/* Stats bar — Act II */}
       <div className="bg-red-950/20 border-y border-brand-crimson/10 py-12 px-6 overflow-x-auto">
         <div className="flex gap-12 justify-center min-w-max mx-auto px-6">
-          {[
-            { v: "700+", l: "Villages Contaminated" },
-            { v: "27", l: "Get Safe Water" },
-            { v: "15 mg/L", l: "Peak Fluoride" },
-            { v: "1.5 mg/L", l: "WHO Safe Limit" },
-            { v: "1937", l: "First Case Recorded" },
-            { v: "4/day", l: "New Dialysis Patients" },
-          ].map((s, i) => (
+          {r.fluoride.stats.map((s, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -348,8 +421,8 @@ export const Realities = () => {
               transition={{ delay: i * 0.07 }}
               className="text-center space-y-1 shrink-0"
             >
-              <div className="text-3xl font-black text-brand-crimson">{s.v}</div>
-              <div className="text-[9px] uppercase font-bold tracking-widest opacity-40">{s.l}</div>
+              <div className="text-3xl font-black text-brand-crimson">{s.value}</div>
+              <div className="text-[9px] font-semibold tracking-wide opacity-50">{s.label}</div>
             </motion.div>
           ))}
         </div>
@@ -381,14 +454,7 @@ export const Realities = () => {
       {/* Stats bar — Act III */}
       <div className="bg-amber-950/20 border-y border-amber-500/10 py-12 px-6 overflow-x-auto">
         <div className="flex gap-12 justify-center min-w-max mx-auto px-6">
-          {[
-            { v: "24+", l: "Villages Deserted" },
-            { v: "4", l: "Constituencies Affected" },
-            { v: "₹1,200", l: "Monthly Water Cost" },
-            { v: "~50%", l: "Income on Water+Medical" },
-            { v: "3", l: "Cities of Exile" },
-            { v: "∞", l: "Broken Promises" },
-          ].map((s, i) => (
+          {r.migration.stats.map((s, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -397,8 +463,8 @@ export const Realities = () => {
               transition={{ delay: i * 0.07 }}
               className="text-center space-y-1 shrink-0"
             >
-              <div className="text-3xl font-black text-amber-400">{s.v}</div>
-              <div className="text-[9px] uppercase font-bold tracking-widest opacity-40">{s.l}</div>
+              <div className="text-3xl font-black text-amber-400">{s.value}</div>
+              <div className="text-[9px] font-semibold tracking-wide opacity-50">{s.label}</div>
             </motion.div>
           ))}
         </div>
@@ -414,18 +480,18 @@ export const Realities = () => {
       <section className="py-24 px-6">
         <FadeIn className="text-center mb-16 space-y-4">
           <div className="h-px w-24 bg-white/10 mx-auto" />
-          <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">
+          <h2 className="text-4xl md:text-6xl font-semibold tracking-tight">
             {d.mandals_title}
           </h2>
-          <p className="text-xs font-bold uppercase tracking-[0.4em] opacity-30">
-            A story for each wound
+          <p className="text-xs font-semibold tracking-[0.25em] opacity-40">
+            {ui.documentary.mandals_subtitle}
           </p>
           <div className="h-px w-24 bg-white/10 mx-auto" />
         </FadeIn>
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {d.mandals.map((mandal, i) => (
-            <MandalCard key={mandal.name} mandal={mandal} index={i} />
+            <MandalCard key={mandal.name} mandal={mandal} index={i} profileCta={ui.documentary.mandal_profile_cta} />
           ))}
         </div>
       </section>
@@ -434,8 +500,8 @@ export const Realities = () => {
       <div className="border-y border-white/5 bg-white/[0.02] py-8 px-6">
         <div className="max-w-5xl mx-auto flex flex-wrap items-center gap-4 justify-center">
           <CheckCircle size={14} className="text-green-400 shrink-0" />
-          <span className="text-[10px] font-bold uppercase tracking-widest text-green-400">
-            Fact Checked
+          <span className="text-[10px] font-semibold tracking-wide text-green-400">
+            {r.factcheck_label}
           </span>
           <span className="text-[10px] opacity-30 font-mono">—</span>
           {[
@@ -450,7 +516,7 @@ export const Realities = () => {
               href={s.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-sky-400 transition-all"
+              className="flex items-center gap-1 text-[10px] font-semibold tracking-wide opacity-60 hover:opacity-100 hover:text-sky-400 transition-all"
             >
               {s.label} <ExternalLink size={9} />
             </a>
@@ -458,11 +524,14 @@ export const Realities = () => {
         </div>
       </div>
 
+      {/* ── HOPE — poetry ─────────────────────────────────────────────── */}
+      <HopePoetry />
+
       {/* ── CLOSING ────────────────────────────────────────────────────── */}
       <section className="bg-white text-black py-24 px-6 md:px-20">
         <div className="max-w-5xl mx-auto space-y-16">
           <FadeIn>
-            <h2 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-black">
+            <h2 className="text-5xl md:text-8xl font-semibold tracking-tight leading-none text-black">
               {d.closing_title}
             </h2>
           </FadeIn>
@@ -476,7 +545,7 @@ export const Realities = () => {
           {/* Demands */}
           <FadeIn delay={0.15}>
             <div className="space-y-6">
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] opacity-40">
+              <h3 className="text-xs font-semibold tracking-[0.25em] opacity-50">
                 {d.demands_title}
               </h3>
               <ol className="space-y-3">
@@ -502,15 +571,15 @@ export const Realities = () => {
           {/* CTA */}
           <FadeIn delay={0.25}>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="group flex items-center gap-3 px-8 py-5 bg-black text-white font-black uppercase text-xs tracking-widest rounded-sm hover:gap-6 transition-all">
+              <button className="group flex items-center gap-3 px-8 py-5 bg-black text-white font-semibold text-xs tracking-wide rounded-sm hover:gap-6 transition-all">
                 {d.witness_btn}
                 <ArrowRight size={16} />
               </button>
               <Link
                 to="/memorandum"
-                className="flex items-center gap-3 px-8 py-5 border-2 border-black text-black font-black uppercase text-xs tracking-widest rounded-sm hover:bg-black hover:text-white transition-all"
+                className="flex items-center gap-3 px-8 py-5 border-2 border-black text-black font-semibold text-xs tracking-wide rounded-sm hover:bg-black hover:text-white transition-all"
               >
-                Read the Memorandum
+                {ui.documentary.memo_cta}
               </Link>
             </div>
           </FadeIn>

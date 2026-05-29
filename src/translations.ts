@@ -3,6 +3,7 @@ export type Language = "en" | "te" | "hi";
 export interface Translation {
   nav: {
     dashboard: string;
+    watch: string;
     video: string;
     solutions: string;
     memo: string;
@@ -18,6 +19,26 @@ export interface Translation {
     video_btn: string;
     video_placeholder: string;
     video_description: string;
+    crisis: {
+      drought: {
+        label: string;
+        heroHeadline: string;
+        heroSubheadline: string;
+        quote: string;
+      };
+      fluoride: {
+        label: string;
+        heroHeadline: string;
+        heroSubheadline: string;
+        quote: string;
+      };
+      migration: {
+        label: string;
+        heroHeadline: string;
+        heroSubheadline: string;
+        quote: string;
+      };
+    };
   };
   dashboard: {
     title: string;
@@ -56,35 +77,6 @@ export interface Translation {
   };
   solutions: {
     title: string;
-    description: string;
-    immediate_btn: string;
-    permanent_btn: string;
-    immediate: {
-      tanker_title: string;
-      tanker_desc: string;
-      filter_title: string;
-      filter_desc: string;
-      dialysis_title: string;
-      dialysis_desc: string;
-    };
-    permanent: {
-      project_title: string;
-      target: string;
-      project_desc: string;
-      completion: string;
-      funding_gap: string;
-    };
-    why_2026: {
-      title: string;
-      desc: string;
-      tunnel: string;
-      headworks: string;
-      canals: string;
-      status_critical: string;
-      status_progress: string;
-      status_pending: string;
-      support_btn: string;
-    };
   };
   memo: {
     label: string;
@@ -110,28 +102,77 @@ export interface Translation {
       details: string;
     }[];
   };
+  /** Legacy EN-only copy; mandal UI uses `src/data/mandals.ts` for TE/HI. */
+  mandal_pages?: {
+    pc_palli: {
+      summary: string;
+      keySignals: string[];
+      sources: {
+        label: string;
+        url: string;
+        publisher?: string;
+        year?: string;
+        note?: string;
+      }[];
+    };
+    kanigiri: {
+      summary: string;
+      keySignals: string[];
+      sources: {
+        label: string;
+        url: string;
+        publisher?: string;
+        year?: string;
+        note?: string;
+      }[];
+    };
+    pamur: {
+      summary: string;
+      keySignals: string[];
+      sources: {
+        label: string;
+        url: string;
+        publisher?: string;
+        year?: string;
+        note?: string;
+      }[];
+    };
+    cs_puram: {
+      summary: string;
+      keySignals: string[];
+      sources: {
+        label: string;
+        url: string;
+        publisher?: string;
+        year?: string;
+        note?: string;
+      }[];
+    };
+    hm_padu: {
+      summary: string;
+      keySignals: string[];
+      sources: {
+        label: string;
+        url: string;
+        publisher?: string;
+        year?: string;
+        note?: string;
+      }[];
+    };
+    veligandla: {
+      summary: string;
+      keySignals: string[];
+      sources: {
+        label: string;
+        url: string;
+        publisher?: string;
+        year?: string;
+        note?: string;
+      }[];
+    };
+  };
   research: {
     title: string;
-    geology_title: string;
-    geology_desc: string;
-    health_title: string;
-    health_desc: string;
-    citations: {
-      title: string;
-      source: string;
-      year: string;
-      highlights: string[];
-      url: string;
-    }[];
-    blogs: {
-      title: string;
-      author: string;
-      publisher: string;
-      date: string;
-      excerpt: string;
-      content: string;
-      category: string;
-    }[];
   };
   gallery: {
     title: string;
@@ -164,6 +205,8 @@ export interface Translation {
     quote: string;
   };
   realities: {
+    title: string;
+    subtitle: string;
     drought: {
       title: string;
       badge: string;
@@ -243,6 +286,7 @@ export const translations: Record<Language, Translation> = {
   en: {
     nav: {
       dashboard: "Data Dashboard",
+      watch: "Watch",
       video: "Video Script",
       solutions: "Solutions",
       memo: "Memorandum",
@@ -251,13 +295,39 @@ export const translations: Record<Language, Translation> = {
       realities: "Harsh Realities",
     },
     hero: {
-      emergency: "Environmental Emergency",
+      emergency: "",
       headline: "Our Children’s Smiles Are Fading. Our Elders’ Bones Are Breaking. Please Enough Is Enough.",
       subheadline: "In the heart of Prakasam district, the water that once sustained generations now carries a hidden toxin: excess fluoride. This is a human tragedy unfolding in real time.",
       dashboard_btn: "View Data Dashboard",
       video_btn: "The Cry Video",
       video_placeholder: "5-Minute Presentation Video",
       video_description: "A visual narrative of the Fluoride crisis in Kanigiri.",
+      crisis: {
+        drought: {
+          label: "Drought",
+          heroHeadline: "Drought is breaking daily life.",
+          heroSubheadline:
+            "Tankers replace wells. Crops fail. Families spend their days chasing water instead of building a future.",
+          quote:
+            "When the wells run dry, a day becomes a search. A future becomes a question.",
+        },
+        fluoride: {
+          label: "Fluoride",
+          heroHeadline: "Fluoride is the invisible threat.",
+          heroSubheadline:
+            "Groundwater looks clear, but carries a hidden toxin. Excess fluoride damages bones, teeth, and kidneys over time.",
+          quote:
+            "The water looks clear. The damage is not. Fluoride turns survival into slow harm.",
+        },
+        migration: {
+          label: "Migration",
+          heroHeadline: "Migration becomes survival.",
+          heroSubheadline:
+            "When water and health collapse, livelihoods follow. Entire hamlets empty into distant cities — leaving silence behind.",
+          quote:
+            "First the water leaves. Then the work. Then the people. What remains is silence.",
+        },
+      },
     },
     dashboard: {
       title: "Statistical Dashboard",
@@ -296,41 +366,12 @@ export const translations: Record<Language, Translation> = {
     },
     solutions: {
       title: "The Solutions Tracker",
-      description: "We are mitigating immediate pain through local leadership while striving for a permanent solution.",
-      immediate_btn: "Immediate Relief",
-      permanent_btn: "Permanent Solution",
-      immediate: {
-        tanker_title: "Safe Tanker Supply",
-        tanker_desc: "MLA-led initiative supplying 50,000 liters daily to high-fluoride hamlets.",
-        filter_title: "Local Filter Plants",
-        filter_desc: "Installation of community-level RO plants in 12 critical villages.",
-        dialysis_title: "Secondary Dialysis Hub",
-        dialysis_desc: "Emergency setup of a 10-bed dialysis unit in Kanigiri Town.",
-      },
-      permanent: {
-        project_title: "Surface Water Project",
-        target: "Target: 2026",
-        project_desc: "A major ₹1,290 crore project for piped surface water supply is currently in progress, focusing first on Kanigiri and nearby areas like Kammavaripalli.",
-        completion: "Project Completion",
-        funding_gap: "Funding Gap: Est. ₹450 Crores needed for Veligonda connectivity.",
-      },
-      why_2026: {
-        title: "Why 2026?",
-        desc: "Every day we wait, 4 more citizens enter the dialysis cycle.",
-        tunnel: "Tunnel Lining",
-        headworks: "Head Works",
-        canals: "Canal Networking",
-        status_critical: "Critical",
-        status_progress: "In Progress",
-        status_pending: "Pending Funds",
-        support_btn: "Support the Mission",
-      },
     },
     memo: {
       label: "Official Memorandum",
       title: "Formal Appeal to State & Central Governments",
       sub: "Representing the People of Kanigiri Constituency",
-      intro: "Respected Ministers, we formally submit this appeal regarding the grave ecological and healthcare crisis in Kanigiri. 79 years of waiting has led to generational health failure. We urge both the Government of Andhra Pradesh and the Union Government of India to collaborate for an immediate resolution.",
+      intro: "Respected Ministers, we formally submit this appeal regarding the grave ecological and healthcare crisis in Kanigiri. We acknowledge the sustained constituency-level work of MLA Ugra Narasimhareddy — tanker relief, RO plants, and repeated appeals for Veligonda — while noting that decades of delay still leave generations in harm. We urge the Government of Andhra Pradesh and the Union Government of India to match that on-the-ground effort with funding and a firm completion timeline.",
       req1_title: "Special Fluoride Zone Designation",
       req1_desc: "Formal recognition of P.C. Palli and Kanigiri as high-impact zones to unlock special disaster relief funds.",
       req2_title: "Jal Jeevan Mission Allocation",
@@ -351,89 +392,179 @@ export const translations: Record<Language, Translation> = {
         { name: "Veligandla", pop: "38,000", fluoride: "4.5 - 7.5 mg/L", status: "Severe", details: "A primarily agricultural mandal where farmers and laborers are double-affected by physical labor and poisoned water sources." }
       ]
     },
+    mandal_pages: {
+      pc_palli: {
+        summary:
+          "P.C. Palli is frequently cited among Prakasam’s high-risk mandals where fluoride contamination in groundwater can exceed safe limits by multiple times, with associated fluorosis and kidney disease burden.",
+        keySignals: [
+          "Public health reporting identifies P.C. Palli among mandals with fluoride contamination above safe limits.",
+          "Fluorosis and fluoride-linked chronic kidney disease are documented concerns in the wider western Prakasam belt.",
+        ],
+        sources: [
+          {
+            label: "Fluoride problem accentuates renal diseases in Prakasam",
+            url: "https://www.thehindu.com/news/national/andhra-pradesh/Fluoride-problem-accentuates-renal-diseases-in-Prakasam/article17001338.ece",
+            publisher: "The Hindu",
+            year: "2017",
+            note:
+              "Identifies Kanigiri, P.C. Palli, and Pamur among mandals where fluoride contamination is above 5 ppm; discusses fluoride-linked CKD.",
+          },
+          {
+            label: "Prakasam still battles fluoride crisis",
+            url: "https://www.deccanchronicle.com/southern-states/andhra-pradesh/prakasam-still-battles-fluoride-crisis-1865150",
+            publisher: "Deccan Chronicle",
+            year: "2025",
+            note:
+              "District-wide context: affected villages, typical fluoride range, and reference to the 2024 Jal Shakti groundwater quality report.",
+          },
+        ],
+      },
+      kanigiri: {
+        summary:
+          "Kanigiri is repeatedly reported as a fluoride-affected hotspot with fluorosis and kidney disease concerns; drought scarcity and tanker dependence amplify exposure and deepen distress.",
+        keySignals: [
+          "Reports describe emergency responses including RO water, tanker supply, and warnings to avoid borewell water in schools.",
+          "Multiple outlets cite severe fluoride exposure and health impacts across the constituency belt.",
+          "Water scarcity and tanker dependence remain recurring issues across western Prakasam.",
+        ],
+        sources: [
+          {
+            label: "Collector orders emergency measures as fluorosis, jaundice hit Kanigiri villages",
+            url: "https://www.deccanchronicle.com/southern-states/andhra-pradesh/collector-orders-emergency-measures-as-fluorosis-jaundice-hit-kanigiri-villages-1916862",
+            publisher: "Deccan Chronicle",
+            year: "2025",
+            note:
+              "Field visit notes: RO water, tanker supply directions, warnings at schools, sanitation emphasis.",
+          },
+          {
+            label: "High fluoride content in water takes a toll",
+            url: "https://www.thehindu.com/news/national/andhra-pradesh/high-fluoride-content-in-water-takes-a-toll/article7165842.ece",
+            publisher: "The Hindu",
+            year: "2015",
+            note:
+              "Reports fluorosis burden in the Kanigiri constituency and cites high fluoride levels; includes migration and household impact narratives.",
+          },
+          {
+            label: "Veligonda project remedy for fluorosis: Dinakar",
+            url: "https://www.thehansindia.com/andhra-pradesh/veligonda-project-remedy-for-fluorosis-dinakar-966886",
+            publisher: "The Hans India",
+            year: "2026",
+            note:
+              "Discusses widespread contamination, limited safe-water coverage, and the need for Veligonda/JJM pipelines.",
+          },
+          {
+            label: "In Andhra's drought-prone Prakasam, a water black market thrives",
+            url: "https://www.thenewsminute.com/andhra-pradesh/andhras-drought-prone-prakasam-water-black-market-thrives-100203",
+            publisher: "The News Minute",
+            year: "2019",
+            note:
+              "Explains tanker dependence and scarcity dynamics; also notes how fluoride contamination intersects with affordability.",
+          },
+        ],
+      },
+      pamur: {
+        summary:
+          "Pamur sits within the Kanigiri constituency belt where dental and skeletal fluorosis are commonly reported and fluoride contamination above safe limits is a recurring public-health concern.",
+        keySignals: [
+          "Reporting describes childhood dental and skeletal fluorosis impacts in villages within Pamur mandal.",
+          "Pamur is cited among mandals where fluoride contamination is reported above 5 ppm.",
+        ],
+        sources: [
+          {
+            label: "Fluoride problem accentuates renal diseases in Prakasam",
+            url: "https://www.thehindu.com/news/national/andhra-pradesh/Fluoride-problem-accentuates-renal-diseases-in-Prakasam/article17001338.ece",
+            publisher: "The Hindu",
+            year: "2017",
+            note:
+              "Cites Pamur among mandals with fluoride contamination above 5 ppm and discusses fluorosis/CKD linkage.",
+          },
+          {
+            label: "High fluoride content in water takes a toll",
+            url: "https://www.thehindu.com/news/national/andhra-pradesh/high-fluoride-content-in-water-takes-a-toll/article7165842.ece",
+            publisher: "The Hindu",
+            year: "2015",
+            note:
+              "Includes Pamur mandal village narratives and notes fluorosis burden in the constituency.",
+          },
+        ],
+      },
+      cs_puram: {
+        summary:
+          "C.S. Puram is included in multi-mandal groundwater fluoride sampling studies for Prakasam; drought scarcity amplifies dependence on deep borewells.",
+        keySignals: [
+          "Research sampling across Prakasam includes C.S. Puram among studied mandals.",
+          "District-wide reporting indicates broad contamination across western mandals.",
+        ],
+        sources: [
+          {
+            label: "Fluoride distribution study (Prakasam; multiple mandals sampled)",
+            url: "https://www.msjonline.org/index.php/ijrms/article/download/5905/4441/22803",
+            publisher: "International Journal of Research in Medical Sciences",
+            year: "2019",
+            note:
+              "Lists C.S. Puram among sampled mandals; provides fluoride distribution context across sampled villages.",
+          },
+          {
+            label: "Prakasam still battles fluoride crisis",
+            url: "https://www.deccanchronicle.com/southern-states/andhra-pradesh/prakasam-still-battles-fluoride-crisis-1865150",
+            publisher: "Deccan Chronicle",
+            year: "2025",
+          },
+        ],
+      },
+      hm_padu: {
+        summary:
+          "H.M. Padu is included in multi-mandal groundwater fluoride sampling studies for Prakasam; regional reporting links fluoride exposure with fluorosis and chronic kidney disease burdens in the belt.",
+        keySignals: [
+          "Scientific sampling across Prakasam includes H.M. Padu among mandals studied for fluoride.",
+          "Regional health reporting connects fluoride toxicity to rising CKD burden across western mandals.",
+        ],
+        sources: [
+          {
+            label: "Fluoride distribution study (Prakasam; multiple mandals sampled)",
+            url: "https://www.msjonline.org/index.php/ijrms/article/download/5905/4441/22803",
+            publisher: "International Journal of Research in Medical Sciences",
+            year: "2019",
+          },
+          {
+            label: "Fluoride problem accentuates renal diseases in Prakasam",
+            url: "https://www.thehindu.com/news/national/andhra-pradesh/Fluoride-problem-accentuates-renal-diseases-in-Prakasam/article17001338.ece",
+            publisher: "The Hindu",
+            year: "2017",
+          },
+        ],
+      },
+      veligandla: {
+        summary:
+          "Veligandla lies in the wider western Prakasam region facing drought-driven groundwater dependence and fluoride contamination risks; long-term relief is tied to surface-water supply and project completion timelines.",
+        keySignals: [
+          "Policy actions like borewell restrictions reflect over-exploitation risks in western Prakasam.",
+          "District-wide reporting highlights broad fluoride contamination and scarcity across the belt.",
+        ],
+        sources: [
+          {
+            label: "Andhra govt bans new borewells, groundwater extraction in 258 villages of Prakasam",
+            url: "https://www.newindianexpress.com/states/andhra-pradesh/2026/May/12/andhra-govt-bans-new-borewells-groundwater-extraction-in-258-villages-of-prakasam",
+            publisher: "The New Indian Express",
+            year: "2026",
+          },
+          {
+            label: "Prakasam still battles fluoride crisis",
+            url: "https://www.deccanchronicle.com/southern-states/andhra-pradesh/prakasam-still-battles-fluoride-crisis-1865150",
+            publisher: "Deccan Chronicle",
+            year: "2025",
+          },
+          {
+            label: "Veligonda project requires Rs 2,000 crore to meet Aug 2026 deadline",
+            url: "https://timesofindia.indiatimes.com/city/vijayawada/veligonda-project-requires-rs-2000-crore-to-meet-aug-2026-deadline/articleshow/128124601.cms",
+            publisher: "Times of India",
+            year: "2026",
+          },
+        ],
+      },
+    },
     research: {
       title: "Scientific Research & Proofs",
-      geology_title: "The Kanigiri Pluton Exception",
-      geology_desc: "The root cause is a unique geological formation known as the 'Kanigiri Pluton'—a granitic intrusive rich in fluorine-bearing minerals like fluorite and apatite which leach directly into the groundwater.",
-      health_title: "Toxic Legacy",
-      health_desc: "Prolonged exposure (over 1.5 mg/L) leads to irrevocable biological changes, transforming Kanigiri into a 'hotspot' for endemic fluorosis recognized globaly by health agencies.",
-      citations: [
-        {
-          title: "Prakasam Battles Fluoride Crisis",
-          source: "Deccan Chronicle",
-          year: "2025",
-          highlights: ["Villages in Kanigiri and PC Palli are among the worst hit.", "Groundwater levels found toxic across 6 critical mandals."],
-          url: "https://www.deccanchronicle.com"
-        },
-        {
-          title: "Mineralization in Granitic Incursive",
-          source: "ResearchGate / IJSEA",
-          year: "2015",
-          highlights: ["Identifies the Kanigiri-Podili tract as having abnormal fluoride content.", "Links specific mineralogy of the local pluton to water toxicity."],
-          url: "https://www.researchgate.net"
-        },
-        {
-          title: "Endemic Skeletal Fluorosis Cases",
-          source: "National Institutes of Health (NIH)",
-          year: "2013",
-          highlights: ["First recorded endemic cases in Podili and Kanigiri.", "Significant prevalence of dental fluorosis among 15-year-old children."],
-          url: "https://pmc.ncbi.nlm.nih.gov"
-        },
-        {
-          title: "Fluoride Toxicity & Renal Disease",
-          source: "The Hindu",
-          year: "2018",
-          highlights: ["Direct correlation between fluoride intake and CKD (Chronic Kidney Disease).", "Prakasam district reported as a hub for non-diabetic renal failure."],
-          url: "https://www.thehindu.com"
-        }
-      ],
-      blogs: [
-        {
-          title: "Collector Orders Emergency Measures as Toxicity Spikes",
-          author: "DC Bureau",
-          publisher: "Deccan Chronicle",
-          date: "November 2025",
-          category: "Emergency Update",
-          excerpt: "Urgent orders issued for tanker water supply to Kammavaripalli and Dirishavancha as fluoride levels exceed 15mg/L.",
-          content: "In a swift response to the deteriorating water quality in Kanigiri constituency, the District Collector has ordered the immediate deployment of water tankers to several hamlets. Recent tests conducted in P.C. Palli mandal showed fluoride concentrations nearly ten times the safe limit. The administration is prioritizing school children and pregnant women for RO water distribution."
-        },
-        {
-          title: "Prakasam Still Battles Fluoride Crisis: A Decade of Neglect?",
-          author: "Staff Reporter",
-          publisher: "Deccan Chronicle",
-          date: "March 2025",
-          category: "Special Report",
-          excerpt: "Despite numerous schemes, over 100 villages in Kanigiri and Podili continue to consume poisoned groundwater.",
-          content: "A detailed investigation into the water infrastructure of western Prakasam reveals significant bottlenecks in the Veligonda project. While pipelines have reached main roads, the internal distribution network for remote villages remains on paper. Residents continue to report joint pains and dental discoloration, signs of early-stage fluorosis."
-        },
-        {
-          title: "Water Toxicity Takes a Heavy Toll on Young Generations",
-          author: "P. Samuel",
-          publisher: "The Hindu",
-          date: "2015 (Updated 2025)",
-          category: "Health Focus",
-          excerpt: "Children in Kanigiri villages are developing skeletal deformities before they reach adolescence.",
-          content: "The fluoride problem in Kanigiri is not just a health issue; it is a socio-economic barrier. Families spend half their income on medical expenses and buying private RO water. The 'Smile of Kanigiri'—a term used for the brown-stained teeth of local children—remains a haunting symbol of the lack of clean surface water."
-        },
-        {
-          title: "Fluoride Problem Accentuates Renal Diseases in Dry Belts",
-          author: "Health Correspondent",
-          publisher: "The Hindu",
-          date: "2017",
-          category: "Medical Research",
-          excerpt: "Nephrologists point to fluoride as a major co-factor in the high prevalence of Chronic Kidney Disease in the region.",
-          content: "Medical camps held across Podili and Kanigiri have identified a disturbing trend of kidney failures in young adults. Unlike traditional CKD, these cases often show no history of diabetes or hypertension, pointing directly to environmental toxins like fluoride and high mineralization in groundwater."
-        },
-        {
-          title: "Markapur Region: Geological Assessment of Contamination",
-          author: "Dr. K. S. Rao et al.",
-          publisher: "Applied Water Science",
-          date: "2019",
-          category: "Scientific Study",
-          excerpt: "A comprehensive study on the leaching of minerals from the Kanigiri Pluton into the local aquifer.",
-          content: "The research highlights that the alkaline conditions of the soil accelerate the leaching of fluoride from granitic rocks. The study recommends managed aquifer recharge and a complete shift to surface water sources to prevent further degradation of public health."
-        }
-      ]
     },
     gallery: {
       title: "Impact Gallery",
@@ -466,9 +597,9 @@ export const translations: Record<Language, Translation> = {
       ],
       hope_title: "Rays of Hope & Urgent Needs",
       relief_measures: [
-        "₹1,290 crore project for piped surface water is in progress.",
-        "Emergency tanker water and RO plants in affected hamlets.",
-        "Urgent need for local dialysis centers in Kanigiri or Podili."
+        "MLA Ugra Narasimhareddy has driven emergency tankers and RO access in the worst-hit hamlets.",
+        "₹1,290 crore piped surface-water project is in progress — he continues to press for Veligonda completion.",
+        "Urgent need for a fully funded regional dialysis center in Kanigiri or Podili."
       ],
       cta_title: "Join the Fight for Clean Water",
       cta_list: [
@@ -633,22 +764,21 @@ export const translations: Record<Language, Translation> = {
       act3_testimony_person: "Ravi Kumar, 34 · Construction Worker · Jayarampuram (Now in Chennai)",
       mandals_title: "Six Mandals. Six Wounds.",
       mandals: [
-        { name: "P.C. Palli", crisis: "Ground Zero", headline: "Where the water is ten times deadlier than the law allows", story: "P.C. Palli is not a village in crisis — it is the crisis itself. Fluoride here reaches 15 mg/L, ten times what the WHO permits. The first thing a visitor notices is the teeth — brown-stained, chipped, crumbling before their time. The second is the walk — the slight bend in the spine of a person whose joints were calcified decades too soon. In 2025, the District Collector ordered emergency water tankers after tests confirmed these levels. But tankers come three times a week. The fluoride is there every hour of every day.", quote: "I am 40 years old. I walk like I am 70. That is what the fluoride did to me.", person: "Narasaiah, Farmer · P.C. Palli", stat_value: "15 mg/L", stat_label: "Fluoride — 10× WHO Limit" },
-        { name: "Kanigiri", crisis: "The Waiting Town", headline: "110,000 people who have been promised water for three decades", story: "Kanigiri is the administrative heart of the constituency — 110,000 residents, government offices, markets. Yet even here, water arrives on alternate days or not at all. Colony areas on the outskirts rely on borewells drawing water at 2.5–4.5 mg/L of fluoride. The Veligonda project pipes have been promised for years. A 2025 review confirmed the project may slip to 2027, needing an additional ₹4,000 crore. In the meantime, the town waits. It has always waited.", quote: "Every election, every MLA promises that next year the Veligonda water will come. It has been 'next year' for thirty years.", person: "Padma, 52, Schoolteacher · Kanigiri Town", stat_value: "30+ Yrs", stat_label: "Of Broken Water Promises" },
+        { name: "P.C. Palli", crisis: "Ground Zero", headline: "Where the water is ten times deadlier than the law allows", story: "P.C. Palli is not a village in crisis — it is the crisis itself. Fluoride here reaches 15 mg/L, ten times what the WHO permits. The first thing a visitor notices is the teeth — brown-stained, chipped, crumbling before their time. The second is the walk — the slight bend in the spine of a person whose joints were calcified decades too soon. In 2025, after MLA Ugra Narasimhareddy pressed the administration, the District Collector ordered emergency tankers. He continues to fight for more supply and filtration here. Still, tankers often come only three times a week while fluoride is present every hour.", quote: "I am 40 years old. I walk like I am 70. That is what the fluoride did to me.", person: "Narasaiah, Farmer · P.C. Palli", stat_value: "15 mg/L", stat_label: "Fluoride — 10× WHO Limit" },
+        { name: "Kanigiri", crisis: "The Waiting Town", headline: "110,000 people still waiting for Veligonda — but not without a fighter", story: "Kanigiri is the administrative heart of the constituency — 110,000 residents, government offices, markets. Colony areas still rely on borewells at 2.5–4.5 mg/L of fluoride. Veligonda has been delayed again — a 2025 review warned of slippage to 2027 and a ₹4,000 crore gap. What has changed is leadership on the ground: MLA Ugra Narasimhareddy has pushed tankers, filtration, and repeated appeals in Hyderabad and Delhi for project funds and deadlines.", quote: "For thirty years, many leaders only promised. Ugra Narasimhareddy is different — he is here, fighting for tankers and for Veligonda. The pipes are still late, but we are not forgotten.", person: "Padma, 52, Schoolteacher · Kanigiri Town", stat_value: "On the ground", stat_label: "MLA leading the fight" },
         { name: "Pamur", crisis: "Where Children Lost Their Smiles", headline: "Dental fluorosis is universal here — every child, without exception", story: "Walk into any primary school in Pamur and count the children with clean, white teeth. You will count very few. Fluoride at 4–7 mg/L, combined with high salinity, creates a dual assault on enamel and bone. Parents feed their children bottled water when they can afford it. When they can't, the damage is done before the child turns 8. A generation of children in Pamur will carry the mark of fluoride in their teeth and bones for the rest of their lives.", quote: "My daughter asked me why her teeth don't look like the girl on the toothpaste box. I didn't know what to tell her.", person: "Lakshmi, 29, Mother · Pamur Village", stat_value: "4–7 mg/L", stat_label: "Fluoride + Salinity — Double Assault" },
         { name: "C.S. Puram", crisis: "The Forgotten Hills", headline: "Remote, hilly, and completely invisible to government planners", story: "C.S. Puram is a mandal that geography itself has isolated. The terrain is hilly, the roads poor, the pipeline costs three times higher than in plains — so pipelines were never built. Deep borewells were the solution. Those borewells punch straight through fluoride-rich geological layers at 3.5–6 mg/L. But what amplifies this tragedy is invisibility. C.S. Puram rarely appears in government reports. Its suffering is quiet, and it is complete.", quote: "When they came to survey, they took a sample from one well and left. They never came back.", person: "Srinivas, 45, Mandal Pradhan · C.S. Puram", stat_value: "3.5–6 mg/L", stat_label: "Fluoride — Severe & Invisible" },
         { name: "H.M. Padu", crisis: "The Kidney Village", headline: "Highest per-capita CKD rate in all of Prakasam district", story: "H.M. Padu has earned a grim title: the mandal with the highest per-capita incidence of Chronic Kidney Disease in all of Prakasam. Fluoride levels reach 9 mg/L. But what makes H.M. Padu different is age — kidney failure is striking people in their 30s and 40s. No history of diabetes. No history of hypertension. Their only crime was drinking what their borewell produced. The nearest dialysis center is 45 kilometers away. Four new patients begin dialysis every single day.", quote: "Three men from my street are on dialysis. All younger than 45. All drank the same water as me. I am afraid every day.", person: "Chandra Sekhar, 38, Farmer · H.M. Padu", stat_value: "9 mg/L", stat_label: "Fluoride — Highest CKD Rate in District" },
         { name: "Veligandla", crisis: "The Farmer's Lament", headline: "The hands that feed Prakasam are being poisoned by what they drink", story: "Veligandla is the agricultural heartland — its farms feed the district. But the men who tend these fields drink water at 4.5–7.5 mg/L of fluoride while working under a burning sun. Physical labor accelerates fluoride absorption. Farmers and daily laborers — who sweat more, drink more — absorb the toxin faster than anyone. They cannot afford to buy safe water. They drink what the earth gives them, and slowly, silently, they pay for it with their joints, their kidneys, their futures.", quote: "I grow food for others to eat. I cannot grow clean water for my own children to drink.", person: "Ramesh, 42, Farmer · Veligandla Mandal", stat_value: "4.5–7.5", stat_label: "mg/L — Laborers Hit Hardest" }
       ],
       closing_title: "We Are Still Here.",
-      closing_narrative: "This documentary was made because silence has failed. Because reports were filed and ignored. Because committees visited and left without answers. Because generations were born into this crisis and grew old inside it. The people of Kanigiri are not asking for charity. They are asking for what was promised — clean water, accessible healthcare, and a government that truly sees them. The Veligonda surface water project was designed to end this. It needs ₹450 crore more and a completion date that does not keep moving. Until then, four more people will enter dialysis today. One more village will go quiet tomorrow. And the children of Kanigiri will keep growing up with water they cannot trust.",
-      demands_title: "Five Demands That Cannot Wait",
+      closing_narrative: "This documentary was made because silence has failed. Because reports were filed and ignored. Because committees visited and left without answers. Because generations were born into this crisis and grew old inside it. The people of Kanigiri are not asking for charity. They are asking for what was promised — clean water, accessible healthcare, and governments that match the effort already shown on the ground. Kanigiri MLA Ugra Narasimhareddy has given his best — tankers, RO plants, health camps, and unrelenting pressure for Veligonda. That constituency-level fight must now be met by state and central action: ₹450 crore more, a completion date that does not slip again, and dialysis capacity that families can reach. Until then, four more people will enter dialysis today. One more village will go quiet tomorrow. And the children of Kanigiri will keep growing up with water they cannot trust — unless higher powers finally answer the MLA who has not stopped asking.",
+      demands_title: "Four Demands That Cannot Wait",
       demands: [
         "Complete the Veligonda Project — final deadline 2026, no more delays",
         "Designate P.C. Palli & H.M. Padu as Special Fluoride Emergency Zones",
         "Release ₹450 Crore under Jal Jeevan Mission for fluoride-hit mandals",
-        "Establish a 100-bed Regional Nephrology & Dialysis Center in Kanigiri",
-        "Criminal investigation into the water tanker black market"
+        "Establish a 100-bed Regional Nephrology & Dialysis Center in Kanigiri"
       ],
       final_quote: "We just want water we can drink without fear. Is that too much to ask of a country that sent a rocket to the moon?",
       witness_btn: "Be a Witness — Share This Documentary"
@@ -657,6 +787,7 @@ export const translations: Record<Language, Translation> = {
   te: {
     nav: {
       dashboard: "డేటా డ్యాష్‌బోర్డ్",
+      watch: "వీడియోలు",
       video: "వీడియో స్క్రిప్ట్",
       solutions: "పరిష్కారాలు",
       memo: "మెమోరాండం",
@@ -665,13 +796,39 @@ export const translations: Record<Language, Translation> = {
       realities: "కఠోర వాస్తవాలు",
     },
     hero: {
-      emergency: "పర్యావరణ అత్యవసర పరిస్థితి",
+      emergency: "",
       headline: "మా పిల్లల చిరునవ్వులు మాయమవుతున్నాయి. మా పెద్దల ఎముకలు విరిగిపోతున్నాయి. దయచేసి ఇది ఇక చాలు.",
       subheadline: "ప్రకాశం జిల్లా నడిబొడ్డున, తరతరాలకు ప్రాణాధారమైన నీరు ఇప్పుడు ఒక దాగి ఉన్న విషం: అధిక ఫ్లోరైడ్. ఇది నిజ సమయంలో జరుగుతున్న ఒక మానవ విషాదం.",
       dashboard_btn: "డేటా డ్యాష్‌బోర్డ్‌ని చూడండి",
       video_btn: "ది క్రై వీడియో",
       video_placeholder: "5-నిమిషాల ప్రజెంటేషన్ వీడియో",
       video_description: "కనిగిరిలోని ఫ్లోరైడ్ సంక్షోభం యొక్క దృశ్య వివరణ.",
+      crisis: {
+        drought: {
+          label: "కరవు",
+          heroHeadline: "కరవు రోజువారీ జీవితాన్ని కూల్చేస్తోంది.",
+          heroSubheadline:
+            "బావుల స్థానంలో ట్యాంకర్లు. పంటలు ఎండిపోతాయి. కుటుంబాలు భవిష్యత్తు కట్టే బదులు రోజంతా నీటిని వెతుకుతుంటాయి.",
+          quote:
+            "బావులు ఎండిపోతే, ప్రతి రోజు ఒక వెతుకులాట. భవిష్యత్తు ఒక ప్రశ్నగా మారుతుంది.",
+        },
+        fluoride: {
+          label: "ఫ్లోరైడ్",
+          heroHeadline: "ఫ్లోరైడ్ కనిపించని ముప్పు.",
+          heroSubheadline:
+            "నీరు స్పష్టంగా కనిపిస్తుంది — కానీ లోపల విషం ఉంటుంది. అధిక ఫ్లోరైడ్ కాలక్రమేణా ఎముకలు, పళ్లు, కిడ్నీలను దెబ్బతీస్తుంది.",
+          quote:
+            "నీరు చూడటానికి శుభ్రంగా ఉంటుంది. కానీ నష్టం కాదు. ఫ్లోరైడ్ జీవనాన్ని నెమ్మదిగా హానిగా మారుస్తుంది.",
+        },
+        migration: {
+          label: "వలసలు",
+          heroHeadline: "వలసలు జీవన పోరాటంగా మారుతున్నాయి.",
+          heroSubheadline:
+            "నీరు, ఆరోగ్యం కూలితే ఉపాధి కూడా కూలుతుంది. గ్రామాలు దూర నగరాలకు ఖాళీ అవుతాయి — వెనుక మిగిలేది నిశ్శబ్దం.",
+          quote:
+            "ముందుగా నీరు పోతుంది. తర్వాత పని. తర్వాత ప్రజలు. చివరికి మిగిలేది నిశ్శబ్దమే.",
+        },
+      },
     },
     dashboard: {
       title: "గణాంక డ్యాష్‌బోర్డ్",
@@ -710,41 +867,12 @@ export const translations: Record<Language, Translation> = {
     },
     solutions: {
       title: "పరిష్కారాల ట్రాకర్",
-      description: "మేము స్థానిక నాయకత్వం ద్వారా తక్షణ ఉపశమనాన్ని అందిస్తున్నాము మరియు శాశ్వత పరిష్కారం కోసం కృషి చేస్తున్నాము.",
-      immediate_btn: "తక్షణ ఉపశమనం",
-      permanent_btn: "శాశ్వత పరిష్కారం",
-      immediate: {
-        tanker_title: "సురక్షిత ట్యాంకర్ సరఫరా",
-        tanker_desc: "ఫ్లోరైడ్ అధికంగా ఉన్న ఆవాసాలకు రోజుకు 50,000 లీటర్ల సరఫరా.",
-        filter_title: "స్థానిక ఫిల్టర్ ప్లాంట్లు",
-        filter_desc: "12 కీలక గ్రామాల్లో కమ్యూనిటీ స్థాయి RO ప్లాంట్ల ఏర్పాటు.",
-        dialysis_title: "ద్వితీయ డయాలసిస్ హబ్",
-        dialysis_desc: "కనిగిరి పట్టణంలో 10 పడకల డయాలసిస్ యూనిట్ అత్యవసర ఏర్పాటు.",
-      },
-      permanent: {
-        project_title: "ఉపరితల నీటి ప్రాజెక్ట్",
-        target: "లక్ష్యం: 2026",
-        project_desc: "కనిగిరి మరియు కమ్మవారిపల్లి వంటి సమీప ప్రాంతాలపై దృష్టి సారించి, పైపుల ద్వారా ఉపరితల నీటి సరఫరా కోసం ₹1,290 కోట్ల భారీ ప్రాజెక్టు ప్రస్తుతం పురోగతిలో ఉంది.",
-        completion: "ప్రాజెక్ట్ పూర్తి",
-        funding_gap: "నిధుల కొరత: వెలిగొండ కనెక్టివిటీ కోసం సుమారు ₹450 కోట్లు అవసరం.",
-      },
-      why_2026: {
-        title: "2026 ఎందుకు?",
-        desc: "మేము వేచి ఉన్న ప్రతిరోజూ, మరో 4 గురు పౌరులు డయాలసిస్ చక్రంలోకి ప్రవేశిస్తున్నారు.",
-        tunnel: "టన్నెల్ లైనింగ్",
-        headworks: "హెడ్ వర్క్స్",
-        canals: "కాలువల నెట్‌వర్కింగ్",
-        status_critical: "క్లిష్టమైనది",
-        status_progress: "పురోగతిలో ఉంది",
-        status_pending: "నిధుల కోసం వేచి ఉంది",
-        support_btn: "మిషన్‌కు మద్దతు ఇవ్వండి",
-      },
     },
     memo: {
       label: "అధికారిక మెమోరాండం",
       title: "రాష్ట్ర మరియు కేంద్ర ప్రభుత్వాలకు అధికారిక విన్నపం",
       sub: "కనిగిరి నియోజకవర్గ ప్రజల తరపున",
-      intro: "గౌరవనీయ మంత్రులు గారూ, కనిగిరిలోని తీవ్రమైన పర్యావరణ మరియు ఆరోగ్య సంక్షోభానికి సంబంధించి మేము ఈ విన్నపాన్ని సమర్పిస్తున్నాము. 79 ఏళ్ల ఎదురుచూపులు ఆరోగ్య వైఫల్యానికి దారితీశాయి. మేము ఆంధ్రప్రదేశ్ ప్రభుత్వం మరియు భారత ప్రభుత్వం రెండింటికీ తక్షణ జోక్యం కోసం విజ్ఞప్తి చేస్తున్నాము.",
+      intro: "గౌరవనీయ మంత్రులు గారూ, కనిగిరిలోని తీవ్రమైన పర్యావరణ మరియు ఆరోగ్య సంక్షోభానికి సంబంధించి మేము ఈ విన్నపాన్ని సమర్పిస్తున్నాము. MLA ఉగ్ర నరసింహారెడ్డి ట్యాంకర్ రాహత, RO ప్లాంట్లు మరియు వెలిగొండ కోసం నిరంతర విన్నపాలతో నియోజకవర్గ స్థాయిలో తన వంతు చేస్తున్నారని మేము గుర్తిస్తున్నాము — అయినా దశాబ్దాల ఆలస్యం ఇంకా తరాలను హానికి గురి చేస్తోంది. ఆ క్షేత్రస్థాయి ప్రయత్నానికి రాష్ట్ర మరియు కేంద్ర ప్రభుత్వాలు నిధులు మరియు స్పష్టమైన పూర్తి గడువుతో స్పందించాలని మేము కోరుతున్నాము.",
       req1_title: "ప్రత్యేక ఫ్లోరైడ్ జోన్ గుర్తింపు",
       req1_desc: "పి.సి.పల్లి మరియు కనిగిరిలను అధిక ప్రభావం ఉన్న ప్రాంతాలుగా గుర్తించి ప్రత్యేక సహాయ నిధులను విడుదల చేయాలి.",
       req2_title: "జల్ జీవన్ మిషన్ కేటాయింపు",
@@ -767,87 +895,6 @@ export const translations: Record<Language, Translation> = {
     },
     research: {
       title: "శాస్త్రీయ పరిశోధన & ఆధారాలు",
-      geology_title: "కనిగిరి ప్లూటాన్ ప్రత్యేకత",
-      geology_desc: "సంక్షోభానికి మూలకారణం 'కనిగిరి ప్లూటాన్' అనే భూగర్భ శాస్త్ర నిర్మాణం. ఇది ఫ్లోరైడ్ అధికంగా ఉండే గ్రానైట్ శిలలను కలిగి ఉండి, నేరుగా భూగర్భ జలాల్లోకి విషాన్ని విడుదల చేస్తుంది.",
-      health_title: "విషపూరితమైన వారసత్వం",
-      health_desc: "1.5 mg/L కంటే ఎక్కువ ఫ్లోరైడ్ తీసుకోవడం వల్ల శరీరంలో శాశ్వత మార్పులు సంభవిస్తాయి. దీనివల్ల కనిగిరి ప్రపంచవ్యాప్తంగా సామాజిక ఫ్లోరోసిస్ 'హాట్‌స్పాట్'గా మారింది.",
-      citations: [
-        {
-          title: "ప్రకాశం ఫ్లోరైడ్ సంక్షోభం",
-          source: "డెక్కన్ క్రానికల్",
-          year: "2025",
-          highlights: ["కనిగిరి మరియు పీసీ పల్లి మండలాలు అత్యంత దారుణంగా దెబ్బతిన్నాయి.", "6 మండలాల్లో భూగర్భ జలాలు విషపూరితంగా మారాయి."],
-          url: "https://www.deccanchronicle.com"
-        },
-        {
-          title: "గ్రానైట్లలో ఖనిజీకరణ",
-          source: "రీసెర్చ్ గేట్ / IJSEA",
-          year: "2015",
-          highlights: ["కనిగిరి-పొదిలి ప్రాంతంలో అసాధారణమైన ఫ్లోరైడ్ నిక్షేపాలను గుర్తించారు.", "స్థానిక ఖనిజాల వల్ల నీరు విషపూరితంగా మారుతోందని నిర్ధారణ."],
-          url: "https://www.researchgate.net"
-        },
-        {
-          title: "అస్థిపంజర ఫ్లోరోసిస్ కేసులు",
-          source: "NIH (అమెరికా)",
-          year: "2013",
-          highlights: ["పొదిలి మరియు కనిగిరిలో తొలిసారిగా ఎండమిక్ కేసులు నమోదయ్యాయి.", "15 ఏళ్ల లోపు పిల్లలలో తీవ్రమైన దంత సమస్యలు."],
-          url: "https://pmc.ncbi.nlm.nih.gov"
-        },
-        {
-          title: "ఫ్లోరైడ్ మరియు కిడ్నీ వ్యాధులు",
-          source: "ది హిందూ",
-          year: "2018",
-          highlights: ["ఫ్లోరైడ్ మరియు కిడ్నీ వైఫల్యం (CKD) మధ్య ప్రత్యక్ష సంబంధం.", "ప్రకాశం జిల్లా కిడ్నీ రోగుల కేంద్రంగా మారిందని నివేదిక."],
-          url: "https://www.thehindu.com"
-        }
-      ],
-      blogs: [
-        {
-          title: "విషపూరిత స్థాయిలు పెరగడంతో కలెక్టర్ అత్యవసర చర్యలకు ఆదేశం",
-          author: "DC బ్యూరో",
-          publisher: "డెక్కన్ క్రానికల్",
-          date: "నవంబర్ 2025",
-          category: "అత్యవసర అప్‌డేట్",
-          excerpt: "కమ్మవారిపల్లి మరియు దిరిషవంచ గ్రామాలకి ట్యాంకర్ నీటి సరఫరా కోసం తక్షణ ఆదేశాలు జారీ.",
-          content: "కనిగిరి నియోజకవర్గంలో నానాటికీ తగ్గుతున్న నీటి నాణ్యతకు స్పందనగా జిల్లా కలెక్టర్ తక్షణమే నీటి ట్యాంకర్లను నియోగించాలని ఆదేశించారు. పి.సి. పల్లి మండలంలో జరిపిన పరీక్షల్లో ఫ్లోరైడ్ సాంద్రత సురక్షిత పరిమితి కంటే పది రెట్లు ఎక్కువగా ఉన్నట్లు తేలింది."
-        },
-        {
-          title: "ప్రకాశంలో కొనసాగుతున్న ఫ్లోరైడ్ సంక్షోభం: దశాబ్దాల నిర్లక్ష్యం?",
-          author: "స్టాఫ్ రిపోర్టర్",
-          publisher: "డెక్కన్ క్రానికల్",
-          date: "మార్చి 2025",
-          category: "ప్రత్యేక నివేదిక",
-          excerpt: "అనేక పథకాలు ఉన్నప్పటికీ, కనిగిరి మరియు పొదిలిలోని 100 కి పైగా గ్రామాలు విషపూరిత భూగర్భ జలాలనే తాగుతున్నాయి.",
-          content: "పశ్చిమ ప్రకాశం నీటి మౌలిక సదుపాయాలపై జరిపిన వివరణాత్మక విచారణ వెలిగొండ ప్రాజెక్టులో గణనీయమైన అడ్డంకులను వెల్లడిస్తుంది. పైపులైన్లు ప్రధాన రహదారులకు చేరుకున్నప్పటికీ, మారుమూల గ్రామాలకు అంతర్గత పంపిణీ నెట్‌వర్క్ ఇంకా కాగితాల మీదనే ఉంది."
-        },
-        {
-          title: "యువ తరాలపై తీవ్ర ప్రభావం చూపుతున్న నీటి విషపూరితం",
-          author: "పి. శామ్యూల్",
-          publisher: "ది హిందూ",
-          date: "2015 (నవీకరించబడింది 2025)",
-          category: "ఆరోగ్య దృష్టి",
-          excerpt: "కనిగిరి గ్రామాల్లోని పిల్లలు కౌమారదశకు చేరుకోకముందే అస్థిపంజర వైకల్యాలను రూపించుకుంటున్నారు.",
-          content: "కనిగిరిలోని ఫ్లోరైడ్ సమస్య కేవలం ఆరోగ్య సమస్య మాత్రమే కాదు; ఇది ఒక సామాజిక-ఆర్థిక అడ్డంకి. కుటుంబాలు తమ ఆదాయంలో సగాన్ని వైద్య ఖర్చులకు మరియు ప్రైవేట్ RO నీటిని కొనడానికి ఖర్చు చేస్తున్నాయి."
-        },
-        {
-          title: "పొడి ప్రాంతాలలో కిడ్నీ వ్యాధులను తీవ్రం చేస్తున్న ఫ్లోరైడ్ సమస్య",
-          author: "హెల్త్ కరస్పాండెంట్",
-          publisher: "ది హిందూ",
-          date: "2017",
-          category: "వైద్య పరిశోధన",
-          excerpt: "ఈ ప్రాంతంలో క్రోనిక్ కిడ్నీ వ్యాధి (CKD) యొక్క అధిక ప్రాబల్యానికి ఫ్లోరైడ్ ప్రధాన సహ-కారకమని నెఫ్రాలజిస్టులు పేర్కొంటున్నారు.",
-          content: "పొదిలి మరియు కనిగిరి అంతటా నిర్వహించిన వైద్య శిబిరాలు యువకులలో కిడ్నీ వైఫల్యాల యొక్క కలవరపరిచే ధోరణిని గుర్తించాయి. ఈ కేసులలో మధుమేహం లేదా రక్తపోటు చరిత్ర ఉండదు, ఇది నేరుగా విషపూరిత పర్యావరణ కారకాల వైపు చూపుతుంది."
-        },
-        {
-          title: "మార్కాపూర్ ప్రాంతం: భూగర్భ కాలుష్య అంచనా",
-          author: "డాక్టర్ కె. ఎస్. రావు మరియు ఇతరులు",
-          publisher: "అప్లైడ్ వాటర్ సైన్స్",
-          date: "2019",
-          category: "శాస్త్రీయ అధ్యయనం",
-          excerpt: "కనిగిరి ప్లూటాన్ నుండి స్థానిక భూగర్భ జలాల్లోకి ఖనిజాల వ్యాప్తిపై సమగ్ర అధ్యయనం.",
-          content: "నేల యొక్క క్షార స్థితి గ్రానైట్ శిలల నుండి ఫ్లోరైడ్ బయటకు రావడాన్ని వేగవంతం చేస్తుందని పరిశోధన హైలైట్ చేస్తుంది. ప్రజారోగ్యం మరింత దిగజారకుండా ఉండటానికి ఉపరితల నీటి వనరులకు పూర్తిగా మారాలని అధ్యయనం సిఫార్సు చేస్తోంది."
-        }
-      ]
     },
     gallery: {
       title: "ప్రభావ గ్యాలరీ",
@@ -880,9 +927,9 @@ export const translations: Record<Language, Translation> = {
       ],
       hope_title: "ఆశాకిరణాలు & తక్షణ అవసరాలు",
       relief_measures: [
-        "పైపుల ద్వారా ఉపరితల నీటి సరఫరా కోసం ₹1,290 కోట్ల ప్రాజెక్టు పురోగతిలో ఉంది.",
-        "ప్రభావిత గ్రామాల్లో అత్యవసర ట్యాంకర్ నీరు మరియు RO ప్లాంట్లు.",
-        "కనిగిరి లేదా పొదిలిలో స్థానిక డయాలసిస్ కేంద్రాల తక్షణ అవసరం."
+        "MLA ఉగ్ర నరసింహారెడ్డి అత్యంత ప్రభావిత ఆవాసాల్లో అత్యవసర ట్యాంకర్లు మరియు RO చేరికను నడిపారు.",
+        "₹1,290 కోట్ల ఉపరితల నీటి ప్రాజెక్టు పురోగతిలో — వెలిగొండ పూర్తికి ఆయన ఒత్తిడి కొనసాగుతోంది.",
+        "కనిగిరి లేదా పొదిలిలో పూర్తి స్థాయి ప్రాంతీయ డయాలసిస్ కేంద్రం అత్యవసరం."
       ],
       cta_title: "శుద్ధ జలం కోసం పోరాటంలో చేరండి",
       cta_list: [
@@ -1047,22 +1094,21 @@ export const translations: Record<Language, Translation> = {
       act3_testimony_person: "రవి కుమార్, వయస్సు 34 · నిర్మాణ కూలీ · జయరాంపురం (ఇప్పుడు చెన్నైలో)",
       mandals_title: "ఆరు మండలాలు. ఆరు గాయాలు.",
       mandals: [
-        { name: "పి.సి. పల్లి", crisis: "కేంద్రబిందువు", headline: "నీళ్లు చట్టం అనుమతించే దానికంటే పది రెట్లు ప్రమాదకరంగా ఉన్న చోటు", story: "పి.సి. పల్లి సంక్షోభంలో ఉన్న గ్రామం కాదు — ఇదే సంక్షోభం. ఇక్కడ ఫ్లోరైడ్ 15 mg/L వరకు చేరుతుంది, WHO అనుమతి కంటే పది రెట్లు. సందర్శకుడు మొదట గమనించేది పళ్లు — ముదురు రంగు మరక, రాలిపోతున్న పళ్లు. రెండవది నడక — ఎముకలు ముందే అరిగిపోయిన వ్యక్తి యొక్క వంగిన వెన్ను. 2025లో జిల్లా కలెక్టర్ అత్యవసర ట్యాంకర్ నీళ్లను ఆదేశించారు. కానీ ట్యాంకర్లు వారానికి మూడు సార్లు వస్తాయి. ఫ్లోరైడ్ ప్రతి గంటా అక్కడే ఉంటుంది.", quote: "నాకు 40 సంవత్సరాలు. 70 సంవత్సరాల వ్యక్తిలా నడుస్తున్నాను. ఫ్లోరైడ్ చేసింది అది.", person: "నరసయ్య, రైతు · పి.సి. పల్లి", stat_value: "15 mg/L", stat_label: "ఫ్లోరైడ్ — WHO పరిమితి కంటే 10 రెట్లు" },
-        { name: "కనిగిరి", crisis: "వేచి చూస్తున్న పట్టణం", headline: "మూడు దశాబ్దాలుగా నీళ్లు వస్తాయని వాగ్దానం చేసిన 1,10,000 మంది", story: "కనిగిరి నియోజకవర్గ పరిపాలనా కేంద్రం — 1,10,000 మంది నివాసితులు. అయినా ఇక్కడ నీళ్లు ప్రత్యేక రోజులలో మాత్రమే వస్తాయి. శివారు కాలనీలు 2.5–4.5 mg/L ఫ్లోరైడ్ ఉన్న బోరుబావులపై ఆధారపడతాయి. వెలిగొండ ప్రాజెక్ట్ 2027 వరకు ఆలస్యమవుతుందని 2025 సమీక్ష ధృవీకరించింది. ఈలోగా పట్టణం వేచి ఉంది. ఎల్లప్పుడూ వేచి ఉంది.", quote: "ప్రతి ఎన్నికలో, ప్రతి MLA వాగ్దానం చేస్తారు — వచ్చే సంవత్సరం వెలిగొండ నీళ్లు వస్తాయని. ముప్పై సంవత్సరాలుగా 'వచ్చే సంవత్సరమే' అవుతున్నది.", person: "పద్మ, 52 సంవత్సరాలు, పాఠశాల ఉపాధ్యాయురాలు · కనిగిరి పట్టణం", stat_value: "30+ సంవత్సరాలు", stat_label: "విరిగిన నీటి వాగ్దానాలు" },
+        { name: "పి.సి. పల్లి", crisis: "కేంద్రబిందువు", headline: "నీళ్లు చట్టం అనుమతించే దానికంటే పది రెట్లు ప్రమాదకరంగా ఉన్న చోటు", story: "పి.సి. పల్లి సంక్షోభంలో ఉన్న గ్రామం కాదు — ఇదే సంక్షోభం. ఇక్కడ ఫ్లోరైడ్ 15 mg/L వరకు చేరుతుంది. 2025లో MLA ఉగ్ర నరసింహారెడ్డి పరిపాలనపై ఒత్తిడి తర్వాత జిల్లా కలెక్టర్ అత్యవసర ట్యాంకర్లను ఆదేశించారు. ఆయన ఇక్కడ మరింత సరఫరా మరియు ఫిల్ట్రేషన్ కోసం పోరాడుతూనే ఉన్నారు. అయినా ట్యాంకర్లు వారానికి మూడు సార్లు మాత్రమే వస్తాయి — ఫ్లోరైడ్ ప్రతి గంటా ఉంటుంది.", quote: "నాకు 40 సంవత్సరాలు. 70 సంవత్సరాల వ్యక్తిలా నడుస్తున్నాను. ఫ్లోరైడ్ చేసింది అది.", person: "నరసయ్య, రైతు · పి.సి. పల్లి", stat_value: "15 mg/L", stat_label: "ఫ్లోరైడ్ — WHO పరిమితి కంటే 10 రెట్లు" },
+        { name: "కనిగిరి", crisis: "వేచి చూస్తున్న పట్టణం", headline: "వెలిగొండ కోసం ఇంకా వేచి ఉన్న 1,10,000 మంది — కానీ పోరాటుదారు ఉన్నారు", story: "కనిగిరి నియోజకవర్గ కేంద్రం — 1,10,000 మంది. శివారు కాలనీలు 2.5–4.5 mg/L ఫ్లోరైడ్ బోరుబావులపై ఆధారపడతాయి. వెలిగొండ మళ్లీ ఆలస్యం — 2027, ₹4,000 కోట్ల కొరత. మార్పు క్షేత్రస్థాయిలో: MLA ఉగ్ర నరసింహారెడ్డి ట్యాంకర్లు, ఫిల్ట్రేషన్, హైదరాబాద్-ఢిల్లీలో నిధులు మరియు గడువుల కోసం నిరంతర విన్నపాలు చేస్తున్నారు.", quote: "ముప్పై సంవత్సరాలు చాలా నాయకులు మాత్రమే వాగ్దానం చేశారు. ఉగ్ర నరసింహారెడ్డి వేరు — ఇక్కడే ఉండి ట్యాంకర్లు, వెలిగొండ కోసం పోరాడుతున్నారు. పైపులు ఇంకా ఆలస్యమే, కానీ మేము మరచిపోలేదు.", person: "పద్మ, 52 సంవత్సరాలు, పాఠశాల ఉపాధ్యాయురాలు · కనిగిరి పట్టణం", stat_value: "క్షేత్రంలో", stat_label: "MLA పోరాటం నడుపుతున్నారు" },
         { name: "పామూరు", crisis: "పిల్లలు నవ్వు పోగొట్టుకున్న చోటు", headline: "దంత ఫ్లోరోసిస్ ఇక్కడ సర్వసాధారణం — ప్రతి పిల్లవాడికీ", story: "పామూరు మండలంలోని ఏ ప్రాథమిక పాఠశాలలోనైనా నడవండి, స్వచ్ఛమైన తెల్లటి పళ్లు ఉన్న పిల్లలను లెక్కించండి. మీరు చాలా తక్కువ మందిని లెక్కిస్తారు. 4–7 mg/L ఫ్లోరైడ్, అధిక లవణత్వంతో కలిసి, దంతాలు మరియు ఎముకలపై ద్వంద్వ దాడి చేస్తుంది. వీలైనప్పుడు తల్లిదండ్రులు బాటిళ్ల నీళ్లు ఇస్తారు. వీలు కానప్పుడు, పిల్లవాడికి 8 సంవత్సరాలు రాకముందే నష్టం జరిగిపోతుంది.", quote: "నా కూతురు నన్ను అడిగింది — టూత్‌పేస్ట్ పెట్టె మీద ఉన్న అమ్మాయిలా నా పళ్లు ఎందుకు లేవని. నాకు ఏం చెప్పాలో తెలియలేదు.", person: "లక్ష్మి, 29 సంవత్సరాలు, అమ్మ · పామూరు గ్రామం", stat_value: "4–7 mg/L", stat_label: "ఫ్లోరైడ్ + లవణత్వం — ద్వంద్వ దాడి" },
         { name: "సి.ఎస్. పురం", crisis: "మర్చిపోయిన కొండలు", headline: "మారుమూల, కొండప్రాంతం, ప్రభుత్వ ప్రణాళికకు పూర్తిగా కనిపించనిది", story: "సి.ఎస్. పురం అనే మండలాన్ని భూగోళమే వేరు చేసింది. కొండ ప్రదేశం, చెడ్డ రహదారులు, పైపులైన్ ఖర్చులు మైదానాల కంటే మూడు రెట్లు ఎక్కువ — అందుకే పైపులైన్లు ఎన్నటికీ వేయబడలేదు. లోతైన బోరుబావులు ఫ్లోరైడ్ సమృద్ధమైన శిలా పొరలను తాకుతున్నాయి, 3.5–6 mg/L వద్ద. సి.ఎస్. పురం చాలా అరుదుగా ప్రభుత్వ నివేదికల్లో కనిపిస్తుంది. అక్కడి బాధ నిశ్శబ్దంగా ఉంది, అది పూర్తిగా ఉంది.", quote: "వారు సర్వే చేయడానికి వచ్చినప్పుడు, ఒక బావి నుండి నమూనా తీసుకొని వెళ్లిపోయారు. తిరిగి రాలేదు.", person: "శ్రీనివాస్, 45 సంవత్సరాలు, మండల ప్రధాన్ · సి.ఎస్. పురం", stat_value: "3.5–6 mg/L", stat_label: "ఫ్లోరైడ్ — తీవ్రమైనది & అదృశ్యమైనది" },
         { name: "ఎచ్.ఎం. పాడు", crisis: "కిడ్నీ గ్రామం", headline: "మొత్తం ప్రకాశం జిల్లాలో అత్యధిక తలసరి CKD రేటు", story: "ఎచ్.ఎం. పాడుకు ఒక దుర్భరమైన బిరుదు ఉంది: మొత్తం ప్రకాశంలో అత్యధిక తలసరి దీర్ఘకాలిక మూత్రపిండ వ్యాధి రోగులున్న మండలం. ఇక్కడ ఫ్లోరైడ్ స్థాయిలు 9 mg/L వరకు చేరుతాయి. 30, 40 ఏళ్ల వయస్సు వారికి మూత్రపిండ వైఫల్యం వస్తోంది. మధుమేహం చరిత్ర లేదు. రక్తపోటు చరిత్ర లేదు. సమీప డయాలసిస్ కేంద్రం 45 కిలోమీటర్ల దూరంలో ఉంది. రోజువారీ నలుగురు కొత్త రోగులు డయాలసిస్ మొదలు పెడతున్నారు.", quote: "నా వీధిలో ముగ్గురు మగవాళ్లు డయాలసిస్ మీద ఉన్నారు. ముగ్గురూ 45 సంవత్సరాల కంటే తక్కువ వయస్సు. ముగ్గురూ నాలాంటి నీళ్లే తాగారు. నాకు రోజూ భయంగా ఉంది.", person: "చంద్ర శేఖర్, 38 సంవత్సరాలు, రైతు · ఎచ్.ఎం. పాడు", stat_value: "9 mg/L", stat_label: "ఫ్లోరైడ్ — జిల్లాలో అత్యధిక CKD రేటు" },
         { name: "వెలిగండ్ల", crisis: "రైతు విలాపం", headline: "ప్రకాశాన్ని పోషించే చేతులు వారు తాగేవాటితో విషపూరితమవుతున్నాయి", story: "వెలిగండ్ల వ్యవసాయ హృదయ భూమి — దాని పొలాలు జిల్లాను పోషిస్తాయి. కానీ ఈ పొలాలు పండించే మగవాళ్లు మండుతున్న సూర్యుడి కింద పని చేస్తూ 4.5–7.5 mg/L ఫ్లోరైడ్ ఉన్న నీళ్లు తాగుతున్నారు. శారీరక శ్రమ ఫ్లోరైడ్ శోషణను వేగవంతం చేస్తుంది. రైతులు మరియు కూలీలు — వేర్వేరుగా చెమట పోసి, ఎక్కువ తాగే వారు — విషాన్ని ఎవరికంటే వేగంగా గ్రహిస్తారు. సురక్షిత నీళ్లు కొనే స్తోమత లేదు. నేల ఇచ్చేది తాగి, మెల్లగా, నిశ్శబ్దంగా, తమ మోకాళ్లు, మూత్రపిండాలు, భవిష్యత్తుతో చెల్లిస్తున్నారు.", quote: "ఇతరులు తినడానికి ఆహారం పండిస్తాను. నా సొంత పిల్లలు తాగడానికి స్వచ్ఛమైన నీళ్లు పండించలేను.", person: "రమేష్, 42 సంవత్సరాలు, రైతు · వెలిగండ్ల మండలం", stat_value: "4.5–7.5", stat_label: "mg/L — కూలీలు అత్యధికంగా దెబ్బతిన్నారు" }
       ],
       closing_title: "మేము ఇంకా ఇక్కడే ఉన్నాం.",
-      closing_narrative: "ఈ డాక్యుమెంటరీ నిశ్శబ్దం వైఫల్యం చెందింది కాబట్టి తయారు చేయబడింది. నివేదికలు సమర్పించబడి నిర్లక్ష్యం చేయబడ్డాయి. కమిటీలు సందర్శించి సమాధానాలు లేకుండా వెళ్లిపోయాయి. తరాలు ఈ సంక్షోభంలో జన్మించి దానిలోనే వృద్ధాప్యం పొందారు. కనిగిరి ప్రజలు దాతృత్వం అడగడం లేదు. వాగ్దానం చేసింది — స్వచ్ఛమైన నీరు, అందుబాటులో ఉన్న ఆరోగ్య సంరక్షణ, వారిని నిజంగా చూసే ప్రభుత్వం — కోసం అడుగుతున్నారు. వెలిగొండ ఉపరితల నీటి ప్రాజెక్ట్ దీన్ని ముగించడానికి రూపొందించబడింది. అది మరో ₹450 కోట్లు మరియు కదలని పూర్తి తేదీ కోసం వేచి ఉంది. అప్పటి వరకు, రోజూ నలుగురు మంది డయాలసిస్‌లోకి ప్రవేశిస్తారు. రేపు ఒక గ్రామం మరింత నిశ్శబ్దంగా అవుతుంది. కనిగిరి పిల్లలు నమ్మలేని నీళ్లతో పెరుగుతూనే ఉంటారు.",
-      demands_title: "వేచి ఉండలేని ఐదు డిమాండ్లు",
+      closing_narrative: "ఈ డాక్యుమెంటరీ నిశ్శబ్దం వైఫల్యం చెందింది కాబట్టి తయారు చేయబడింది. తరాలు ఈ సంక్షోభంలో జన్మించి దానిలోనే వృద్ధాప్యం పొందారు. కనిగిరి ప్రజలు దాతృత్వం కాదు — స్వచ్ఛమైన నీరు, ఆరోగ్య సంరక్షణ, మరియు క్షేత్రంలో ఇప్పటికే చూపిన ప్రయత్నానికి సమానమైన రాష్ట్ర-కేంద్ర చర్య కోసం అడుగుతున్నారు. MLA ఉగ్ర నరసింహారెడ్డి తన వంతు చేశారు — ట్యాంకర్లు, RO, ఆరోగ్య శిబిరాలు, వెలిగొండ కోసం నిరంతర ఒత్తిడి. ఇప్పుడు ₹450 కోట్లు, స్పష్టమైన పూర్తి గడువు, చేరుకోగల డయాలసిస్ అవసరం. ఆయన ఆడుకుండా అడుగుతూనే ఉన్నారు — ఇప్పుడు పై అధికారాలు స్పందించాలి.",
+      demands_title: "వేచి ఉండలేని నాలుగు డిమాండ్లు",
       demands: [
         "వెలిగొండ ప్రాజెక్ట్‌ను 2026 లోపు పూర్తి చేయండి — ఇక ఆలస్యాలు వద్దు",
         "పి.సి. పల్లి & ఎచ్.ఎం. పాడుని ప్రత్యేక ఫ్లోరైడ్ అత్యవసర జోన్లుగా గుర్తించండి",
         "ఫ్లోరైడ్ మండలాలకు జల్ జీవన్ మిషన్ కింద ₹450 కోట్లు విడుదల చేయండి",
-        "కనిగిరిలో 100 పడకల ప్రాంతీయ నెఫ్రాలజీ & డయాలసిస్ కేంద్రం స్థాపించండి",
-        "నీటి ట్యాంకర్ నల్లబజారుపై నేర విచారణ చేపట్టండి"
+        "కనిగిరిలో 100 పడకల ప్రాంతీయ నెఫ్రాలజీ & డయాలసిస్ కేంద్రం స్థాపించండి"
       ],
       final_quote: "భయం లేకుండా తాగగలిగే నీళ్లు మాత్రమే కావాలి. చంద్రునికి రాకెట్ పంపిన దేశానికి ఇది చాలా ఎక్కువ అడగడమా?",
       witness_btn: "సాక్షి అవ్వండి — ఈ డాక్యుమెంటరీని షేర్ చేయండి"
@@ -1071,6 +1117,7 @@ export const translations: Record<Language, Translation> = {
   hi: {
     nav: {
       dashboard: "डेटा डैशबोर्ड",
+      watch: "वीडियो",
       video: "वीडियो स्क्रिप्ट",
       solutions: "समाधान",
       memo: "ज्ञापन",
@@ -1079,13 +1126,39 @@ export const translations: Record<Language, Translation> = {
       realities: "कठोर वास्तविकताएँ",
     },
     hero: {
-      emergency: "पर्यावरण आपातकाल",
+      emergency: "",
       headline: "हमारे बच्चों की मुस्कान खो रही है। हमारे बुजुर्गों की हड्डियाँ टूट रही हैं। कृपया अब और नहीं।",
       subheadline: "प्रकासम जिले के केंद्र में, जिस पानी ने कभी पीढ़ियों को जीवित रखा था, अब उसमें एक छिपा हुआ जहर है: अत्यधिक फ्लोराइड। यह वास्तविक समय में सामने आ रही एक मानवीय त्रासदी है।",
       dashboard_btn: "डेटा डैशबोर्ड देखें",
       video_btn: "द क्राई वीडियो",
       video_placeholder: "5-मिनट का प्रेजेंटेशन वीडियो",
       video_description: "कनिगिरि में फ्लोराइड संकट का एक दृश्य वर्णन।",
+      crisis: {
+        drought: {
+          label: "सूखा",
+          heroHeadline: "सूखा रोज़मर्रा की ज़िंदगी तोड़ रहा है।",
+          heroSubheadline:
+            "कुएँ की जगह टैंकर। फसलें नष्ट होती हैं। परिवार भविष्य बनाने के बजाय दिन भर पानी खोजते रहते हैं।",
+          quote:
+            "जब कुएँ सूख जाते हैं, तो हर दिन एक खोज बन जाता है। भविष्य एक सवाल बन जाता है।",
+        },
+        fluoride: {
+          label: "फ्लोराइड",
+          heroHeadline: "फ्लोराइड एक अदृश्य ख़तरा है।",
+          heroSubheadline:
+            "पानी साफ़ दिखता है — लेकिन भीतर ज़हर होता है। अत्यधिक फ्लोराइड समय के साथ हड्डियों, दाँतों और किडनी को नुकसान पहुँचाता है।",
+          quote:
+            "पानी साफ़ दिखता है। नुकसान नहीं। फ्लोराइड जीवन को धीरे-धीरे पीड़ा में बदल देता है।",
+        },
+        migration: {
+          label: "पलायन",
+          heroHeadline: "पलायन जीवन-रक्षा बन जाता है।",
+          heroSubheadline:
+            "जब पानी और स्वास्थ्य ढहते हैं, तो रोज़गार भी। पूरे गाँव दूर शहरों की ओर खाली हो जाते हैं — पीछे रह जाती है ख़ामोशी।",
+          quote:
+            "पहले पानी जाता है। फिर काम। फिर लोग। अंत में रह जाती है ख़ामोशी।",
+        },
+      },
     },
     dashboard: {
       title: " सांख्यिकीय डैशबोर्ड",
@@ -1124,41 +1197,12 @@ export const translations: Record<Language, Translation> = {
     },
     solutions: {
       title: "समाधान ट्रैकर",
-      description: "हम स्थानीय नेतृत्व के माध्यम से तत्काल राहत प्रदान कर रहे हैं और स्थायी समाधान के लिए प्रयासरत हैं।",
-      immediate_btn: "तत्काल राहत",
-      permanent_btn: "स्थायी समाधान",
-      immediate: {
-        tanker_title: "सुरक्षित टैंकर आपूर्ति",
-        tanker_desc: "विधायक के नेतृत्व में उच्च फ्लोराइड बस्तियों को प्रतिदिन 50,000 लीटर की आपूर्ति।",
-        filter_title: "स्थानीय फिल्टर प्लांट",
-        filter_desc: "12 महत्वपूर्ण गांवों में सामुदायिक स्तर के आरओ प्लांट की स्थापना।",
-        dialysis_title: "द्वितीयक डायलिसिस हब",
-        dialysis_desc: "कनिगिरि शहर में 10 बिस्तरों वाली डायलिसिस यूनिट की तत्काल स्थापना।",
-      },
-      permanent: {
-        project_title: "सतही जल परियोजना",
-        target: "लक्ष्य: 2026",
-        project_desc: "कनिगिरि और कम्मवारिपल्ली जैसे नजदीकी क्षेत्रों पर ध्यान केंद्रित करते हुए, पाइप के माध्यम से सतही जल आपूर्ति के लिए ₹1,290 करोड़ की एक बड़ी परियोजना वर्तमान में प्रगति पर है।",
-        completion: "परियोजना पूर्णता",
-        funding_gap: "धन की कमी: वेलिगोंडा कनेक्टिविटी के लिए अनुमानित ₹450 करोड़ की आवश्यकता।",
-      },
-      why_2026: {
-        title: "2026 क्यों?",
-        desc: "हर दिन जब हम प्रतीक्षा करते हैं, 4 और नागरिक डायलिसिस चक्र में प्रवेश करते हैं।",
-        tunnel: "टनल लाइनिंग",
-        headworks: "हेड वर्क्स",
-        canals: "नहर नेटवर्किंग",
-        status_critical: "महत्वपूर्ण",
-        status_progress: "प्रगति में है",
-        status_pending: "धन की प्रतीक्षा है",
-        support_btn: "मिशन का समर्थन करें",
-      },
     },
     memo: {
       label: "आधिकारिक ज्ञापन",
       title: "राज्य और केंद्र सरकारों को औपचारिक अपील",
       sub: "कनिगिरि निर्वाचन क्षेत्र के लोगों का प्रतिनिधित्व",
-      intro: "आदरणीय मंत्रियों, हम कनिगिरि में गंभीर पारिस्थितिक और स्वास्थ्य संकट के संबंध में औपचारिक रूप से यह अपील प्रस्तुत करते हैं। 79 वर्षों की प्रतीक्षा ने स्वास्थ्य विफलता को जन्म दिया है। हम आंध्र प्रदेश सरकार और भारत सरकार दोनों से तत्काल समाधान के लिए सहयोग करने का आग्रह करते हैं।",
+      intro: "आदरणीय मंत्रियों, हम कनिगिरि में गंभीर पारिस्थितिक और स्वास्थ्य संकट के संबंध में यह अपील प्रस्तुत करते हैं। हम विधायक उग्र नरसिंहारेड्डी के निरंतर क्षेत्र स्तर के कार्य — टैंकर राहत, RO प्लांट और वेलिगोंडा के लिए बार-बार अपील — को स्वीकार करते हैं, जबकि दशकों की देरी अभी भी पीढ़ियों को नुकसान पहुँचा रही है। हम आंध्र प्रदेश और केंद्र सरकार से अनुरोध करते हैं कि वे इस जमीनी प्रयास के बराबर निधि और स्पष्ट पूर्णता समयसीमा दें।",
       req1_title: "विशेष फ्लोराइड क्षेत्र पदनाम",
       req1_desc: "विशेष आपदा राहत कोष को अनलॉक करने के लिए पी.सी. पल्ली और कनिगिरि को उच्च-प्रभाव वाले क्षेत्रों के रूप में मान्यता।",
       req2_title: "जल जीवन मिशन आवंटन",
@@ -1181,87 +1225,6 @@ export const translations: Record<Language, Translation> = {
     },
     research: {
       title: "वैज्ञानिक अनुसंधान और प्रमाण",
-      geology_title: "कनिगिरि प्लूटोन अपवाद",
-      geology_desc: "जड़ का कारण 'कनिगिरि प्लूटोन' नामक एक अनूठी भूवैज्ञानिक संरचना है—एक ग्रैनाइट संरचना जो फ्लोराइट और एपेटाइट जैसे फ्लोरीन युक्त खनिजों से भरपूर है जो सीधे भूजल में घुल जाते हैं।",
-      health_title: "विषाक्त विरासत",
-      health_desc: "लंबे समय तक संपर्क (1.5 mg/L से अधिक) अपरिवर्तनीय जैविक परिवर्तनों की ओर ले जाता है, जिससे कनिगिरि स्वास्थ्य एजेंसियों द्वारा मान्यता प्राप्त स्थानिक फ्लोरोसिस के लिए एक 'हॉटस्पॉट' बन गया है।",
-      citations: [
-        {
-          title: "प्रकासम फ्लोराइड संकट से जूझ रहा है",
-          source: "डेक्कन क्रॉनिकल",
-          year: "2025",
-          highlights: ["कनिगिरि और पीसी पल्ली के गांव सबसे बुरी तरह प्रभावित हैं।", "6 महत्वपूर्ण मंडलों में भूजल का स्तर जहरीला पाया गया।"],
-          url: "https://www.deccanchronicle.com"
-        },
-        {
-          title: "ग्रैनाइट घुसपैठ में खनिज",
-          source: "रिसर्चगेट / IJSEA",
-          year: "2015",
-          highlights: ["कनिगिरि-पोडिली क्षेत्र को असामान्य फ्लोराइड सामग्री के रूप में पहचानता है।", "स्थानीय प्लूटोन की विशिष्ट खनिज संरचना को जल विषाक्तता से जोड़ता है।"],
-          url: "https://www.researchgate.net"
-        },
-        {
-          title: "स्थानिक कंकाल फ्लोरोसिस के मामले",
-          source: "NIH (अमेरिका)",
-          year: "2013",
-          highlights: ["पोडिली और कनिगिरि में पहले दर्ज स्थानिक मामले।", "15 साल के बच्चों में डेंटल फ्लोरोसिस का महत्वपूर्ण प्रसार।"],
-          url: "https://pmc.ncbi.nlm.nih.gov"
-        },
-        {
-          title: "फ्लोराइड विषाक्तता और गुर्दा रोग",
-          source: "द हिंदू",
-          year: "2018",
-          highlights: ["फ्लोराइड सेवन और सीकेडी (क्रोनिक किडनी रोग) के बीच सीधा संबंध।", "प्रकासम जिले को गैर-मधुमेह गुर्दा विफलता के केंद्र के रूप में बताया गया।"],
-          url: "https://www.thehindu.com"
-        }
-      ],
-      blogs: [
-        {
-          title: "विषाक्तता बढ़ने पर कलेक्टर ने दिए आपातकालीन उपाय के आदेश",
-          author: "DC ब्यूरो",
-          publisher: "डेक्कन क्रॉनिकल",
-          date: "नवंबर 2025",
-          category: "आपातकालीन अपडेट",
-          excerpt: "फ्लोराइड का स्तर 15mg/L से अधिक होने पर कम्मवारिपल्ली और दिरिशावंचा को टैंकर से पानी की आपूर्ति के आदेश।",
-          content: "कनिगिरि निर्वाचन क्षेत्र में बिगड़ती जल गुणवत्ता पर त्वरित प्रतिक्रिया देते हुए, जिला कलेक्टर ने तत्काल पानी के टैंकरों की तैनाती का आदेश दिया है। पी.सी. पल्ली मंडल के परीक्षणों में फ्लोराइड सुरक्षित सीमा से दस गुना अधिक पाया गया।"
-        },
-        {
-          title: "प्रकाशम अब भी फ्लोराइड संकट से जूझ रहा है: क्या यह दशकों की उपेक्षा है?",
-          author: "स्टाफ रिपोर्टर",
-          publisher: "डेक्कन क्रॉनिकल",
-          date: "मार्च 2025",
-          category: "विशेष रिपोर्ट",
-          excerpt: "अनेक योजनाओं के बावजूद कनिगिरि और पोडिली के 100 से अधिक गाँव ज़हरीला भूजल पीना जारी रखे हुए हैं।",
-          content: "पश्चिमी प्रकाशम के बुनियादी ढांचे की जांच से वेलिगोंडा परियोजना में बड़ी बाधाओं का पता चलता है। जबकि पाइपलाइन मुख्य सड़कों तक पहुंच गई है, अंदरूनी गांवों के लिए वितरण नेटवर्क अभी भी कागजों पर है।"
-        },
-        {
-          title: "जल विषाक्तता अगली पीढ़ियों पर डाल रही है भारी प्रभाव",
-          author: "पी. सैमुअल",
-          publisher: "द हिंदू",
-          date: "2015 (अपेडटेड 2025)",
-          category: "स्वास्थ्य फोकस",
-          excerpt: "कनिगिरि के गाँवों में बच्चे किशोरावस्था तक पहुँचने से पहले ही शारीरिक विकृतियों का शिकार हो रहे हैं।",
-          content: "कनिगिरि में फ्लोराइड की समस्या सिर्फ एक स्वास्थ्य मुद्दा नहीं है; यह एक सामाजिक-आर्थिक बाधा है। परिवार अपनी आधी आय चिकित्सा खर्चों और पानी खरीदने पर खर्च कर रहे हैं।"
-        },
-        {
-          title: "शुष्क क्षेत्रों में फ्लोराइड की समस्या गुर्दे के रोगों को बढ़ाती है",
-          author: "स्वास्थ्य संवाददाता",
-          publisher: "द हिंदू",
-          date: "2017",
-          category: "चिकित्सा अनुसंधान",
-          excerpt: "नेफ्रोलॉजिस्ट इस क्षेत्र में क्रोनिक किडनी रोग के उच्च प्रसार में फ्लोराइड को एक प्रमुख कारण मानते हैं।",
-          content: "पोडिली और कनिगिरि में आयोजित चिकित्सा शिविरों ने युवाओं में गुर्दे की विफलता की एक परेशान करने वाली प्रवृत्ति की पहचान की है। पारंपरिक सीकेडी के विपरीत, इन मामलों में अक्सर मधुमेह या उच्च रक्तचाप का कोई इतिहास नहीं होता है, जो सीधे पर्यावरण विषाक्त पदार्थों की ओर इशारा करता है।"
-        },
-        {
-          title: "मरकापुर क्षेत्र: संदूषण का भूवैज्ञानिक मूल्यांकन",
-          author: "डॉ. के. एस. राव और अन्य",
-          publisher: "Applied Water Science",
-          date: "2019",
-          category: "वैज्ञानिक अध्ययन",
-          excerpt: "कनिगिरि प्लूटोन से स्थानीय जलभृत में खनिजों के निक्षालन पर एक व्यापक अध्ययन।",
-          content: "अनुसंधान इस बात पर प्रकाश डालता है कि मिट्टी की क्षारीय स्थिति ग्रैनाइट चट्टानों से फ्लोराइड के निक्षालन को तेज करती है। अध्ययन सार्वजनिक स्वास्थ्य के आगे होने वाले गिरावट को रोकने के लिए सतही जल स्रोतों पर पूरी तरह से स्थानांतरित होने की सिफारिश करता है।"
-        }
-      ]
     },
     gallery: {
       title: "प्रभाव गैलरी",
@@ -1294,9 +1257,9 @@ export const translations: Record<Language, Translation> = {
       ],
       hope_title: "आशा की किरणें और तत्काल आवश्यकताएं",
       relief_measures: [
-        "सतही जल आपूर्ति के लिए ₹1,290 करोड़ की परियोजना प्रगति पर है।",
-        "प्रभावित बस्तियों में आपातकालीन टैंकर पानी और आरओ प्लांट।",
-        "कनिगिरि या पोडिली में स्थानीय डायलिसिस केंद्रों की तत्काल आवश्यकता।"
+        "विधायक उग्र नरसिंहारेड्डी ने सबसे प्रभावित बस्तियों में आपातकालीन टैंकर और RO पहुँच चलाई।",
+        "₹1,290 करोड़ की सतही जल परियोजना प्रगति पर — वेलिगोंडा पूर्णता के लिए वे दबाव बनाए हुए हैं।",
+        "कनिगिरि या पोडिली में पूर्ण क्षेत्रीय डायलिसिस केंद्र की तत्काल आवश्यकता।"
       ],
       cta_title: "साफ पानी की लड़ाई में शामिल हों",
       cta_list: [
@@ -1461,22 +1424,21 @@ export const translations: Record<Language, Translation> = {
       act3_testimony_person: "रवि कुमार, उम्र 34 · निर्माण मज़दूर · जयरामपुरम (अब चेन्नई में)",
       mandals_title: "छह मंडल। छह ज़ख्म।",
       mandals: [
-        { name: "P.C. पल्ली", crisis: "ज़मीनी शून्य", headline: "जहाँ का पानी क़ानून से दस गुना ज़्यादा ख़तरनाक है", story: "P.C. पल्ली संकट में पड़ा गाँव नहीं है — यह खुद संकट है। यहाँ फ्लोराइड 15 mg/L तक पहुँचता है, WHO की अनुमति से दस गुना ज़्यादा। किसी आगंतुक को पहले दाँत दिखते हैं — भूरे, टूटे, समय से पहले टूट रहे। दूसरी बात दिखती है चाल — उस इंसान की झुकी पीठ जिसके जोड़ दशकों पहले ही जम गए। 2025 में, जिला कलेक्टर ने आपातकालीन पानी के टैंकर का आदेश दिया। लेकिन टैंकर हफ्ते में तीन बार आते हैं। फ्लोराइड हर घड़ी वहाँ है।", quote: "मेरी उम्र 40 है। 70 साल के इंसान की तरह चलता हूँ। यही फ्लोराइड ने किया।", person: "नरसैया, किसान · P.C. पल्ली", stat_value: "15 mg/L", stat_label: "फ्लोराइड — WHO सीमा से 10 गुना" },
-        { name: "कनिगिरि", crisis: "इंतज़ार का शहर", headline: "1,10,000 लोग जिन्हें तीन दशकों से पानी का वादा किया जा रहा है", story: "कनिगिरि निर्वाचन क्षेत्र का प्रशासनिक केंद्र है — 1,10,000 निवासी। फिर भी यहाँ पानी एक दिन छोड़ कर आता है, या आता ही नहीं। बाहरी इलाके 2.5–4.5 mg/L फ्लोराइड वाले बोरवेल पर निर्भर हैं। वेलिगोंडा परियोजना 2027 तक टल सकती है, जिसके लिए ₹4,000 करोड़ अतिरिक्त चाहिए। इस बीच, शहर इंतज़ार करता है।", quote: "हर चुनाव में, हर MLA वादा करता है — अगले साल वेलिगोंडा का पानी आएगा। तीस साल से 'अगला साल' है।", person: "पद्मा, 52 साल, स्कूल शिक्षिका · कनिगिरि शहर", stat_value: "30+ साल", stat_label: "टूटे हुए पानी के वादे" },
+        { name: "P.C. पल्ली", crisis: "ज़मीनी शून्य", headline: "जहाँ का पानी क़ानून से दस गुना ज़्यादा ख़तरनाक है", story: "P.C. पल्ली संकट में पड़ा गाँव नहीं — यह खुद संकट है। 2025 में विधायक उग्र नरसिंहारेड्डी के दबाव के बाद कलेक्टर ने आपातकालीन टैंकर भेजे। वे यहाँ और आपूर्ति व फ़िल्ट्रेशन के लिए लड़ रहे हैं। फिर भी टैंकर अक्सर हफ्ते में तीन बार — फ्लोराइड हर घड़ी।", quote: "मेरी उम्र 40 है। 70 साल के इंसान की तरह चलता हूँ। यही फ्लोराइड ने किया।", person: "नरसैया, किसान · P.C. पल्ली", stat_value: "15 mg/L", stat_label: "फ्लोराइड — WHO सीमा से 10 गुना" },
+        { name: "कनिगिरि", crisis: "इंतज़ार का शहर", headline: "वेलिगोंडा का इंतज़ार — लेकिन एक लड़ने वाला विधायक भी", story: "कनिगिरि का केंद्र — 1,10,000 लोग। बाहरी इलाके 2.5–4.5 mg/L फ्लोराइड वाले बोरवेल पर। वेलिगोंडा फिर टली — 2027, ₹4,000 करोड़ की कमी। बदला क्षेत्र में: विधायक उग्र नरसिंहारेड्डी ने टैंकर, फ़िल्ट्रेशन और हैदराबाद-दिल्ली में निधि व समयसीमा की अपील की।", quote: "तीस साल कई नेताओं ने सिर्फ वादा किया। उग्र नरसिंहारेड्डी अलग हैं — यहाँ हैं, टैंकर और वेलिगोंडा के लिए लड़ रहे हैं। पाइप अभी देर से, पर हम भुले नहीं।", person: "पद्मा, 52 साल, स्कूल शिक्षिका · कनिगिरि शहर", stat_value: "जमीन पर", stat_label: "विधायक लड़ाई में" },
         { name: "पामूर", crisis: "जहाँ बच्चों ने मुस्कान खोई", headline: "दंत फ्लोरोसिस यहाँ सार्वभौमिक है — हर बच्चा, बिना किसी अपवाद के", story: "पामूर मंडल के किसी भी प्राथमिक विद्यालय में जाइए और साफ, सफेद दाँतों वाले बच्चों को गिनिए। आप बहुत कम गिन पाएँगे। 4–7 mg/L फ्लोराइड, उच्च लवणता के साथ, दाँत और हड्डियों पर दोहरा हमला करता है। जब माता-पिता अफोर्ड कर पाते हैं, तो बोतलबंद पानी देते हैं। जब नहीं कर पाते, तो नुकसान 8 साल से पहले ही हो जाता है।", quote: "मेरी बेटी ने मुझसे पूछा — टूथपेस्ट के डिब्बे पर जो लड़की है, उसके जैसे मेरे दाँत क्यों नहीं हैं? मुझे नहीं पता था क्या कहूँ।", person: "लक्ष्मी, 29 साल, माँ · पामूर गाँव", stat_value: "4–7 mg/L", stat_label: "फ्लोराइड + लवणता — दोहरा हमला" },
         { name: "C.S. पुरम", crisis: "भुली हुई पहाड़ियाँ", headline: "दूरस्थ, पहाड़ी, और सरकारी योजनाकारों को पूरी तरह अदृश्य", story: "C.S. पुरम एक ऐसा मंडल है जिसे भूगोल ने खुद अलग कर दिया है। पहाड़ी इलाका, खराब सड़कें, पाइपलाइन की लागत मैदानों से तीन गुना ज़्यादा — इसलिए पाइपलाइन कभी बनी ही नहीं। गहरे बोरवेल फ्लोराइड युक्त परतों से होकर गुज़रते हैं, 3.5–6 mg/L पर। C.S. पुरम शायद ही कभी सरकारी रिपोर्टों में दिखता है। इसकी पीड़ा शांत और संपूर्ण है।", quote: "जब वे सर्वे के लिए आए, एक कुएँ से नमूना लिया और चले गए। कभी वापस नहीं आए।", person: "श्रीनिवास, 45 साल, मंडल प्रधान · C.S. पुरम", stat_value: "3.5–6 mg/L", stat_label: "फ्लोराइड — गंभीर और अदृश्य" },
         { name: "H.M. पाडू", crisis: "किडनी का गाँव", headline: "पूरे प्रकाशम जिले में सबसे अधिक प्रति व्यक्ति CKD दर", story: "H.M. पाडू को एक गंभीर उपाधि मिली है: पूरे प्रकाशम में सबसे अधिक प्रति व्यक्ति क्रोनिक किडनी रोग वाला मंडल। यहाँ फ्लोराइड 9 mg/L तक पहुँचता है। 30-40 के लोगों में किडनी फेलियर हो रहा है — मधुमेह का कोई इतिहास नहीं, हाई ब्लड प्रेशर का कोई इतिहास नहीं। निकटतम डायलिसिस केंद्र 45 किलोमीटर दूर है। हर दिन चार नए मरीज़ डायलिसिस शुरू करते हैं।", quote: "मेरी गली के तीन आदमी डायलिसिस पर हैं। तीनों 45 साल से कम उम्र के। तीनों ने मेरे जैसा पानी पिया। मैं हर दिन डरता हूँ।", person: "चंद्र शेखर, 38 साल, किसान · H.M. पाडू", stat_value: "9 mg/L", stat_label: "फ्लोराइड — जिले में सर्वाधिक CKD दर" },
         { name: "वेलिगंडला", crisis: "किसान का विलाप", headline: "प्रकाशम को खिलाने वाले हाथ जो पीते हैं उससे ज़हर खा रहे हैं", story: "वेलिगंडला कृषि का दिल है — इसके खेत जिले को खाना खिलाते हैं। लेकिन जो लोग इन खेतों में काम करते हैं, वे जलती धूप में 4.5–7.5 mg/L फ्लोराइड वाला पानी पीते हैं। शारीरिक मेहनत फ्लोराइड अवशोषण को तेज़ करती है। किसान और मज़दूर — जो ज़्यादा पसीना बहाते हैं — किसी से भी तेज़ ज़हर सोखते हैं। सुरक्षित पानी खरीदने की हैसियत नहीं। धरती जो देती है वह पीते हैं, और धीरे-धीरे, चुपचाप, अपने जोड़ों, किडनियों, भविष्य से चुकाते हैं।", quote: "दूसरों के खाने के लिए फसल उगाता हूँ। अपने बच्चों के पीने के लिए साफ पानी नहीं उगा सकता।", person: "रमेश, 42 साल, किसान · वेलिगंडला मंडल", stat_value: "4.5–7.5", stat_label: "mg/L — मज़दूर सबसे ज़्यादा प्रभावित" }
       ],
       closing_title: "हम अभी भी यहाँ हैं।",
-      closing_narrative: "यह डॉक्यूमेंट्री इसलिए बनाई गई क्योंकि चुप्पी ने काम नहीं किया। रिपोर्टें दायर की गईं और नज़रअंदाज़ कर दी गईं। समितियाँ आईं और बिना जवाब के चली गईं। पीढ़ियाँ इस संकट में पैदा हुईं और इसी में बूढ़ी हो गईं। कनिगिरि के लोग दान नहीं माँग रहे। वे वही माँग रहे हैं जो वादा किया था — साफ पानी, सुलभ स्वास्थ्य सेवा, और एक सरकार जो सच में उन्हें देखे। वेलिगोंडा सतही जल परियोजना इसे खत्म करने के लिए बनी थी। उसे ₹450 करोड़ और एक ऐसी पूर्णता तिथि चाहिए जो खिसकती न रहे। तब तक, आज चार और लोग डायलिसिस में जाएँगे। कल एक और गाँव खामोश होगा। और कनिगिरि के बच्चे उस पानी के साथ बड़े होते रहेंगे जिस पर उन्हें भरोसा नहीं।",
-      demands_title: "पाँच माँगें जो इंतज़ार नहीं कर सकतीं",
+      closing_narrative: "यह डॉक्यूमेंट्री इसलिए बनाई गई क्योंकि चुप्पी ने काम नहीं किया। पीढ़ियाँ इस संकट में पैदा हुईं और इसी में बूढ़ी हुईं। कनिगिरि के लोग दान नहीं — साफ पानी, स्वास्थ्य सेवा, और जमीन पर दिखे प्रयास के बराबर राज्य-केंद्र कार्रवाई माँग रहे हैं। विधायक उग्र नरसिंहारेड्डी ने अपना सर्वश्रेष्ठ दिया — टैंकर, RO, स्वास्थ्य शिविर, वेलिगोंडा के लिए दबाव। अब ₹450 करोड़, न टलने वाली समयसीमा और पहुँच योग्य डायलिसिस चाहिए। वे पूछते रहे — अब ऊपर के अधिकारियों को जवाब देना होगा।",
+      demands_title: "चार माँगें जो इंतज़ार नहीं कर सकतीं",
       demands: [
         "वेलिगोंडा परियोजना 2026 तक पूरी करें — अब और देरी नहीं",
         "P.C. पल्ली और H.M. पाडू को विशेष फ्लोराइड आपातकालीन क्षेत्र घोषित करें",
         "फ्लोराइड मंडलों के लिए जल जीवन मिशन के तहत ₹450 करोड़ जारी करें",
-        "कनिगिरि में 100 बिस्तरों का क्षेत्रीय नेफ्रोलॉजी और डायलिसिस केंद्र स्थापित करें",
-        "पानी टैंकर काले बाज़ार की आपराधिक जाँच"
+        "कनिगिरि में 100 बिस्तरों का क्षेत्रीय नेफ्रोलॉजी और डायलिसिस केंद्र स्थापित करें"
       ],
       final_quote: "बस ऐसा पानी चाहिए जो बिना डर के पी सकें। क्या यह उस देश से बहुत ज़्यादा माँगना है जिसने चाँद पर रॉकेट भेजा?",
       witness_btn: "गवाह बनें — इस डॉक्यूमेंट्री को शेयर करें"
