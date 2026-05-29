@@ -98,6 +98,8 @@ export const GalleryFeed = ({
               <img
                 src={img.url}
                 alt={img.caption || labels.image_alt}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -227,6 +229,8 @@ export const GalleryFeed = ({
                     <img
                       src={img.url}
                       alt={img.caption || labels.image_alt}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>

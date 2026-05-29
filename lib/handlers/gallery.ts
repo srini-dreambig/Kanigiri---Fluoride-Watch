@@ -1,37 +1,81 @@
 import { sql } from "../db.ts";
 import { ensureSchema } from "../ensureSchema.ts";
+import { dataUrlToBuffer } from "../galleryImageBytes.ts";
 
 const CATEGORIES = new Set(["Drought", "Fluoride", "Migration"]);
 const MAX_IMAGE_DATA_CHARS = 4_000_000;
 
-export type GalleryImageResponse = {
+export type GalleryListItem = {
   id: string;
   url: string;
+  fullUrl: string;
   caption: string;
   category: string;
   timestamp: number;
 };
 
-export async function listGalleryImages(): Promise<GalleryImageResponse[]> {
+export type GalleryImageResponse = GalleryListItem;
+
+function imagePaths(id: string) {
+  return {
+    url: `/api/gallery/${id}/thumb`,
+    fullUrl: `/api/gallery/${id}/full`,
+  };
+}
+
+export async function listGalleryImages(): Promise<GalleryListItem[]> {
   await ensureSchema();
   const rows = await sql`
-    SELECT id, image_data, caption, category, created_at
+    SELECT id, caption, category, created_at
     FROM gallery_images
     ORDER BY created_at DESC
   `;
-  return rows.map((row) => ({
-    id: row.id as string,
-    url: row.image_data as string,
-    caption: row.caption as string,
-    category: row.category as string,
-    timestamp: new Date(row.created_at as string).getTime(),
-  }));
+  return rows.map((row) => {
+    const id = row.id as string;
+    return {
+      id,
+      ...imagePaths(id),
+      caption: row.caption as string,
+      category: row.category as string,
+      timestamp: new Date(row.created_at as string).getTime(),
+    };
+  });
+}
+
+export async function getGalleryImageBytes(
+  id: string,
+  variant: "thumb" | "full"
+): Promise<{ status: number; buffer?: Buffer; contentType?: string; error?: string }> {
+  const column = variant === "thumb" ? "thumb_data" : "image_data";
+  const rows = await sql`
+    SELECT image_data, thumb_data FROM gallery_images WHERE id = ${id}::uuid
+  `;
+  if (rows.length === 0) {
+    return { status: 404, error: "Image not found" };
+  }
+
+  const row = rows[0];
+  const thumb = row.thumb_data as string | null;
+  const full = row.image_data as string;
+  const dataUrl = variant === "thumb" ? thumb || full : full;
+
+  if (!dataUrl) {
+    return { status: 404, error: "Image not found" };
+  }
+
+  try {
+    const { buffer, contentType } = dataUrlToBuffer(dataUrl);
+    return { status: 200, buffer, contentType };
+  } catch {
+    return { status: 500, error: "Invalid image data" };
+  }
 }
 
 export async function createGalleryImage(
   body: Record<string, unknown>
-): Promise<{ status: number; body: GalleryImageResponse | { error: string } }> {
+): Promise<{ status: number; body: GalleryListItem | { error: string } }> {
   const imageData = body.imageData;
+  const thumbData = body.thumbData;
   const caption = body.caption;
   const category = body.category;
 
@@ -59,20 +103,24 @@ export async function createGalleryImage(
       ? caption.trim()
       : "Observation from the field";
 
+  const safeThumb =
+    typeof thumbData === "string" && thumbData.startsWith("data:") ? thumbData : imageData;
+
   await ensureSchema();
 
   const rows = await sql`
-    INSERT INTO gallery_images (image_data, caption, category)
-    VALUES (${imageData}, ${safeCaption}, ${category})
-    RETURNING id, image_data, caption, category, created_at
+    INSERT INTO gallery_images (image_data, thumb_data, caption, category)
+    VALUES (${imageData}, ${safeThumb}, ${safeCaption}, ${category})
+    RETURNING id, caption, category, created_at
   `;
 
   const row = rows[0];
+  const id = row.id as string;
   return {
     status: 201,
     body: {
-      id: row.id as string,
-      url: row.image_data as string,
+      id,
+      ...imagePaths(id),
       caption: row.caption as string,
       category: row.category as string,
       timestamp: new Date(row.created_at as string).getTime(),

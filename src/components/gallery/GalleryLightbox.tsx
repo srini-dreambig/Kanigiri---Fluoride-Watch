@@ -70,6 +70,16 @@ export const GalleryLightbox = ({
   }, [index, resetView]);
 
   useEffect(() => {
+    const preload = (src: string) => {
+      const el = new Image();
+      el.src = src;
+    };
+    preload(image.fullUrl);
+    if (images[index - 1]) preload(images[index - 1].fullUrl);
+    if (images[index + 1]) preload(images[index + 1].fullUrl);
+  }, [index, image.fullUrl, images]);
+
+  useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
@@ -110,7 +120,7 @@ export const GalleryLightbox = ({
     setIsDownloading(true);
     try {
       await downloadGalleryImage(
-        image.url,
+        image.fullUrl,
         galleryDownloadFilename(image.category, image.id),
         rotation
       );
@@ -230,7 +240,7 @@ export const GalleryLightbox = ({
             className="max-w-full max-h-full flex items-center justify-center p-4"
           >
             <img
-              src={image.url}
+              src={image.fullUrl}
               alt={image.caption}
               className="max-h-[calc(100vh-12rem)] max-w-full object-contain select-none transition-transform duration-200"
               style={{

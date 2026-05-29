@@ -4,10 +4,12 @@ export const SCHEMA_STATEMENTS: string[] = [
   `CREATE TABLE IF NOT EXISTS gallery_images (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   image_data TEXT NOT NULL,
+  thumb_data TEXT,
   caption TEXT NOT NULL DEFAULT 'Observation from the field',
   category VARCHAR(20) NOT NULL CHECK (category IN ('Drought', 'Fluoride', 'Migration')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 )`,
+  `ALTER TABLE gallery_images ADD COLUMN IF NOT EXISTS thumb_data TEXT`,
   `CREATE INDEX IF NOT EXISTS gallery_images_category_idx ON gallery_images (category)`,
   `CREATE INDEX IF NOT EXISTS gallery_images_created_at_idx ON gallery_images (created_at DESC)`,
   `CREATE TABLE IF NOT EXISTS mandals (

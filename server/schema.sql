@@ -5,6 +5,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE TABLE IF NOT EXISTS gallery_images (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   image_data TEXT NOT NULL,
+  thumb_data TEXT,
   caption TEXT NOT NULL DEFAULT 'Observation from the field',
   category VARCHAR(20) NOT NULL CHECK (category IN ('Drought', 'Fluoride', 'Migration')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()

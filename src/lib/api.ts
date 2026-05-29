@@ -1,4 +1,12 @@
+import { normalizeGalleryItem } from "./galleryNormalize";
+
 const API_BASE = import.meta.env.VITE_API_URL ?? "";
+
+export function resolveMediaPath(path: string | undefined | null): string {
+  if (!path) return "";
+  if (path.startsWith("http") || path.startsWith("data:")) return path;
+  return `${API_BASE}${path}`;
+}
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
@@ -29,10 +37,24 @@ export type CrisisCategory = "Drought" | "Fluoride" | "Migration";
 
 export interface GalleryImageDto {
   id: string;
+  /** Thumbnail URL for grid — small, cacheable. */
   url: string;
+  /** Full-resolution URL for lightbox and download. */
+  fullUrl: string;
   caption: string;
   category: CrisisCategory;
   timestamp: number;
+}
+
+type GalleryListRow = Partial<GalleryImageDto> & { id: string };
+
+function mapGalleryItem(row: GalleryListRow): GalleryImageDto {
+  const item = normalizeGalleryItem(row);
+  return {
+    ...item,
+    url: resolveMediaPath(item.url),
+    fullUrl: resolveMediaPath(item.fullUrl),
+  };
 }
 
 export interface MandalDto {
@@ -61,12 +83,20 @@ export const api = {
   health: () => request<{ ok: boolean; database: string }>("/api/health"),
 
   gallery: {
-    list: () => request<GalleryImageDto[]>("/api/gallery"),
-    create: (payload: { imageData: string; caption?: string; category: CrisisCategory }) =>
-      request<GalleryImageDto>("/api/gallery", {
+    list: async () => {
+      const rows = await request<GalleryListRow[]>("/api/gallery");
+      return rows.map(mapGalleryItem);
+    },
+    create: (payload: {
+      imageData: string;
+      thumbData: string;
+      caption?: string;
+      category: CrisisCategory;
+    }) =>
+      request<GalleryListRow>("/api/gallery", {
         method: "POST",
         body: JSON.stringify(payload),
-      }),
+      }).then(mapGalleryItem),
     remove: (id: string) =>
       request<void>(`/api/gallery/${id}`, { method: "DELETE" }),
   },

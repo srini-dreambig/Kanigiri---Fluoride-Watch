@@ -15,10 +15,13 @@ export function galleryDownloadFilename(category: string, id: string) {
 
 /** Export rotated JPEG when user rotated in the viewer. */
 export async function downloadGalleryImage(
-  src: string,
+  src: string | undefined,
   filename: string,
   rotationDeg: number
 ): Promise<void> {
+  if (!src) {
+    throw new Error("Image URL is missing");
+  }
   const normalized = ((rotationDeg % 360) + 360) % 360;
   if (normalized === 0) {
     triggerDownload(src, filename);

@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { api, type CrisisCategory, type GalleryImageDto } from "../lib/api";
-import { fileToCompressedDataUrl } from "../lib/compressImage";
+import { fileToCompressedDataUrl, fileToThumbnailDataUrl } from "../lib/compressImage";
 import { downloadGallerySelection } from "../lib/galleryDownload";
+import { readGalleryCache, writeGalleryCache, clearGalleryCache } from "../lib/galleryCache";
 import { getUiLabels } from "../data/uiLabels";
 import { GalleryFeed } from "../components/gallery/GalleryFeed";
 import { GalleryToolbar } from "../components/gallery/GalleryToolbar";
@@ -11,7 +12,6 @@ import {
   Upload,
   Image as ImageIcon,
   X,
-  Plus,
   Camera,
   Layers,
   AlertCircle,
@@ -59,31 +59,29 @@ export const Gallery = () => {
 
   useEffect(() => {
     let cancelled = false;
+    const cached = readGalleryCache();
+    if (cached?.length) {
+      setImages(cached);
+      setIsLoading(false);
+    }
+
     (async () => {
       try {
-        const health = await api.health().catch(() => null);
-        if (health && !health.ok) {
-          if (!cancelled) {
-            setLoadError(
-              health.database === "unconfigured"
-                ? "Database not configured: add DATABASE_URL (Vercel → Settings → Environment Variables), then redeploy."
-                : g.load_error
-            );
-          }
-        }
         const data = await api.gallery.list();
         if (!cancelled) {
-          setImages(data);
-          if (health?.ok) setLoadError(null);
+          setImages(data.filter((img) => img.url && img.fullUrl));
+          writeGalleryCache(data);
+          setLoadError(null);
         }
       } catch (err) {
-        if (!cancelled) {
+        if (!cancelled && !cached?.length) {
           setLoadError(err instanceof Error ? err.message : g.load_error);
         }
       } finally {
         if (!cancelled) setIsLoading(false);
       }
     })();
+
     return () => {
       cancelled = true;
     };
@@ -118,21 +116,29 @@ export const Gallery = () => {
     setLoadError(null);
 
     try {
-      const uploads = await Promise.all(
-        fileArray.map((file) => fileToCompressedDataUrl(file))
+      const prepared = await Promise.all(
+        fileArray.map(async (file) => ({
+          imageData: await fileToCompressedDataUrl(file),
+          thumbData: await fileToThumbnailDataUrl(file),
+        }))
       );
 
       const saved = await Promise.all(
-        uploads.map((imageData) =>
+        prepared.map(({ imageData, thumbData }) =>
           api.gallery.create({
             imageData,
+            thumbData,
             category: uploadCategory,
             caption: g.default_caption,
           })
         )
       );
 
-      setImages((prev) => [...saved, ...prev]);
+      setImages((prev) => {
+        const next = [...saved, ...prev];
+        writeGalleryCache(next);
+        return next;
+      });
     } catch (err) {
       setLoadError(err instanceof Error ? err.message : g.upload_error);
     } finally {
@@ -161,7 +167,11 @@ export const Gallery = () => {
   const removeImage = async (id: string) => {
     try {
       await api.gallery.remove(id);
-      setImages((prev) => prev.filter((img) => img.id !== id));
+      setImages((prev) => {
+        const next = prev.filter((img) => img.id !== id);
+        writeGalleryCache(next);
+        return next;
+      });
     } catch {
       setLoadError(g.delete_error);
     }
@@ -214,7 +224,7 @@ export const Gallery = () => {
 
   return (
     <>
-    <div className="pt-24 pb-24 px-6 min-h-screen max-w-7xl mx-auto space-y-16">
+    <div className="pt-24 pb-24 px-6 min-h-screen max-w-7xl mx-auto space-y-8">
       <div className="space-y-4">
         <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-indigo-500">
           {t.gallery.title}
@@ -255,71 +265,72 @@ export const Gallery = () => {
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
         onDrop={handleDrop}
-        className={`relative p-12 md:p-20 border-2 border-dashed rounded-3xl transition-all duration-300 flex flex-col items-center justify-center text-center space-y-6 ${
+        className={[
+          "relative flex flex-wrap items-center gap-3 sm:gap-4 px-3 py-2.5 rounded-xl border border-dashed transition-colors",
           dragActive
-            ? "border-indigo-500 bg-indigo-500/5 scale-[0.99]"
-            : "border-white/10 bg-white/[0.02] hover:border-white/20"
-        }`}
+            ? "border-indigo-500 bg-indigo-500/10"
+            : "border-white/10 bg-white/[0.02] hover:border-white/20",
+        ].join(" ")}
       >
-        <div className="flex flex-col items-center gap-3">
-          <div className="text-[11px] font-semibold tracking-wide opacity-70">{g.category_label}</div>
-          <div className="flex items-center gap-2 p-1 rounded-xl bg-white/5 border border-white/10">
-            {UPLOAD_CATEGORIES.map((cat) => {
-              const active = uploadCategory === cat;
-              const accent =
-                cat === "Drought"
-                  ? "text-sky-300"
-                  : cat === "Fluoride"
-                    ? "text-brand-crimson"
-                    : "text-amber-300";
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setUploadCategory(cat)}
-                  className={[
-                    "px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all",
-                    active ? "bg-white text-black shadow-lg" : `text-white/50 hover:text-white ${accent}`,
-                  ].join(" ")}
-                >
-                  {categoryLabel(cat)}
-                </button>
-              );
-            })}
-          </div>
+        <span className="text-[10px] font-semibold tracking-wide text-white/45 shrink-0">
+          {g.category_label}
+        </span>
+        <div className="flex items-center gap-1 p-0.5 rounded-lg bg-white/5 border border-white/10 shrink-0">
+          {UPLOAD_CATEGORIES.map((cat) => {
+            const active = uploadCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setUploadCategory(cat)}
+                className={[
+                  "px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wide transition-all",
+                  active ? "bg-white text-black" : "text-white/50 hover:text-white",
+                ].join(" ")}
+              >
+                {categoryLabel(cat)}
+              </button>
+            );
+          })}
         </div>
 
-        <div className="w-20 h-20 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400">
-          {isUploading ? (
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-            >
-              <Plus size={40} />
-            </motion.div>
-          ) : (
-            <Upload size={40} />
-          )}
+        <span className="hidden sm:block w-px h-6 bg-white/10 shrink-0" aria-hidden />
+
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <span className="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500/15 text-indigo-400">
+            {isUploading ? (
+              <motion.span
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                className="inline-flex"
+              >
+                <Upload size={16} />
+              </motion.span>
+            ) : (
+              <Upload size={16} />
+            )}
+          </span>
+          <p className="text-[11px] sm:text-xs text-white/55 truncate">
+            <span className="text-white/80 font-medium">
+              {isUploading ? g.uploading : g.drag_drop}
+            </span>
+            <span className="hidden md:inline"> · {g.file_types}</span>
+          </p>
         </div>
 
-        <div className="space-y-2">
-          <h3 className="text-2xl font-semibold tracking-tight">
-            {isUploading ? g.uploading : g.drag_drop}
-          </h3>
-          <p className="text-sm opacity-40">{g.file_types}</p>
-        </div>
-
-        <label className="cursor-pointer px-8 py-4 bg-white text-black font-semibold text-xs tracking-wide hover:scale-105 transition-all rounded-lg inline-flex items-center gap-3">
-          <Camera size={18} /> {t.gallery.upload_btn}
+        <label className="cursor-pointer shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-black text-[10px] sm:text-xs font-semibold tracking-wide rounded-lg hover:bg-white/90 transition-colors">
+          <Camera size={14} />
+          {t.gallery.upload_btn}
           <input type="file" className="hidden" accept="image/*" multiple onChange={handleFileInput} />
         </label>
 
-        {dragActive && (
-          <div className="absolute inset-0 bg-indigo-500/10 pointer-events-none flex items-center justify-center">
-            <div className="p-4 rounded-xl bg-indigo-500 text-white font-semibold text-xs tracking-wide shadow-2xl">
+        {dragActive ? (
+          <div className="absolute inset-0 rounded-xl bg-indigo-500/15 pointer-events-none flex items-center justify-center">
+            <span className="text-[10px] font-semibold tracking-wide text-indigo-200">
               {g.drop_hint}
-            </div>
+            </span>
           </div>
-        )}
+        ) : null}
       </div>
 
       <div className="space-y-8">

@@ -5,6 +5,7 @@ import {
   listGalleryImages,
 } from "../../lib/handlers/gallery.ts";
 import { formatDbError } from "../../lib/dbError.ts";
+import { sendGalleryImageExpress } from "../../lib/sendGalleryImage.ts";
 import { asyncRoute } from "../asyncRoute.ts";
 
 export const galleryRouter = Router();
@@ -32,6 +33,30 @@ galleryRouter.post(
       res.status(result.status).json(result.body);
     } catch (err) {
       console.error("POST /api/gallery", err);
+      res.status(500).json({ error: formatDbError(err) });
+    }
+  })
+);
+
+galleryRouter.get(
+  "/:id/thumb",
+  asyncRoute(async (req, res) => {
+    try {
+      await sendGalleryImageExpress(res, req.params.id, "thumb");
+    } catch (err) {
+      console.error("GET /api/gallery/:id/thumb", err);
+      res.status(500).json({ error: formatDbError(err) });
+    }
+  })
+);
+
+galleryRouter.get(
+  "/:id/full",
+  asyncRoute(async (req, res) => {
+    try {
+      await sendGalleryImageExpress(res, req.params.id, "full");
+    } catch (err) {
+      console.error("GET /api/gallery/:id/full", err);
       res.status(500).json({ error: formatDbError(err) });
     }
   })

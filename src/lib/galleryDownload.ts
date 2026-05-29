@@ -21,7 +21,10 @@ function dataUrlToBlob(dataUrl: string): { blob: Blob; ext: string } {
   return { blob: new Blob([bytes], { type: mime }), ext };
 }
 
-async function blobFromImageUrl(url: string): Promise<{ blob: Blob; ext: string }> {
+async function blobFromImageUrl(url: string | undefined): Promise<{ blob: Blob; ext: string }> {
+  if (!url) {
+    throw new Error("Image URL is missing");
+  }
   if (url.startsWith("data:")) {
     return dataUrlToBlob(url);
   }
@@ -39,7 +42,7 @@ export async function downloadGallerySelection(images: GalleryImageDto[]): Promi
 
   if (images.length === 1) {
     const img = images[0];
-    const { blob, ext } = await blobFromImageUrl(img.url);
+    const { blob, ext } = await blobFromImageUrl(img.fullUrl);
     const url = URL.createObjectURL(blob);
     const base = galleryDownloadFilename(img.category, img.id).replace(/\.jpg$/, "");
     triggerDownload(url, `${base}.${ext}`);
@@ -51,7 +54,7 @@ export async function downloadGallerySelection(images: GalleryImageDto[]): Promi
   const usedNames = new Set<string>();
 
   for (const img of images) {
-    const { blob, ext } = await blobFromImageUrl(img.url);
+    const { blob, ext } = await blobFromImageUrl(img.fullUrl);
     let name = galleryDownloadFilename(img.category, img.id).replace(/\.jpg$/, `.${ext}`);
     if (usedNames.has(name)) {
       name = name.replace(`.${ext}`, `-${img.id.slice(0, 6)}.${ext}`);

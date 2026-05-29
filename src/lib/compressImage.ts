@@ -1,17 +1,13 @@
-/** Resize/compress a photo before base64 upload (Vercel ~4.5MB request limit). */
-export async function fileToCompressedDataUrl(
+async function fileToDataUrl(
   file: File,
   options: {
-    maxWidth?: number;
-    maxHeight?: number;
-    quality?: number;
-    maxBytes?: number;
-  } = {}
+    maxWidth: number;
+    maxHeight: number;
+    quality: number;
+    maxBytes: number;
+  }
 ): Promise<string> {
-  const maxWidth = options.maxWidth ?? 1600;
-  const maxHeight = options.maxHeight ?? 1600;
-  const quality = options.quality ?? 0.82;
-  const maxBytes = options.maxBytes ?? 2_800_000;
+  const { maxWidth, maxHeight, quality, maxBytes } = options;
 
   const bitmap = await createImageBitmap(file);
   const scale = Math.min(1, maxWidth / bitmap.width, maxHeight / bitmap.height);
@@ -31,7 +27,7 @@ export async function fileToCompressedDataUrl(
 
   let q = quality;
   let dataUrl = canvas.toDataURL("image/jpeg", q);
-  while (dataUrl.length > maxBytes && q > 0.45) {
+  while (dataUrl.length > maxBytes && q > 0.4) {
     q -= 0.08;
     dataUrl = canvas.toDataURL("image/jpeg", q);
   }
@@ -41,4 +37,32 @@ export async function fileToCompressedDataUrl(
   }
 
   return dataUrl;
+}
+
+/** Full-size upload (Vercel ~4.5MB request limit). */
+export async function fileToCompressedDataUrl(
+  file: File,
+  options: {
+    maxWidth?: number;
+    maxHeight?: number;
+    quality?: number;
+    maxBytes?: number;
+  } = {}
+): Promise<string> {
+  return fileToDataUrl(file, {
+    maxWidth: options.maxWidth ?? 1600,
+    maxHeight: options.maxHeight ?? 1600,
+    quality: options.quality ?? 0.82,
+    maxBytes: options.maxBytes ?? 2_800_000,
+  });
+}
+
+/** Small preview for fast gallery grid loads. */
+export async function fileToThumbnailDataUrl(file: File): Promise<string> {
+  return fileToDataUrl(file, {
+    maxWidth: 400,
+    maxHeight: 400,
+    quality: 0.72,
+    maxBytes: 80_000,
+  });
 }
