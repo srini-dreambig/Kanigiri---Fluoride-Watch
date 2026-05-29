@@ -1,6 +1,6 @@
-import { sql } from "../db.ts";
-import { ensureSchema } from "../ensureSchema.ts";
-import { mandalSlugsInOrder, type MandalSlug } from "../../src/data/mandals.ts";
+import { sql } from "../db";
+import { ensureSchema } from "../ensureSchema";
+import { mandalSlugsInOrder, type MandalSlug } from "../mandalSlugs";
 
 const LANGS = new Set(["en", "te", "hi"]);
 

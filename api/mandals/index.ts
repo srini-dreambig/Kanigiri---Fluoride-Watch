@@ -1,7 +1,11 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { formatDbError } from "../../lib/dbError";
 import { listMandals } from "../../lib/handlers/mandals";
+import { nodeHandlerConfig, withVercelHandler } from "../../lib/vercelRoute";
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export const config = nodeHandlerConfig;
+
+export default withVercelHandler("GET /api/mandals", async (req: VercelRequest, res: VercelResponse) => {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
     return res.status(405).json({ error: "Method not allowed" });
@@ -13,6 +17,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json(data);
   } catch (err) {
     console.error("GET /api/mandals", err);
-    return res.status(500).json({ error: "Failed to load mandals" });
+    return res.status(500).json({ error: formatDbError(err) });
   }
-}
+});

@@ -39,24 +39,24 @@ galleryRouter.post(
 );
 
 galleryRouter.get(
-  "/:id/thumb",
+  "/thumb/:id",
   asyncRoute(async (req, res) => {
     try {
       await sendGalleryImageExpress(res, req.params.id, "thumb");
     } catch (err) {
-      console.error("GET /api/gallery/:id/thumb", err);
+      console.error("GET /api/gallery/thumb/:id", err);
       res.status(500).json({ error: formatDbError(err) });
     }
   })
 );
 
 galleryRouter.get(
-  "/:id/full",
+  "/full/:id",
   asyncRoute(async (req, res) => {
     try {
       await sendGalleryImageExpress(res, req.params.id, "full");
     } catch (err) {
-      console.error("GET /api/gallery/:id/full", err);
+      console.error("GET /api/gallery/full/:id", err);
       res.status(500).json({ error: formatDbError(err) });
     }
   })

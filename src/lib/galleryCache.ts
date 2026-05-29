@@ -2,7 +2,7 @@ import type { GalleryImageDto } from "./api";
 import { resolveMediaPath } from "./api";
 import { normalizeGalleryItem } from "./galleryNormalize";
 
-const CACHE_KEY = "kanigiri-gallery-list-v4";
+const CACHE_KEY = "kanigiri-gallery-list-v5";
 
 export function readGalleryCache(): GalleryImageDto[] | null {
   try {

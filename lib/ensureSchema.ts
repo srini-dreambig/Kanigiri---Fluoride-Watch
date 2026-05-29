@@ -1,6 +1,6 @@
 import { neon } from "@neondatabase/serverless";
-import { SCHEMA_STATEMENTS } from "./schemaSql.ts";
-import { isDatabaseConfigured } from "./db.ts";
+import { SCHEMA_STATEMENTS } from "./schemaSql";
+import { isDatabaseConfigured } from "./db";
 
 let schemaReady: Promise<void> | null = null;
 
@@ -11,7 +11,10 @@ export async function ensureSchema(): Promise<void> {
     );
   }
   if (!schemaReady) {
-    schemaReady = applySchema();
+    schemaReady = applySchema().catch((err) => {
+      schemaReady = null;
+      throw err;
+    });
   }
   return schemaReady;
 }

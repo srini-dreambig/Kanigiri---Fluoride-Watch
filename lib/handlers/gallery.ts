@@ -1,6 +1,6 @@
-import { sql } from "../db.ts";
-import { ensureSchema } from "../ensureSchema.ts";
-import { dataUrlToBuffer } from "../galleryImageBytes.ts";
+import { sql } from "../db";
+import { ensureSchema } from "../ensureSchema";
+import { dataUrlToBuffer } from "../galleryImageBytes";
 
 const CATEGORIES = new Set(["Drought", "Fluoride", "Migration"]);
 const MAX_IMAGE_DATA_CHARS = 4_000_000;
@@ -18,8 +18,8 @@ export type GalleryImageResponse = GalleryListItem;
 
 function imagePaths(id: string) {
   return {
-    url: `/api/gallery/${id}/thumb`,
-    fullUrl: `/api/gallery/${id}/full`,
+    url: `/api/gallery/thumb/${id}`,
+    fullUrl: `/api/gallery/full/${id}`,
   };
 }
 
@@ -46,7 +46,7 @@ export async function getGalleryImageBytes(
   id: string,
   variant: "thumb" | "full"
 ): Promise<{ status: number; buffer?: Buffer; contentType?: string; error?: string }> {
-  const column = variant === "thumb" ? "thumb_data" : "image_data";
+  await ensureSchema();
   const rows = await sql`
     SELECT image_data, thumb_data FROM gallery_images WHERE id = ${id}::uuid
   `;

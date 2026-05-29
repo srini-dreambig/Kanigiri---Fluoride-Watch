@@ -1,10 +1,5 @@
-export type MandalSlug =
-  | "pc-palli"
-  | "kanigiri"
-  | "pamur"
-  | "cs-puram"
-  | "hm-padu"
-  | "veligandla";
+export type { MandalSlug } from "../../lib/mandalSlugs";
+import type { MandalSlug } from "../../lib/mandalSlugs";
 
 export type CrisisTag = "Drought" | "Fluoride" | "Migration";
 
@@ -367,13 +362,5 @@ export function getMandalProfile(language: SupportedLanguage, slug: MandalSlug):
   return { ...base, summary: copy.summary, keySignals: copy.keySignals };
 }
 
-// Canonical order used in `translations.ts` mandal_details.list across languages.
-export const mandalSlugsInOrder: MandalSlug[] = [
-  "pc-palli",
-  "kanigiri",
-  "pamur",
-  "cs-puram",
-  "hm-padu",
-  "veligandla",
-];
+export { mandalSlugsInOrder } from "../../lib/mandalSlugs";
 

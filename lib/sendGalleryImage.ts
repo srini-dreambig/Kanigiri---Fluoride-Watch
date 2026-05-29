@@ -1,5 +1,5 @@
 import type { VercelResponse } from "@vercel/node";
-import { getGalleryImageBytes } from "./handlers/gallery.ts";
+import { getGalleryImageBytes } from "./handlers/gallery";
 
 const CACHE = "public, max-age=31536000, immutable";
 
@@ -14,7 +14,8 @@ export async function sendGalleryImage(
   }
   res.setHeader("Content-Type", result.contentType ?? "image/jpeg");
   res.setHeader("Cache-Control", CACHE);
-  return res.status(200).send(result.buffer);
+  res.status(200);
+  return res.end(result.buffer);
 }
 
 export async function sendGalleryImageExpress(

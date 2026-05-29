@@ -2,9 +2,16 @@ import type { CrisisCategory, GalleryImageDto } from "./api";
 
 export function galleryMediaPaths(id: string) {
   return {
-    url: `/api/gallery/${id}/thumb`,
-    fullUrl: `/api/gallery/${id}/full`,
+    url: `/api/gallery/thumb/${id}`,
+    fullUrl: `/api/gallery/full/${id}`,
   };
+}
+
+/** Map pre-v5 API paths to current Vercel routes. */
+function rewriteLegacyApiPath(path: string, id: string): string {
+  if (path === `/api/gallery/${id}/thumb`) return `/api/gallery/thumb/${id}`;
+  if (path === `/api/gallery/${id}/full`) return `/api/gallery/full/${id}`;
+  return path;
 }
 
 /** Supports legacy list rows (inline base64 `url` only) and new thumb/full paths. */
@@ -26,10 +33,12 @@ export function normalizeGalleryItem(
         : legacyUrl;
   } else {
     url =
-      typeof legacyUrl === "string" && legacyUrl.length > 0 ? legacyUrl : paths.url;
+      typeof legacyUrl === "string" && legacyUrl.length > 0
+        ? rewriteLegacyApiPath(legacyUrl, raw.id)
+        : paths.url;
     fullUrl =
       typeof legacyFull === "string" && legacyFull.length > 0
-        ? legacyFull
+        ? rewriteLegacyApiPath(legacyFull, raw.id)
         : paths.fullUrl;
   }
 
