@@ -3,6 +3,7 @@ build/
 dist/
 api/_app.cjs
 api/_app.cjs.map
+.vercel-test/
 coverage/
 .DS_Store
 *.log
