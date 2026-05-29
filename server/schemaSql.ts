@@ -1,5 +1,5 @@
--- Kanigiri Fluoride Watch — Neon PostgreSQL schema
-
+/** Full Neon schema (bundled for Vercel serverless — no filesystem reads). */
+export const SCHEMA_SQL = `
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE IF NOT EXISTS gallery_images (
@@ -50,3 +50,4 @@ CREATE TABLE IF NOT EXISTS app_settings (
   value JSONB NOT NULL,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+`;

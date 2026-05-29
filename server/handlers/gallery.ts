@@ -1,4 +1,5 @@
 import { sql } from "../db.ts";
+import { ensureSchema } from "../ensureSchema.ts";
 
 const CATEGORIES = new Set(["Drought", "Fluoride", "Migration"]);
 /** ~4.5MB Vercel request cap; base64 JSON payload limit for image_data. */
@@ -13,6 +14,7 @@ export type GalleryImageResponse = {
 };
 
 export async function listGalleryImages(): Promise<GalleryImageResponse[]> {
+  await ensureSchema();
   const rows = await sql`
     SELECT id, image_data, caption, category, created_at
     FROM gallery_images
@@ -57,6 +59,8 @@ export async function createGalleryImage(
     typeof caption === "string" && caption.trim()
       ? caption.trim()
       : "Observation from the field";
+
+  await ensureSchema();
 
   const rows = await sql`
     INSERT INTO gallery_images (image_data, caption, category)

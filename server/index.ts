@@ -1,24 +1,11 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-import { Pool } from "@neondatabase/serverless";
 import { galleryRouter } from "./routes/gallery.ts";
 import { mandalsRouter } from "./routes/mandals.ts";
+import { ensureSchema } from "./ensureSchema.ts";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3001;
-
-async function ensureSchema() {
-  const url = process.env.DATABASE_URL;
-  if (!url) throw new Error("DATABASE_URL is not set");
-  const pool = new Pool({ connectionString: url });
-  const schema = readFileSync(join(__dirname, "schema.sql"), "utf8");
-  await pool.query(schema);
-  await pool.end();
-}
 
 async function main() {
   await ensureSchema();

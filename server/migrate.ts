@@ -1,10 +1,6 @@
 import "dotenv/config";
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
 import { Pool } from "@neondatabase/serverless";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { SCHEMA_SQL } from "./schemaSql.ts";
 
 async function migrate() {
   const url = process.env.DATABASE_URL;
@@ -14,8 +10,7 @@ async function migrate() {
   }
 
   const pool = new Pool({ connectionString: url });
-  const schema = readFileSync(join(__dirname, "schema.sql"), "utf8");
-  await pool.query(schema);
+  await pool.query(SCHEMA_SQL);
   await pool.end();
   console.log("Neon schema applied successfully.");
 }

@@ -1,9 +1,11 @@
 import { sql } from "../db.ts";
+import { ensureSchema } from "../ensureSchema.ts";
 import { mandalSlugsInOrder, type MandalSlug } from "../../src/data/mandals.ts";
 
 const LANGS = new Set(["en", "te", "hi"]);
 
 export async function listMandals(langParam: string | undefined) {
+  await ensureSchema();
   const lang = LANGS.has(String(langParam)) ? String(langParam) : "en";
 
   const rows = await sql`
@@ -44,6 +46,8 @@ export async function getMandalBySlug(
   }
 
   const lang = LANGS.has(String(langParam)) ? String(langParam) : "en";
+
+  await ensureSchema();
 
   const mandalRows = await sql`
     SELECT
