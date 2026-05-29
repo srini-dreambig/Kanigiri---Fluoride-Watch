@@ -3,6 +3,10 @@ import type { CrisisCategory } from "../lib/api";
 
 export type UiLabels = {
   brand: { tagline: string };
+  header: {
+    menu_open: string;
+    menu_close: string;
+  };
   common: {
     all: string;
     source: string;
@@ -129,6 +133,10 @@ export type UiLabels = {
 export const uiLabels: Record<Language, UiLabels> = {
   en: {
     brand: { tagline: "Fluoride Watch" },
+    header: {
+      menu_open: "Open navigation menu",
+      menu_close: "Close navigation menu",
+    },
     common: {
       all: "All",
       source: "Source",
@@ -253,6 +261,10 @@ export const uiLabels: Record<Language, UiLabels> = {
   },
   te: {
     brand: { tagline: "ఫ్లోరైడ్ వాచ్" },
+    header: {
+      menu_open: "నావిగేషన్ మెనూ తెరవండి",
+      menu_close: "నావిగేషన్ మెనూ మూసివేయండి",
+    },
     common: {
       all: "అన్నీ",
       source: "మూలం",
@@ -375,6 +387,10 @@ export const uiLabels: Record<Language, UiLabels> = {
   },
   hi: {
     brand: { tagline: "फ्लोराइड वॉच" },
+    header: {
+      menu_open: "नेविगेशन मेनू खोलें",
+      menu_close: "नेविगेशन मेनू बंद करें",
+    },
     common: {
       all: "सभी",
       source: "स्रोत",
