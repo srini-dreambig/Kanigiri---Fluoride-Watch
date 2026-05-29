@@ -18,7 +18,7 @@ export function withVercelHandler(
   };
 }
 
+/** Only supported keys for /api routes (see Vercel function config docs). */
 export const nodeHandlerConfig = {
-  runtime: "nodejs" as const,
   maxDuration: 30,
 };

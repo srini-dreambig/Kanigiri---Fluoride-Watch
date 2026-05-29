@@ -4,7 +4,7 @@ import { nodeHandlerConfig, withVercelHandler } from "../lib/vercelRoute";
 
 export const config = nodeHandlerConfig;
 
-export default withVercelHandler("GET /api/health", async (req: VercelRequest, res: VercelResponse) => {
+async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
     return res.status(405).json({ error: "Method not allowed" });
@@ -21,4 +21,6 @@ export default withVercelHandler("GET /api/health", async (req: VercelRequest, r
     console.error("api/health db", err);
     return res.status(503).json({ ok: false, database: "unavailable" });
   }
-});
+}
+
+export default withVercelHandler("GET /api/health", handler);
