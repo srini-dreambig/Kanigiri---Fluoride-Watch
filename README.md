@@ -54,7 +54,7 @@ Optional: set `GEMINI_API_KEY` in `.env` for Gemini features.
    ```bash
    npm run db:setup
    ```
-5. The static site is built to `dist`; all `/api/*` routes go through a **single** serverless function (`api/index.cjs` → bundled Express from `server/app.ts`). `npm run build` runs `scripts/build-api.mjs` to produce `api/_app.cjs`.
+5. The static site is built to `dist`; all `/api/*` routes go through a **single** serverless function (`api/index.js` → bundled Express in `api/_app.cjs`). `npm run build` runs `scripts/build-api.mjs` to produce the bundle.
 6. After deploy, open `/api/health` — expect `{"ok":true,"database":"neon"}`. If you see `FUNCTION_INVOCATION_FAILED`, check Vercel → Logs and confirm `DATABASE_URL` is set.
 
 Gallery images are stored as base64 in Postgres. Vercel Hobby plans limit request bodies to about 4.5MB—compress large photos before upload.
